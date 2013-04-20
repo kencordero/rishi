@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="action_next">Next</string>
+    <string name="action_previous">Previous</string>
+    <string name="action_random">Random</string>
+    <string name="action_settings">Settings</string> 
+    <string name="app_name">Rishi</string>           
+	<string name="word_activity_title">Words</string>
+	
+	<string name="locale_english">English</string>
+	<string name="locale_spanish">Spanish</string>
+	<string name="locale_hindi">Hindi</string>
+	<string name="locale_marathi">Marathi</string>	
+	
+	<string name="apple">apple</string>
+	<string name="banana">banana</string>
+	<string name="carrot">carrot</string>
+	<string name="date">date</string>
+	<string name="egg">egg</string>
+	<string name="fig">fig</string>
+	<string name="grape">grape</string>
+	<string name="honey">honey</string>
+	<string name="ice_cream">ice cream</string>
+	<string name="kiwi">kiwi</string>
+	<string name="lemon">lemon</string>
+	<string name="milk">milk</string>
+	<string name="orange">orange</string>
+	<string name="pineapple">pineapple</string>
+	<string name="raspberry">raspberry</string>
+	<string name="tomato">tomato</string>
+	<string name="zucchini">zucchini</string>
+	
+	<string-array name="locales">
+	    <item>English</item>
+	    <item>Hindi</item>
+	    <item>Marathi</item>
+	    <item>Spanish</item>
+	</string-array>
+</resources>

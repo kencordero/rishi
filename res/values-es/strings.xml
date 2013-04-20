@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="apple">manzana</string>
+	<string name="carrot">zanahoria</string>
+	<string name="date">dátil</string>
+	<string name="egg">huevo</string>
+	<string name="fig">higo</string>
+	<string name="grape">uva</string>
+	<string name="honey">miel</string>
+	<string name="ice_cream">helado</string>
+	<string name="lemon">limón</string>
+	<string name="milk">leche</string>
+	<string name="orange">naranja</string>
+	<string name="pineapple">ananás</string>
+	<string name="raspberry">frambuesa</string>
+	<string name="tomato">tomate</string>
+	<string name="zucchini">calabacín</string>
+</resources>

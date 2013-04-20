@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:android1="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RadioButton
+        android:id="@+id/optEnglish"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/locale_english" />
+
+    <RadioButton
+        android:id="@+id/optHindi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/locale_hindi" />
+
+    <RadioButton
+        android:id="@+id/optMarathi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/locale_marathi" />
+
+    <RadioButton
+        android:id="@+id/optSpanish"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/locale_spanish" />
+
+</RadioGroup>
