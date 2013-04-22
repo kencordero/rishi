@@ -7,6 +7,8 @@
     <string name="action_settings">Settings</string> 
     <string name="app_name">Rishi</string>           
 	<string name="word_activity_title">Words</string>
+	<string name="words_foods_title">Foods</string>
+	<string name="words_animals_title">Animals</string>
 	
 	<string name="locale_english">English</string>
 	<string name="locale_spanish">Spanish</string>
@@ -30,6 +32,28 @@
 	<string name="raspberry">raspberry</string>
 	<string name="tomato">tomato</string>
 	<string name="zucchini">zucchini</string>
+	
+	<string name="bear"></string>
+	<string name="bird"></string>
+	<string name="camel"></string>
+	<string name="cat"></string>
+	<string name="chicken"></string>
+	<string name="cow"></string>
+	<string name="dog"></string>
+	<string name="duck"></string>
+	<string name="elephant"></string>
+	<string name="fish"></string>
+	<string name="giraffe"></string>
+	<string name="horse"></string>
+	<string name="iguana"></string>
+	<string name="kangaroo"></string>
+	<string name="lion"></string>
+	<string name="mouse"></string>
+	<string name="pig"></string>
+	<string name="sheep"></string>
+	<string name="turtle"></string>
+	<string name="whale"></string>
+	
 	
 	<string-array name="locales">
 	    <item>English</item>

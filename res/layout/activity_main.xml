@@ -9,13 +9,22 @@
     tools:context=".MainActivity" >
 
     <Button
-        android:id="@+id/btnLaunchWords"
-        android:layout_width="wrap_content"
+        android:id="@+id/btnSelectFoods"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="80dp"
         android:onClick="onButtonClick"
         android:textSize="@dimen/menu_item_text_size"
-        android:text="@string/word_activity_title" />
+        android:text="@string/words_foods_title" />
+    
+    <Button
+        android:id="@+id/btnSelectAnimals"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:onClick="onButtonClick"
+        android:textSize="@dimen/menu_item_text_size"
+        android:text="@string/words_animals_title" />
 
 </RelativeLayout>

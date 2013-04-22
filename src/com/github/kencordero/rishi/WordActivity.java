@@ -22,7 +22,8 @@ import android.widget.Toast;
 import com.github.kencordero.rishi.SimpleGestureFilter.SimpleGestureListener;
 
 public class WordActivity extends Activity implements SimpleGestureListener {
-	private final String IMAGE_FOLDER_NAME = "foods";
+	private final String FOLDER_FOODS = "foods";
+	private final String FOLDER_ANIMALS = "animals";
 
 	protected AssetManager _assets;
 	protected ResourceBundle _rb;
@@ -32,6 +33,7 @@ public class WordActivity extends Activity implements SimpleGestureListener {
 	private SimpleGestureFilter _detector;
 	protected Random _random;
 	private String _localeId;
+	private String _imageFolderName;
 
 	@Override
 	public boolean dispatchTouchEvent(MotionEvent me) {
@@ -42,7 +44,7 @@ public class WordActivity extends Activity implements SimpleGestureListener {
 	private void findImages() {
 		_assets = getAssets();
 		try {
-			_files = _assets.list(IMAGE_FOLDER_NAME);
+			_files = _assets.list(_imageFolderName);
 		} catch (Exception e) {
 			throwError(e);
 		}
@@ -52,7 +54,7 @@ public class WordActivity extends Activity implements SimpleGestureListener {
 		_currentFileName = _files[_currentFileNumber];
 		InputStream stream = null;
 		try {
-			stream = _assets.open(IMAGE_FOLDER_NAME + "/" + _currentFileName);
+			stream = _assets.open(_imageFolderName + "/" + _currentFileName);
 		} catch (Exception e) {
 			throwError(e);
 		}
@@ -88,8 +90,11 @@ public class WordActivity extends Activity implements SimpleGestureListener {
 		_currentFileNumber = 0;
 		_random = new Random();
 		_localeId = "en";
-		_rb = ResourceBundle.getBundle("com.github.kencordero.rishi", new Locale(
-				_localeId));
+		_rb = ResourceBundle.getBundle("com.github.kencordero.rishi",
+				new Locale(_localeId)); // TODO grab locale-specific resources
+		_imageFolderName = FOLDER_ANIMALS;
+		// TODO pass along user-choice from main activity
+
 	}
 
 	@Override
