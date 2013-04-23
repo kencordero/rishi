@@ -27,7 +27,13 @@ public class MainActivity extends Activity {
 	public void onButtonClick(View v) {
 		Log.d(TAG, "onButtonClick");
 		Intent intent = new Intent(this, WordActivity.class);
-		intent.putExtra("folder", v.getId());
+		switch (v.getId()) {
+		case R.id.btnSelectAnimals:
+			intent.putExtra("folder", R.string.words_animals_title);
+		case R.id.btnSelectFoods:
+			intent.putExtra("folder", R.string.words_foods_title);
+		}
 		startActivity(intent);
+		Log.d(TAG, Integer.toString(v.getId()));
 	}
 }
