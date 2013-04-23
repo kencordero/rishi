@@ -22,8 +22,6 @@ import android.widget.Toast;
 import com.github.kencordero.rishi.SimpleGestureFilter.SimpleGestureListener;
 
 public class WordActivity extends Activity implements SimpleGestureListener {
-	private final String FOLDER_FOODS = "foods";
-	private final String FOLDER_ANIMALS = "animals";
 	private final String TAG = "WordActivity";
 
 	protected AssetManager _assets;
@@ -85,11 +83,9 @@ public class WordActivity extends Activity implements SimpleGestureListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		Log.d(TAG, "onCreate");
+		Log.d(TAG, Integer.toString(getIntent().getIntExtra("folder", 0)));
 		setContentView(R.layout.activity_words);
-		Toast.makeText(this, savedInstanceState.getInt("folder"),
-				Toast.LENGTH_LONG).show();
-		_imageFolderName = FOLDER_ANIMALS;
+		_imageFolderName = getString(getIntent().getIntExtra("folder", 0));
 		findImages();
 		_detector = new SimpleGestureFilter(this, this);
 		_currentFileNumber = 0;
@@ -103,7 +99,6 @@ public class WordActivity extends Activity implements SimpleGestureListener {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		Log.d(TAG, "onCreateOptionsMenu");
 		getMenuInflater().inflate(R.menu.alternate, menu);
 		return true;
 	}
@@ -140,7 +135,6 @@ public class WordActivity extends Activity implements SimpleGestureListener {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		Log.d(TAG, "onResume");
 		loadImage();
 	}
 

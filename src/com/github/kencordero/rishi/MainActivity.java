@@ -13,19 +13,16 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		Log.d(TAG, "onCreate");
 		setContentView(R.layout.activity_main);
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		Log.d(TAG, "onCreateOptionsMenu");
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
 
 	public void onButtonClick(View v) {
-		Log.d(TAG, "onButtonClick");
 		Intent intent = new Intent(this, WordActivity.class);
 		switch (v.getId()) {
 		case R.id.btnSelectAnimals:
