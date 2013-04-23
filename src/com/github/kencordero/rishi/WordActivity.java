@@ -1,7 +1,6 @@
 package com.github.kencordero.rishi;
 
 import java.io.InputStream;
-import java.util.Locale;
 import java.util.Random;
 import java.util.ResourceBundle;
 
@@ -11,6 +10,7 @@ import android.content.res.AssetManager;
 import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -24,6 +24,7 @@ import com.github.kencordero.rishi.SimpleGestureFilter.SimpleGestureListener;
 public class WordActivity extends Activity implements SimpleGestureListener {
 	private final String FOLDER_FOODS = "foods";
 	private final String FOLDER_ANIMALS = "animals";
+	private final String TAG = "WordActivity";
 
 	protected AssetManager _assets;
 	protected ResourceBundle _rb;
@@ -84,21 +85,25 @@ public class WordActivity extends Activity implements SimpleGestureListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		Log.d(TAG, "onCreate");
 		setContentView(R.layout.activity_words);
+		Toast.makeText(this, savedInstanceState.getInt("folder"),
+				Toast.LENGTH_LONG).show();
+		_imageFolderName = FOLDER_ANIMALS;
 		findImages();
 		_detector = new SimpleGestureFilter(this, this);
 		_currentFileNumber = 0;
 		_random = new Random();
-		_localeId = "en";
-		_rb = ResourceBundle.getBundle("com.github.kencordero.rishi",
-				new Locale(_localeId)); // TODO grab locale-specific resources
-		_imageFolderName = FOLDER_ANIMALS;
+		_localeId = "es";
+		// _rb = ResourceBundle.getBundle("com.github.kencordero.rishi",
+		// new Locale(_localeId)); // TODO grab locale-specific resources
 		// TODO pass along user-choice from main activity
 
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
+		Log.d(TAG, "onCreateOptionsMenu");
 		getMenuInflater().inflate(R.menu.alternate, menu);
 		return true;
 	}
@@ -135,6 +140,7 @@ public class WordActivity extends Activity implements SimpleGestureListener {
 	@Override
 	protected void onResume() {
 		super.onResume();
+		Log.d(TAG, "onResume");
 		loadImage();
 	}
 
