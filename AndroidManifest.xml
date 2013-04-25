@@ -23,6 +23,9 @@
         </activity>
         <activity
             android:name=".WordActivity"
-            android:label="@string/word_activity_title" />       
+            android:label="@string/word_activity_title" />
+        <activity
+            android:name=".NumberActivity"
+            android:label="@string/number_activity_title" />       
     </application>
 </manifest>
