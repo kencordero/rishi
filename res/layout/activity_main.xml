@@ -16,7 +16,7 @@
         android:layout_marginTop="80dp"
         android:onClick="onButtonClick"
         android:textSize="@dimen/menu_item_text_size"
-        android:text="@string/words_foods_title" />
+        android:text="@string/words_foods_name" />
     
     <Button
         android:id="@+id/btnSelectAnimals"
@@ -25,6 +25,6 @@
         android:layout_centerHorizontal="true"
         android:onClick="onButtonClick"
         android:textSize="@dimen/menu_item_text_size"
-        android:text="@string/words_animals_title" />
+        android:text="@string/words_animals_name" />
 
 </RelativeLayout>

@@ -5,13 +5,13 @@
     <string name="action_previous">Previous</string>
     <string name="action_random">Random</string>
     <string name="action_settings">Settings</string> 
-    <string name="app_name">Rishi</string>           
     
-	<string name="word_activity_title">Words</string>
-	<string name="number_activity_title">Numbers</string>
-	<string name="words_foods_title">Foods</string>
-	<string name="words_animals_title">Animals</string>
-	
+	<string name="app_name">Rishi</string>           
+	<string name="activity_words_name">Words</string>
+	<string name="activity_numbers_name">Numbers</string>
+	<string name="words_animals_name">Animals</string>
+	<string name="words_foods_name">Foods</string>
+		
 	<string name="locale_english">English</string>
 	<string name="locale_spanish">Spanish</string>
 	<string name="locale_hindi">Hindi</string>

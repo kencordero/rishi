@@ -26,9 +26,9 @@ public class MainActivity extends Activity {
 		Intent intent = new Intent(this, WordActivity.class);
 		switch (v.getId()) {
 		case R.id.btnSelectAnimals:
-			intent.putExtra("folder", R.string.words_animals_title);
+			intent.putExtra("folder", R.string.words_animals_name);
 		case R.id.btnSelectFoods:
-			intent.putExtra("folder", R.string.words_foods_title);
+			intent.putExtra("folder", R.string.words_foods_name);
 		}
 		startActivity(intent);
 		Log.d(TAG, Integer.toString(v.getId()));
