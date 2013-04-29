@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/txtView_Colors"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"        
+        android:textSize="@dimen/image_caption_text_size"        
+        android:gravity="center"        
+        android:onClick="onTextClick"
+        android:textIsSelectable="false" />
+</LinearLayout>

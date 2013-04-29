@@ -9,6 +9,9 @@
 	<string name="app_name">Rishi</string>           
 	<string name="activity_words_name">Words</string>
 	<string name="activity_numbers_name">Numbers</string>
+	<string name="activity_colors_name">Colors</string>
+	<string name="activity_letters_name">Letters</string>
+	<string name="activity_shapes_name">Shapes</string>
 	<string name="words_animals_name">Animals</string>
 	<string name="words_foods_name">Foods</string>
 		

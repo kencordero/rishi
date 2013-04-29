@@ -23,7 +23,7 @@ public class MainActivity extends Activity {
 	}
 
 	public void onButtonClick(View v) {
-		Intent intent = new Intent(this, WordActivity.class);
+		Intent intent = new Intent(this, WordsActivity.class);
 		switch (v.getId()) {
 		case R.id.btnSelectAnimals:
 			intent.putExtra("folder", R.string.words_animals_name);

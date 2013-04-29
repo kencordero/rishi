@@ -22,10 +22,19 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".WordActivity"
+            android:name=".WordsActivity"
             android:label="@string/activity_words_name" />
         <activity
-            android:name=".NumberActivity"
-            android:label="@string/activity_numbers_name" />       
+            android:name=".NumbersActivity"
+            android:label="@string/activity_numbers_name" />
+		<activity
+			android:name=".LettersActivity"
+			android:label="@string/activity_letters_name" />
+		<activity
+			android:name=".ShapesActivity"
+			android:label="@string/activity_shapes_name" />
+		<activity
+			android:name=".ColorsActivity"
+			android:label="@string/activity_colors_name" />
     </application>
 </manifest>

@@ -3,12 +3,12 @@ package com.github.kencordero.rishi;
 import android.app.Activity;
 import android.os.Bundle;
 
-public class NumberActivity extends Activity {
-	public final String TAG = "NumberActivity";
+public class ColorsActivity extends Activity {
+	public final String TAG = "ColorsActivity";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		// TODO inflate layout
+		setContentView(R.layout.activity_colors);
 	}
 }
