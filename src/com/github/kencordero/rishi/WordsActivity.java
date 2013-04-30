@@ -74,7 +74,11 @@ public class WordsActivity extends Activity implements SimpleGestureListener {
 	}
 
 	private void loadRandomImage() {
-		_currentFileNumber = _random.nextInt(_files.length);
+		int randInt;
+		do {
+			randInt = _random.nextInt(_files.length);
+		} while (randInt == _currentFileNumber);
+		_currentFileNumber = randInt;
 		loadImage();
 	}
 
