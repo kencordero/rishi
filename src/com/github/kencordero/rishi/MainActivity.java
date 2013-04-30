@@ -20,15 +20,16 @@ public class MainActivity extends Activity {
 		return true;
 	}
 
-	public void onButtonClickF(View v) {
+	public void onButtonClick(View v) {
 		Intent intent = new Intent(this, WordsActivity.class);
-		intent.putExtra("folder", R.string.words_foods_name);
-		startActivity(intent);
-	}
-
-	public void onButtonClickA(View v) {
-		Intent intent = new Intent(this, WordsActivity.class);
-		intent.putExtra("folder", R.string.words_animals_name);
+		switch (v.getId()) {
+		case R.id.btnSelectAnimals:
+			intent.putExtra("folder", R.string.words_animals_name);
+			break;
+		case R.id.btnSelectFoods:
+			intent.putExtra("folder", R.string.words_foods_name);
+			break;
+		}
 		startActivity(intent);
 	}
 }
