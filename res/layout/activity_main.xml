@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="80dp"
-        android:onClick="onButtonClick"
+        android:onClick="onButtonClickF"
         android:textSize="@dimen/menu_item_text_size"
         android:text="@string/words_foods_name" />
     
@@ -23,7 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:onClick="onButtonClick"
+        android:onClick="onButtonClickA"
         android:textSize="@dimen/menu_item_text_size"
         android:text="@string/words_animals_name" />
 

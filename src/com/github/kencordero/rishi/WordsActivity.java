@@ -1,6 +1,7 @@
 package com.github.kencordero.rishi;
 
 import java.io.InputStream;
+import java.util.Locale;
 import java.util.Random;
 import java.util.ResourceBundle;
 
@@ -10,7 +11,6 @@ import android.content.res.AssetManager;
 import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -21,9 +21,7 @@ import android.widget.Toast;
 
 import com.github.kencordero.rishi.SimpleGestureFilter.SimpleGestureListener;
 
-public class WordActivity extends Activity implements SimpleGestureListener {
-	private final String TAG = "WordActivity";
-
+public class WordsActivity extends Activity implements SimpleGestureListener {
 	protected AssetManager _assets;
 	protected ResourceBundle _rb;
 	private String[] _files;
@@ -31,7 +29,7 @@ public class WordActivity extends Activity implements SimpleGestureListener {
 	private int _currentFileNumber;
 	private SimpleGestureFilter _detector;
 	protected Random _random;
-	private String _localeId;
+	// private String _localeId;
 	private String _imageFolderName;
 
 	@Override
@@ -83,14 +81,15 @@ public class WordActivity extends Activity implements SimpleGestureListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		Log.d(TAG, Integer.toString(getIntent().getIntExtra("folder", 0)));
 		setContentView(R.layout.activity_words);
-		_imageFolderName = getString(getIntent().getIntExtra("folder", 0));
+		Bundle bundle = getIntent().getExtras();
+		_imageFolderName = getString(bundle.getInt("folder")).toLowerCase(
+				Locale.ENGLISH);
 		findImages();
 		_detector = new SimpleGestureFilter(this, this);
 		_currentFileNumber = 0;
 		_random = new Random();
-		_localeId = "es";
+		// _localeId = "es";
 		// _rb = ResourceBundle.getBundle("com.github.kencordero.rishi",
 		// new Locale(_localeId)); // TODO grab locale-specific resources
 		// TODO pass along user-choice from main activity
@@ -118,12 +117,6 @@ public class WordActivity extends Activity implements SimpleGestureListener {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-		case R.id.action_next:
-			loadNextImage();
-			return true;
-		case R.id.action_previous:
-			loadPreviousImage();
-			return true;
 		case R.id.action_random:
 			loadRandomImage();
 			return true;

@@ -3,12 +3,10 @@ package com.github.kencordero.rishi;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 
 public class MainActivity extends Activity {
-	private final String TAG = "MainActivity";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -22,15 +20,15 @@ public class MainActivity extends Activity {
 		return true;
 	}
 
-	public void onButtonClick(View v) {
+	public void onButtonClickF(View v) {
 		Intent intent = new Intent(this, WordsActivity.class);
-		switch (v.getId()) {
-		case R.id.btnSelectAnimals:
-			intent.putExtra("folder", R.string.words_animals_name);
-		case R.id.btnSelectFoods:
-			intent.putExtra("folder", R.string.words_foods_name);
-		}
+		intent.putExtra("folder", R.string.words_foods_name);
 		startActivity(intent);
-		Log.d(TAG, Integer.toString(v.getId()));
+	}
+
+	public void onButtonClickA(View v) {
+		Intent intent = new Intent(this, WordsActivity.class);
+		intent.putExtra("folder", R.string.words_animals_name);
+		startActivity(intent);
 	}
 }
