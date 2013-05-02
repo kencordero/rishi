@@ -21,13 +21,27 @@ public class MainActivity extends Activity {
 	}
 
 	public void onButtonClick(View v) {
-		Intent intent = new Intent(this, WordsActivity.class);
+		Intent intent = null;
 		switch (v.getId()) {
 		case R.id.btnSelectAnimals:
+			intent = new Intent(this, WordsActivity.class);
 			intent.putExtra("folder", R.string.words_animals_name);
 			break;
 		case R.id.btnSelectFoods:
+			intent = new Intent(this, WordsActivity.class);
 			intent.putExtra("folder", R.string.words_foods_name);
+			break;
+		case R.id.btnSelectColors:
+			intent = new Intent(this, ColorsActivity.class);
+			break;
+		case R.id.btnSelectLetters:
+			intent = new Intent(this, LettersActivity.class);
+			break;
+		case R.id.btnSelectNumbers:
+			intent = new Intent(this, NumbersActivity.class);
+			break;
+		case R.id.btnSelectShapes:
+			intent = new Intent(this, ShapesActivity.class);
 			break;
 		}
 		startActivity(intent);
