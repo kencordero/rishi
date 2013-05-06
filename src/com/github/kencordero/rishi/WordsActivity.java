@@ -5,6 +5,7 @@ import java.util.Locale;
 import java.util.Random;
 import java.util.ResourceBundle;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.res.AssetFileDescriptor;
 import android.content.res.AssetManager;
@@ -24,18 +25,101 @@ import com.github.kencordero.rishi.SimpleGestureFilter.SimpleGestureListener;
 public class WordsActivity extends Activity implements SimpleGestureListener {
 	protected AssetManager _assets;
 	protected ResourceBundle _rb;
+	protected Random _random;
 	private String[] _files;
 	private String _currentFileName;
 	private int _currentFileNumber;
 	private SimpleGestureFilter _detector;
-	protected Random _random;
 	// private String _localeId;
 	private String _imageFolderName;
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_words);
+		Bundle bundle = getIntent().getExtras();
+		int folderResId = bundle.getInt("folder");
+		_imageFolderName = getString(folderResId).toLowerCase(Locale.ENGLISH);
+		ActionBar ab = getActionBar();
+		ab.setTitle(folderResId);
+		findImages();
+		_detector = new SimpleGestureFilter(this, this);
+		_currentFileNumber = 0;
+		_random = new Random();
+		// _localeId = "es";
+		// _rb = ResourceBundle.getBundle("com.github.kencordero.rishi",
+		// new Locale(_localeId)); // TODO grab locale-specific resources
+		// TODO pass along user-choice from main activity
+
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		loadImage();
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.alternate, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.action_random:
+			loadRandomImage();
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
+	}
 
 	@Override
 	public boolean dispatchTouchEvent(MotionEvent me) {
 		this._detector.onTouchEvent(me);
 		return super.dispatchTouchEvent(me);
+	}
+
+	@Override
+	public void onSwipe(int direction) {
+		switch (direction) {
+		case SimpleGestureFilter.SWIPE_LEFT:
+			loadNextImage();
+			break;
+		case SimpleGestureFilter.SWIPE_RIGHT:
+			loadPreviousImage();
+			break;
+		}
+	}
+
+	public void onImageClick(View view) {
+		// Set textview
+		int resId = 0;
+		String displayName = _currentFileName.replace(".jpg", "");
+		try {
+			resId = R.string.class.getField(displayName).getInt(null);
+			setViewText(R.id.txtView_Words, resId);
+		} catch (Exception e) {
+			throwError(e);
+		}
+	}
+
+	public void onTextClick(View view) {
+		MediaPlayer mp = new MediaPlayer();
+		AssetFileDescriptor afd;
+		try {
+			afd = _assets.openFd("audio/"
+					+ _currentFileName.replace(".jpg", ".ogg"));
+			mp.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(),
+					afd.getLength());
+			mp.prepare();
+			afd.close();
+			mp.start();
+		} catch (Exception e) {
+			throwError(e);
+		}
 	}
 
 	private void findImages() {
@@ -80,87 +164,6 @@ public class WordsActivity extends Activity implements SimpleGestureListener {
 		} while (randInt == _currentFileNumber);
 		_currentFileNumber = randInt;
 		loadImage();
-	}
-
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_words);
-		Bundle bundle = getIntent().getExtras();
-		_imageFolderName = getString(bundle.getInt("folder")).toLowerCase(
-				Locale.ENGLISH);
-		findImages();
-		_detector = new SimpleGestureFilter(this, this);
-		_currentFileNumber = 0;
-		_random = new Random();
-		// _localeId = "es";
-		// _rb = ResourceBundle.getBundle("com.github.kencordero.rishi",
-		// new Locale(_localeId)); // TODO grab locale-specific resources
-		// TODO pass along user-choice from main activity
-
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.alternate, menu);
-		return true;
-	}
-
-	public void onImageClick(View view) {
-		// Set textview
-		int resId = 0;
-		String displayName = _currentFileName.replace(".jpg", "");
-		try {
-			resId = R.string.class.getField(displayName).getInt(null);
-			setViewText(R.id.txtView_Words, resId);
-		} catch (Exception e) {
-			throwError(e);
-		}
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		case R.id.action_random:
-			loadRandomImage();
-			return true;
-		default:
-			return super.onOptionsItemSelected(item);
-		}
-	}
-
-	@Override
-	protected void onResume() {
-		super.onResume();
-		loadImage();
-	}
-
-	public void onTextClick(View view) {
-		MediaPlayer mp = new MediaPlayer();
-		AssetFileDescriptor afd;
-		try {
-			afd = _assets.openFd("audio/"
-					+ _currentFileName.replace(".jpg", ".ogg"));
-			mp.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(),
-					afd.getLength());
-			mp.prepare();
-			afd.close();
-			mp.start();
-		} catch (Exception e) {
-			throwError(e);
-		}
-	}
-
-	@Override
-	public void onSwipe(int direction) {
-		switch (direction) {
-		case SimpleGestureFilter.SWIPE_LEFT:
-			loadNextImage();
-			break;
-		case SimpleGestureFilter.SWIPE_RIGHT:
-			loadPreviousImage();
-			break;
-		}
 	}
 
 	private void setViewText(int viewId, int resId) {
