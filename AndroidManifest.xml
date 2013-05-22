@@ -21,6 +21,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity 
+            android:name=".SettingsActivity"
+            android:label="@string/action_settings" />
         <activity
             android:name=".WordsActivity"
             android:label="@string/activity_words_name" />
