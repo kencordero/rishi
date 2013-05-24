@@ -1,28 +1,28 @@
 package com.github.kencordero.rishi;
 
-import android.app.ListActivity;
-import android.content.res.Resources;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
+import android.preference.Preference;
+import android.preference.PreferenceActivity;
 
-public class SettingsActivity extends ListActivity {
-	Resources res = getResources();
-	String locales[] = res.getStringArray(R.array.locales);
-	
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		Resources res = getResources();
-		String locales[] = res.getStringArray(R.array.locales);
-		setListAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, locales));
-	}
+public class SettingsActivity extends PreferenceActivity {
+	public static final String KEY_PREF_LANG = "pref_language";
 	
 	@Override
-	protected void onListItemClick(ListView l, View v, int position, long id) {
-		super.onListItemClick(l, v, position, id);
-		String localeName = locales[position];
-		//TODO set locale
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
 		
+		//Display settings fragment as main
+		getFragmentManager().beginTransaction()
+		.replace(android.R.id.content, new SettingsFragment())
+		.commit();
+	}
+	
+	public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+		if (key.equals(KEY_PREF_LANG)) {
+			Preference languagePref = findPreference(key);
+			//Set summary to value
+			languagePref.setSummary(sharedPreferences.getString(key, ""));
+		}
 	}
 }

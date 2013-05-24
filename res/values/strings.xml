@@ -14,11 +14,6 @@
 	<string name="activity_shapes_name">Shapes</string>
 	<string name="words_animals_name">Animals</string>
 	<string name="words_foods_name">Foods</string>
-		
-	<string name="locale_english">English</string>
-	<string name="locale_spanish">Spanish</string>
-	<string name="locale_hindi">Hindi</string>
-	<string name="locale_marathi">Marathi</string>	
 	
 	<string name="apple">apple</string>
 	<string name="banana">banana</string>
@@ -65,5 +60,12 @@
 	    <item>Hindi</item>
 	    <item>Marathi</item>
 	    <item>Spanish</item>
+	</string-array>
+	
+	<string-array name="localeValues">
+	    <item>0</item>
+	    <item>1</item>
+	    <item>2</item>
+	    <item>3</item>
 	</string-array>
 </resources>

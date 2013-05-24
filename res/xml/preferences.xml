@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+	    <ListPreference
+	        android:title="Language"
+	        android:summary="Select the language used for the flashcards"
+	        android:key="pref_language"
+	        android:defaultValue="0"
+	    	android:entries="@array/locales"
+	    	android:entryValues="@array/localeValues" /> 
+
+</PreferenceScreen>
