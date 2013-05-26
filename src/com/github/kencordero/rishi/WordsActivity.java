@@ -8,11 +8,14 @@ import java.util.ResourceBundle;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.AssetFileDescriptor;
 import android.content.res.AssetManager;
+import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -31,7 +34,7 @@ public class WordsActivity extends Activity implements SimpleGestureListener {
 	private String _currentFileName;
 	private int _currentFileNumber;
 	private SimpleGestureFilter _detector;
-	// private String _localeId;
+	private String _localeId;
 	private String _imageFolderName;
 
 	@Override
@@ -46,18 +49,18 @@ public class WordsActivity extends Activity implements SimpleGestureListener {
 		findImages();
 		_detector = new SimpleGestureFilter(this, this);
 		_currentFileNumber = 0;
-		_random = new Random();
-		// _localeId = "es";
-		// _rb = ResourceBundle.getBundle("com.github.kencordero.rishi",
-		// new Locale(_localeId)); // TODO grab locale-specific resources
-		// TODO pass along user-choice from main activity
-
+		_random = new Random();	
 	}
 
 	@Override
 	protected void onResume() {
 		super.onResume();
 		loadImage();
+		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+		_localeId = preferences.getString(SettingsFragment.KEY_PREF_LANGUAGE, "0");
+		Configuration config = getBaseContext().getResources().getConfiguration();
+		config.locale = new Locale(_localeId);
+		getBaseContext().getResources().updateConfiguration(config, null);		
 	}
 
 	@Override
