@@ -3,8 +3,7 @@ package com.github.kencordero.rishi;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
 
-public class SettingsActivity extends PreferenceActivity {
-	public static final String KEY_PREF_LANG = "pref_language";
+public class SettingsActivity extends PreferenceActivity {	
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {

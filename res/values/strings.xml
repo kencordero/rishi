@@ -54,18 +54,21 @@
 	<string name="turtle">turtle</string>
 	<string name="whale">whale</string>
 	
-	
-	<string-array name="locales">
+	<string-array name="pref_locales">
 	    <item>English</item>
 	    <item>Hindi</item>
 	    <item>Marathi</item>
 	    <item>Spanish</item>
 	</string-array>
 	
-	<string-array name="localeValues">
-	    <item>0</item>
-	    <item>1</item>
-	    <item>2</item>
-	    <item>3</item>
+	<string-array name="pref_localeValues">
+	    <item>en</item>
+	    <item>hi</item>
+	    <item>mr</item>
+	    <item>es</item>
 	</string-array>
+	
+	<string name="pref_locale_title">Language</string>
+	<string name="pref_locale_key">pref_language</string>
+	<string name="pref_locale_default">en</string>
 </resources>
