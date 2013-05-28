@@ -16,6 +16,8 @@ import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.speech.tts.TextToSpeech;
+import android.speech.tts.TextToSpeech.OnInitListener;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -26,7 +28,7 @@ import android.widget.Toast;
 
 import com.github.kencordero.rishi.SimpleGestureFilter.SimpleGestureListener;
 
-public class WordsActivity extends Activity implements SimpleGestureListener {
+public class WordsActivity extends Activity implements SimpleGestureListener, OnInitListener {
 	protected AssetManager _assets;
 	protected ResourceBundle _rb;
 	protected Random _random;
@@ -36,6 +38,8 @@ public class WordsActivity extends Activity implements SimpleGestureListener {
 	private SimpleGestureFilter _detector;
 	private String _localeId;
 	private String _imageFolderName;
+	private TextToSpeech _tts;
+	private int _resId;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +54,7 @@ public class WordsActivity extends Activity implements SimpleGestureListener {
 		_detector = new SimpleGestureFilter(this, this);
 		_currentFileNumber = 0;
 		_random = new Random();	
+		_tts = new TextToSpeech(this, this);
 	}
 
 	@Override
@@ -59,8 +64,10 @@ public class WordsActivity extends Activity implements SimpleGestureListener {
 		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
 		_localeId = preferences.getString(SettingsFragment.KEY_PREF_LANGUAGE, "0");
 		Configuration config = getBaseContext().getResources().getConfiguration();
-		config.locale = new Locale(_localeId);
-		getBaseContext().getResources().updateConfiguration(config, null);		
+		Locale locale = new Locale(_localeId);
+		config.locale = locale;
+		getBaseContext().getResources().updateConfiguration(config, null);
+		_tts.setLanguage(locale);
 	}
 
 	@Override
@@ -104,16 +111,17 @@ public class WordsActivity extends Activity implements SimpleGestureListener {
 
 	public void onImageClick(View view) {
 		// Set textview
-		int resId = 0;
+		_resId = 0;
 		String displayName = _currentFileName.replace(".jpg", "");
 		try {
-			resId = R.string.class.getField(displayName).getInt(null);
-			setViewText(R.id.txtView_Words, resId);
+			_resId = R.string.class.getField(displayName).getInt(null);
+			setViewText(R.id.txtView_Words, _resId);
 		} catch (Exception e) {
 			throwError(e);
 		}
 	}
 
+	/**
 	public void onTextClick(View view) {
 		MediaPlayer mp = new MediaPlayer();
 		AssetFileDescriptor afd;
@@ -128,6 +136,10 @@ public class WordsActivity extends Activity implements SimpleGestureListener {
 		} catch (Exception e) {
 			throwError(e);
 		}
+	} */
+	
+	public void onTextClick(View view) {
+		_tts.speak(getString(_resId) , TextToSpeech.QUEUE_ADD, null);
 	}
 
 	private void findImages() {
@@ -187,5 +199,11 @@ public class WordsActivity extends Activity implements SimpleGestureListener {
 	private void throwError(Exception e) {
 		Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show();
 		e.printStackTrace();
+	}
+
+	@Override
+	public void onInit(int arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 }

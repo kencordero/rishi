@@ -62,13 +62,13 @@
 	</string-array>
 	
 	<string-array name="pref_localeValues">
-	    <item>en</item>
+	    <item>en_US</item>
 	    <item>hi</item>
 	    <item>mr</item>
-	    <item>es</item>
+	    <item>es_MX</item>
 	</string-array>
 	
 	<string name="pref_locale_title">Language</string>
 	<string name="pref_locale_key">pref_language</string>
-	<string name="pref_locale_default">en</string>
+	<string name="pref_locale_default">en_US</string>
 </resources>
