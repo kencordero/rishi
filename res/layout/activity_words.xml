@@ -8,14 +8,12 @@
         android:id="@+id/imgView_Words"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="3"        
-        android:onClick="onImageClick" />
+        android:layout_weight="3" />
     <TextView
         android:id="@+id/txtView_Words"
         android:layout_width="match_parent"
         android:layout_height="0dp"        
         android:textSize="@dimen/image_caption_text_size"        
         android:gravity="center"        
-        android:onClick="onTextClick"
         android:layout_weight="1" />
 </LinearLayout>

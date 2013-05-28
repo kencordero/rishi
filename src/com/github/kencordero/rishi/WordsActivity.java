@@ -9,11 +9,9 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.AssetFileDescriptor;
 import android.content.res.AssetManager;
 import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.speech.tts.TextToSpeech;
@@ -22,13 +20,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.kencordero.rishi.SimpleGestureFilter.SimpleGestureListener;
 
-public class WordsActivity extends Activity implements SimpleGestureListener, OnInitListener {
+public class WordsActivity extends Activity implements SimpleGestureListener, OnInitListener, OnClickListener {
 	protected AssetManager _assets;
 	protected ResourceBundle _rb;
 	protected Random _random;
@@ -55,7 +54,13 @@ public class WordsActivity extends Activity implements SimpleGestureListener, On
 		_currentFileNumber = 0;
 		_random = new Random();	
 		_tts = new TextToSpeech(this, this);
+		final View iv = findViewById(R.id.imgView_Words);
+		iv.setOnClickListener(this);
+		final View tv = findViewById(R.id.txtView_Words);
+		tv.setOnClickListener(this);
 	}
+	
+	
 
 	@Override
 	protected void onResume() {
@@ -109,7 +114,7 @@ public class WordsActivity extends Activity implements SimpleGestureListener, On
 		}
 	}
 
-	public void onImageClick(View view) {
+	private void onImageClick(View view) {
 		// Set textview
 		_resId = 0;
 		String displayName = _currentFileName.replace(".jpg", "");
@@ -121,24 +126,7 @@ public class WordsActivity extends Activity implements SimpleGestureListener, On
 		}
 	}
 
-	/**
-	public void onTextClick(View view) {
-		MediaPlayer mp = new MediaPlayer();
-		AssetFileDescriptor afd;
-		try {
-			afd = _assets.openFd("audio/"
-					+ _currentFileName.replace(".jpg", ".ogg"));
-			mp.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(),
-					afd.getLength());
-			mp.prepare();
-			afd.close();
-			mp.start();
-		} catch (Exception e) {
-			throwError(e);
-		}
-	} */
-	
-	public void onTextClick(View view) {
+	private void onTextClick(View view) {
 		_tts.speak(getString(_resId) , TextToSpeech.QUEUE_ADD, null);
 	}
 
@@ -204,6 +192,17 @@ public class WordsActivity extends Activity implements SimpleGestureListener, On
 	@Override
 	public void onInit(int arg0) {
 		// TODO Auto-generated method stub
-		
+	}
+
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+		case R.id.imgView_Words:
+			onImageClick(v);
+			break;
+		case R.id.txtView_Words:
+			onTextClick(v);
+			break;
+		}
 	}
 }
