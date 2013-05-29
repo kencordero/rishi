@@ -9,6 +9,6 @@ public class ColorsActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_colors);
+		setContentView(R.layout.activity_placeholder);
 	}
 }

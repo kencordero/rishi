@@ -9,6 +9,6 @@ public class LettersActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_letters);
+		setContentView(R.layout.activity_placeholder);
 	}
 }
