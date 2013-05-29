@@ -29,6 +29,9 @@ import android.widget.Toast;
 import com.github.kencordero.rishi.SimpleGestureFilter.SimpleGestureListener;
 
 public class WordsActivity extends Activity implements SimpleGestureListener, OnInitListener, OnClickListener {
+	private static final String BUNDLE_FILE_KEY = "currentFileNumber";
+	private static final String BUNDLE_LOCALE_KEY = "currentLocale";
+	
 	protected AssetManager _assets;
 	protected ResourceBundle _rb;
 	protected Random _random;
@@ -62,7 +65,16 @@ public class WordsActivity extends Activity implements SimpleGestureListener, On
 		setVolumeControlStream(AudioManager.STREAM_MUSIC);
 	}
 	
+	@Override
+	protected void onSaveInstanceState(Bundle bundle) {
+		bundle.putInt(BUNDLE_FILE_KEY , _currentFileNumber);
+		bundle.putString(BUNDLE_LOCALE_KEY, _localeId);
+	}
 	
+	protected void onRestoreInstanceState(Bundle bundle) {
+		_currentFileNumber = bundle.getInt(BUNDLE_FILE_KEY);
+		_localeId = bundle.getString(BUNDLE_LOCALE_KEY);
+	}
 
 	@Override
 	protected void onResume() {
