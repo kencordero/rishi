@@ -12,6 +12,7 @@ import android.content.SharedPreferences;
 import android.content.res.AssetManager;
 import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.speech.tts.TextToSpeech;
@@ -58,6 +59,7 @@ public class WordsActivity extends Activity implements SimpleGestureListener, On
 		iv.setOnClickListener(this);
 		final View tv = findViewById(R.id.txtView_Words);
 		tv.setOnClickListener(this);
+		setVolumeControlStream(AudioManager.STREAM_MUSIC);
 	}
 	
 	
