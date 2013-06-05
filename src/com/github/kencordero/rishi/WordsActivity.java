@@ -130,7 +130,6 @@ public class WordsActivity extends Activity implements SimpleGestureListener, On
 
 	private void onImageClick(View view) {
 		// Set textview
-		_resId = 0;
 		String displayName = _currentFileName.replace(".jpg", "");
 		try {
 			_resId = R.string.class.getField(displayName).getInt(null);
@@ -141,7 +140,8 @@ public class WordsActivity extends Activity implements SimpleGestureListener, On
 	}
 
 	private void onTextClick(View view) {
-		_tts.speak(getString(_resId) , TextToSpeech.QUEUE_ADD, null);
+		if (_resId > 0)
+			_tts.speak(getString(_resId) , TextToSpeech.QUEUE_ADD, null);
 	}
 
 	private void findImages() {
@@ -163,8 +163,10 @@ public class WordsActivity extends Activity implements SimpleGestureListener, On
 		}
 		Drawable img = Drawable.createFromStream(stream, _currentFileName);
 		ImageView iv = (ImageView) findViewById(R.id.imgView_Words);
-		iv.setImageDrawable(img);
+		iv.setImageDrawable(img);		
 		setViewText(R.id.txtView_Words, "");
+		// not resetting _resId causes tts to speak previous word
+		_resId = -1; 
 	}
 
 	private void loadNextImage() {
@@ -204,9 +206,7 @@ public class WordsActivity extends Activity implements SimpleGestureListener, On
 	}
 
 	@Override
-	public void onInit(int arg0) {
-		// TODO Auto-generated method stub
-	}
+	public void onInit(int arg0) {}
 
 	@Override
 	public void onClick(View v) {

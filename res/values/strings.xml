@@ -57,6 +57,8 @@
 	
 	<string-array name="pref_locales">
 	    <item>English</item>
+	    <item>French</item>
+	    <item>German</item>
 	    <item>Hindi</item>
 	    <item>Marathi</item>
 	    <item>Spanish</item>
@@ -64,6 +66,8 @@
 	
 	<string-array name="pref_localeValues">
 	    <item>en_US</item>
+	    <item>fr</item>
+	    <item>de</item>
 	    <item>hi</item>
 	    <item>mr</item>
 	    <item>es_MX</item>
