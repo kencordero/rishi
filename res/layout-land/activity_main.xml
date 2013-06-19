@@ -14,57 +14,57 @@
         android:layout_height="match_parent"
         android:layout_width="0dp"
         android:layout_weight="1" >
-    	<Button
-        	android:id="@+id/btnSelectFoods"
-        	android:layout_width="match_parent"
-        	android:layout_height="wrap_content"      
-        	android:onClick="onButtonClick"
-        	android:textSize="@dimen/menu_item_text_size"
-        	android:text="@string/words_foods_name" />
+        <Button
+            android:id="@+id/btnSelectFoods"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"      
+            android:onClick="onButtonClick"
+            android:textSize="@dimen/menu_item_text_size"
+            android:text="@string/words_foods_name" />
     
-    	<Button
-        	android:id="@+id/btnSelectAnimals"
-        	android:layout_width="match_parent"
-        	android:layout_height="wrap_content"
-        	android:onClick="onButtonClick"
-        	android:textSize="@dimen/menu_item_text_size"
-        	android:text="@string/words_animals_name" />
+        <Button
+            android:id="@+id/btnSelectAnimals"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onButtonClick"
+            android:textSize="@dimen/menu_item_text_size"
+            android:text="@string/words_animals_name" />
     
-   		<Button 
-       		android:id="@+id/btnSelectColors"
-       		android:layout_width="match_parent"
-       		android:layout_height="wrap_content"
-       		android:onClick="onButtonClick"
-       		android:textSize="@dimen/menu_item_text_size"
-       		android:text="@string/activity_colors_name" />
-	</LinearLayout>
-	<LinearLayout 
-	    android:orientation="vertical"
-	    android:layout_height="match_parent"
-	    android:layout_width="0dp"
-	    android:layout_weight="1" >
-   		<Button 
-       		android:id="@+id/btnSelectLetters"
-       		android:layout_width="match_parent"
-       		android:layout_height="wrap_content"
-       		android:onClick="onButtonClick"
-       		android:textSize="@dimen/menu_item_text_size"
-       		android:text="@string/activity_letters_name" />
+           <Button 
+               android:id="@+id/btnSelectColors"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:onClick="onButtonClick"
+               android:textSize="@dimen/menu_item_text_size"
+               android:text="@string/activity_colors_name" />
+    </LinearLayout>
+    <LinearLayout 
+        android:orientation="vertical"
+        android:layout_height="match_parent"
+        android:layout_width="0dp"
+        android:layout_weight="1" >
+           <Button 
+               android:id="@+id/btnSelectLetters"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:onClick="onButtonClick"
+               android:textSize="@dimen/menu_item_text_size"
+               android:text="@string/activity_letters_name" />
    
-   		<Button 
-       		android:id="@+id/btnSelectShapes"
-       		android:layout_width="match_parent"
-       		android:layout_height="wrap_content"
-       		android:onClick="onButtonClick"
-       		android:textSize="@dimen/menu_item_text_size"
-		    android:text="@string/activity_shapes_name" />
+           <Button 
+               android:id="@+id/btnSelectShapes"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:onClick="onButtonClick"
+               android:textSize="@dimen/menu_item_text_size"
+            android:text="@string/activity_shapes_name" />
    
-   		<Button 
-       		android:id="@+id/btnSelectNumbers"
-       		android:layout_width="match_parent"
-       		android:layout_height="wrap_content"
-       		android:onClick="onButtonClick"
-       		android:textSize="@dimen/menu_item_text_size"
-		    android:text="@string/activity_numbers_name" />
-	</LinearLayout>
+           <Button 
+               android:id="@+id/btnSelectNumbers"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:onClick="onButtonClick"
+               android:textSize="@dimen/menu_item_text_size"
+            android:text="@string/activity_numbers_name" />
+    </LinearLayout>
 </LinearLayout>
