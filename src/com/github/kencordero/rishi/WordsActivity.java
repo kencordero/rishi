@@ -209,6 +209,12 @@ public class WordsActivity extends Activity implements SimpleGestureListener, On
 	public void onInit(int arg0) {}
 
 	@Override
+	protected void onPause() {
+		super.onPause();
+		_tts.stop();
+	}
+	
+	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.imgView_Words:
