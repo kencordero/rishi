@@ -64,6 +64,10 @@
 	    <item>Spanish</item>
 	</string-array>
 	
+	<string name="locale_english">English</string>
+	<string name="locale_marathi">Marathi</string>
+	<string name="locale_spanish">Spanish</string>
+	
 	<string-array name="pref_localeValues">
 	    <item>en_US</item>
 	    <item>fr</item>
