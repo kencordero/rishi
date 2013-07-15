@@ -2,6 +2,7 @@
 /assets/animals
 /bin
 /gen
+/.idea/
 
 *.db
 *.classpath
