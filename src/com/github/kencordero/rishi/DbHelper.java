@@ -44,7 +44,7 @@ public class DbHelper extends SQLiteOpenHelper{
         else
         {
             //By calling this method and empty database will be created into the default system path
-               //of your application so we are gonna be able to overwrite that database with our database.
+               //of your application so we are going to be able to overwrite that database with our database.
             this.getWritableDatabase();
 
             try {

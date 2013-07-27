@@ -35,4 +35,32 @@
     <string name="sheep">oveja</string>
     <string name="turtle">tortuga</string>
     <string name="whale">ballena</string>
+    
+    <string name="a_one">uno</string>
+    <string name="b_two">dos</string>
+    <string name="c_three">tres</string>
+    <string name="d_four">cuatro</string>
+    <string name="e_five">cinco</string>
+    <string name="f_six">seis</string>
+    <string name="g_seven">siete</string>
+    <string name="h_eight">ocho</string>
+    <string name="i_nine">nueve</string>
+    <string name="j_ten">diez</string>
+    <string name="k_eleven">once</string>
+    <string name="l_twelve">doce</string>
+    
+    <string name="star">estrella</string>
+    <string name="triangle">triángulo</string>
+    <string name="circle">círculo</string>
+    <string name="square">cuadrado</string>
+    
+    <string name="black">negro</string>
+    <string name="blue">azul</string>
+    <string name="brown">marrón</string>
+    <string name="green">verde</string>    
+    <string name="pink">rosa</string>
+    <string name="purple">morado</string>
+    <string name="red">rojo</string>
+    <string name="white">blanco</string>
+    <string name="yellow">amarillo</string>
 </resources>

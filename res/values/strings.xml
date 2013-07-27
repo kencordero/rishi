@@ -55,6 +55,61 @@
     <string name="turtle">turtle</string>
     <string name="whale">whale</string>
     
+    <string name="a_one">one</string>
+    <string name="b_two">two</string>
+    <string name="c_three">three</string>
+    <string name="d_four">four</string>
+    <string name="e_five">five</string>
+    <string name="f_six">six</string>
+    <string name="g_seven">seven</string>
+    <string name="h_eight">eight</string>
+    <string name="i_nine">nine</string>    
+    <string name="j_ten">ten</string>
+    <string name="k_eleven">eleven</string>
+    <string name="l_twelve">twelve</string>
+    
+    <string name="star">star</string>
+    <string name="triangle">triangle</string>
+    <string name="circle">circle</string>
+    <string name="square">square</string>
+    
+    <string name="black">black</string>
+    <string name="blue">blue</string>
+    <string name="brown">brown</string>
+    <string name="green">green</string>    
+    <string name="pink">pink</string>
+    <string name="purple">purple</string>
+    <string name="red">red</string>
+    <string name="white">white</string>
+    <string name="yellow">yellow</string>
+    
+    <string name="a">a</string>
+    <string name="b">b</string>
+    <string name="c">c</string>
+    <string name="d">d</string>
+    <string name="e">e</string>
+    <string name="f">f</string>
+    <string name="g">g</string>
+    <string name="h">h</string>
+    <string name="i">i</string>
+    <string name="j">j</string>
+    <string name="k">k</string>
+    <string name="l">l</string>
+    <string name="m">m</string>
+    <string name="n">n</string>
+    <string name="o">o</string>
+    <string name="p">p</string>
+    <string name="q">q</string>
+    <string name="r">r</string>
+    <string name="s">s</string>
+    <string name="t">t</string>
+    <string name="u">u</string>
+    <string name="v">v</string>
+    <string name="w">w</string>
+    <string name="x">x</string>
+    <string name="y">y</string>
+    <string name="z">z</string>
+    
     <string-array name="pref_locales">
         <item>English</item>
         <item>French</item>

@@ -45,16 +45,20 @@ public class MainActivity extends Activity {
 			intent.putExtra("folder", R.string.words_foods_name);
 			break;
 		case R.id.btnSelectColors:
-			intent = new Intent(this, ColorsActivity.class);
+			intent = new Intent(this, WordsActivity.class);
+			intent.putExtra("folder", R.string.activity_colors_name);
 			break;
 		case R.id.btnSelectLetters:
-			intent = new Intent(this, LettersActivity.class);
+			intent = new Intent(this, WordsActivity.class);
+			intent.putExtra("folder",  R.string.activity_letters_name);
 			break;
-		case R.id.btnSelectNumbers:
-			intent = new Intent(this, NumbersActivity.class);
+		case R.id.btnSelectNumbers:			
+			intent = new Intent(this, WordsActivity.class);
+			intent.putExtra("folder", R.string.activity_numbers_name);
 			break;
 		case R.id.btnSelectShapes:
-			intent = new Intent(this, ShapesActivity.class);
+			intent = new Intent(this, WordsActivity.class);
+			intent.putExtra("folder", R.string.activity_shapes_name);
 			break;
 		}
 		startActivity(intent);
