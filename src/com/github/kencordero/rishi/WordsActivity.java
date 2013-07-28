@@ -1,9 +1,11 @@
 package com.github.kencordero.rishi;
 
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Locale;
 import java.util.Random;
-import java.util.ResourceBundle;
 
 import android.app.ActionBar;
 import android.app.Activity;
@@ -32,36 +34,40 @@ public class WordsActivity extends Activity implements SimpleGestureListener, On
 	private static final String BUNDLE_FILE_KEY = "currentFileNumber";
 	private static final String BUNDLE_LOCALE_KEY = "currentLocale";
 	
-	protected AssetManager _assets;
-	protected ResourceBundle _rb;
-	protected Random _random;
+	protected AssetManager _assets;	
+	private Locale _locale;
+	private Random _random;
 	private String[] _files;
+	private ArrayList<String> _fileList;
 	private String _currentFileName;
 	private int _currentFileNumber;
 	private SimpleGestureFilter _detector;
 	private String _localeId;
+	private int _folderResId;
 	private String _imageFolderName;
 	private TextToSpeech _tts;
 	private int _resId;
+	private ImageView _imageView;
+	private TextView _textView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_words);
 		Bundle bundle = getIntent().getExtras();
-		int folderResId = bundle.getInt("folder");
-		_imageFolderName = getString(folderResId).toLowerCase(Locale.ENGLISH);
+		_folderResId = bundle.getInt("folder");
+		_imageFolderName = getString(_folderResId).toLowerCase(Locale.ENGLISH);
 		ActionBar ab = getActionBar();
-		ab.setTitle(folderResId);
+		ab.setTitle(_folderResId);
 		findImages();
 		_detector = new SimpleGestureFilter(this, this);
 		_currentFileNumber = 0;
 		_random = new Random();	
 		_tts = new TextToSpeech(this, this);
-		final View iv = findViewById(R.id.imgView_Words);
-		iv.setOnClickListener(this);
-		final View tv = findViewById(R.id.txtView_Words);
-		tv.setOnClickListener(this);
+		_imageView = (ImageView) findViewById(R.id.imgView_Words);
+		_imageView.setOnClickListener(this);
+		_textView = (TextView) findViewById(R.id.txtView_Words);
+		_textView.setOnClickListener(this);
 		setVolumeControlStream(AudioManager.STREAM_MUSIC);
 	}
 	
@@ -81,12 +87,12 @@ public class WordsActivity extends Activity implements SimpleGestureListener, On
 		super.onResume();
 		loadImage();
 		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-		_localeId = preferences.getString(SettingsFragment.KEY_PREF_LANGUAGE, "0");
+		_localeId = preferences.getString(SettingsFragment.KEY_PREF_LANGUAGE,  "0");
 		Configuration config = getBaseContext().getResources().getConfiguration();
-		Locale locale = new Locale(_localeId);
-		config.locale = locale;
+		_locale = new Locale(_localeId);
+		config.locale = _locale;
 		getBaseContext().getResources().updateConfiguration(config, null);
-		_tts.setLanguage(locale);
+		_tts.setLanguage(_locale); // this doesn't seem to work
 	}
 
 	@Override
@@ -127,34 +133,41 @@ public class WordsActivity extends Activity implements SimpleGestureListener, On
 			break;
 		}
 	}
-
-	private void onImageClick(View view) {
-		// Set textview
-		String displayName = _currentFileName.replace(".jpg", "");
-		try {
-			_resId = R.string.class.getField(displayName).getInt(null);
-			setViewText(R.id.txtView_Words, _resId);
-		} catch (Exception e) {
-			throwError(e);
+	
+	private void displayText() {
+		if (_textView.getText().length() == 0) {
+			String displayName = _currentFileName.replace(".jpg", "");
+			try {
+				_resId = R.string.class.getField(displayName).getInt(null);			
+				_textView.setText(_resId);
+			} catch (Exception e) {
+				throwError(e);
+			}
 		}
 	}
-
-	private void onTextClick(View view) {
+	
+	private void speakText() {
 		if (_resId > 0)
-			_tts.speak(getString(_resId) , TextToSpeech.QUEUE_ADD, null);
+			_tts.setLanguage(_locale);
+			_tts.speak(getString(_resId), TextToSpeech.QUEUE_ADD, null);
 	}
 
 	private void findImages() {
 		_assets = getAssets();
 		try {
 			_files = _assets.list(_imageFolderName);
+			_fileList = new ArrayList<String>(Arrays.asList(_files));
+			if (_folderResId != R.string.activity_letters_name && 
+				_folderResId != R.string.activity_numbers_name)
+				Collections.shuffle(_fileList);
 		} catch (Exception e) {
 			throwError(e);
 		}
 	}
 
 	private void loadImage() {
-		_currentFileName = _files[_currentFileNumber];
+		//_currentFileName = _files[_currentFileNumber];
+		_currentFileName = _fileList.get(_currentFileNumber);
 		InputStream stream = null;
 		try {
 			stream = _assets.open(_imageFolderName + "/" + _currentFileName);
@@ -162,9 +175,9 @@ public class WordsActivity extends Activity implements SimpleGestureListener, On
 			throwError(e);
 		}
 		Drawable img = Drawable.createFromStream(stream, _currentFileName);
-		ImageView iv = (ImageView) findViewById(R.id.imgView_Words);
-		iv.setImageDrawable(img);		
-		setViewText(R.id.txtView_Words, "");
+		//ImageView iv = (ImageView) findViewById(R.id.imgView_Words);
+		_imageView.setImageDrawable(img);				
+		_textView.setText("");
 		// not resetting _resId causes tts to speak previous word
 		_resId = -1; 
 	}
@@ -190,16 +203,6 @@ public class WordsActivity extends Activity implements SimpleGestureListener, On
 		loadImage();
 	}
 
-	private void setViewText(int viewId, int resId) {
-		TextView tv = (TextView) findViewById(viewId);
-		tv.setText(resId);
-	}
-
-	private void setViewText(int viewId, String text) {
-		TextView tv = (TextView) findViewById(viewId);
-		tv.setText(text);
-	}
-
 	private void throwError(Exception e) {
 		Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show();
 		e.printStackTrace();
@@ -218,10 +221,13 @@ public class WordsActivity extends Activity implements SimpleGestureListener, On
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.imgView_Words:
-			onImageClick(v);
+			displayText();
+			speakText();
+			//onImageClick(v);
 			break;
 		case R.id.txtView_Words:
-			onTextClick(v);
+			speakText();
+			//onTextClick(v);
 			break;
 		}
 	}

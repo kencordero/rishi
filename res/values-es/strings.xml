@@ -49,10 +49,12 @@
     <string name="k_eleven">once</string>
     <string name="l_twelve">doce</string>
     
-    <string name="star">estrella</string>
-    <string name="triangle">triángulo</string>
     <string name="circle">círculo</string>
-    <string name="square">cuadrado</string>
+    <string name="crescent">medialuna</string>
+    <string name="rectangle">rectángulo</string>
+    <string name="square">cuadrado</string> 
+    <string name="star">estrella</string>               
+    <string name="triangle">triángulo</string>
     
     <string name="black">negro</string>
     <string name="blue">azul</string>

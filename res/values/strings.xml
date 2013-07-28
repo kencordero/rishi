@@ -68,10 +68,12 @@
     <string name="k_eleven">eleven</string>
     <string name="l_twelve">twelve</string>
     
+    <string name="circle">circle</string>
+    <string name="crescent">crescent</string>
+    <string name="rectangle">rectangle</string>
+    <string name="square">square</string>
     <string name="star">star</string>
     <string name="triangle">triangle</string>
-    <string name="circle">circle</string>
-    <string name="square">square</string>
     
     <string name="black">black</string>
     <string name="blue">blue</string>
