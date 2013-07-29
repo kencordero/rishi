@@ -92,7 +92,10 @@ public class WordsActivity extends Activity implements SimpleGestureListener, On
 		_locale = new Locale(_localeId);
 		config.locale = _locale;
 		getBaseContext().getResources().updateConfiguration(config, null);
-		_tts.setLanguage(_locale); // this doesn't seem to work
+		if (_localeId.equals("mr")) //There's no speech engine for Marathi			
+			_locale = new Locale("hi");		
+		
+		//_tts.setLanguage(_locale); // this doesn't seem to work
 	}
 
 	@Override
