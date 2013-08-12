@@ -151,8 +151,10 @@ public class WordsActivity extends Activity implements SimpleGestureListener, On
 	
 	private void speakText() {
 		if (_resId > 0)
+		{
 			_tts.setLanguage(_locale);
 			_tts.speak(getString(_resId), TextToSpeech.QUEUE_ADD, null);
+		}
 	}
 
 	private void findImages() {
