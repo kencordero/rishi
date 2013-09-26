@@ -10,7 +10,7 @@
     <string name="ice_cream">helado</string>
     <string name="lemon">limón</string>
     <string name="milk">leche</string>
-    <string name="orange">naranja</string>
+    <string name="orange_food">naranja</string>
     <string name="pineapple">ananás</string>
     <string name="raspberry">frambuesa</string>
     <string name="tomato">tomate</string>
@@ -59,7 +59,8 @@
     <string name="black">negro</string>
     <string name="blue">azul</string>
     <string name="brown">marrón</string>
-    <string name="green">verde</string>    
+    <string name="green">verde</string>
+    <string name="orange_color">naranja</string>
     <string name="pink">rosa</string>
     <string name="purple">morado</string>
     <string name="red">rojo</string>

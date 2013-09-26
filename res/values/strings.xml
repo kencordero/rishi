@@ -28,7 +28,7 @@
     <string name="kiwi">kiwi</string>
     <string name="lemon">lemon</string>
     <string name="milk">milk</string>
-    <string name="orange">orange</string>
+    <string name="orange_food">orange</string>
     <string name="pineapple">pineapple</string>
     <string name="raspberry">raspberry</string>
     <string name="tomato">tomato</string>
@@ -78,7 +78,8 @@
     <string name="black">black</string>
     <string name="blue">blue</string>
     <string name="brown">brown</string>
-    <string name="green">green</string>    
+    <string name="green">green</string>
+    <string name="orange_color">orange</string>
     <string name="pink">pink</string>
     <string name="purple">purple</string>
     <string name="red">red</string>
