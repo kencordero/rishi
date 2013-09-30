@@ -1,11 +1,16 @@
 package com.github.kencordero.rishi;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Random;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.github.kencordero.rishi.SimpleGestureFilter.SimpleGestureListener;
@@ -17,6 +22,7 @@ public class LettersActivity extends Activity implements SimpleGestureListener {
 	
 	private int _currentIdx;
 	private SimpleGestureFilter _detector;
+	private Random _random;
 	private String _localeId;
 	private String[] _letters;
 	private ArrayList<String> _alphabet;
@@ -28,10 +34,12 @@ public class LettersActivity extends Activity implements SimpleGestureListener {
 		setContentView(R.layout.activity_letters);
 		ActionBar ab = getActionBar();
 		ab.setTitle(R.string.activity_letters_name);
+		_random = new Random();
 		_currentIdx = 0;
 		_detector = new SimpleGestureFilter(this, this);
 		Resources res = getResources();
-		String[] _letters = res.getStringArray(R.array.letters);
+		_letters = res.getStringArray(R.array.letters);
+		_alphabet = new ArrayList<String>(Arrays.asList(_letters));
 		_textView = (TextView) findViewById(R.id.txtView_Letters);		
 	}
 	
@@ -39,6 +47,27 @@ public class LettersActivity extends Activity implements SimpleGestureListener {
 	protected void onResume() {
 		super.onResume();
 		setLetter();
+	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.alternate, menu);
+		return true;
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.action_random:
+			randomLetter();
+			return true;
+		case R.id.action_settings:
+			Intent intent = new Intent(this, SettingsActivity.class);
+			startActivity(intent);
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);			
+		}
 	}
 	
 	private void setLetter() {
@@ -76,6 +105,15 @@ public class LettersActivity extends Activity implements SimpleGestureListener {
 		_currentIdx = (--_currentIdx) % (_letters.length);
 		if (_currentIdx < 0)
 			_currentIdx = _letters.length - 1;
+		setLetter();
+	}
+	
+	private void randomLetter() {
+		int randInt;
+		do {
+			randInt = _random.nextInt(_letters.length);			
+		} while (randInt == _currentIdx);
+		_currentIdx = randInt;
 		setLetter();
 	}
 }
