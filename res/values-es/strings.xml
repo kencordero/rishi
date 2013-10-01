@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="apple">manzana</string>
-    <string name="carrot">zanahoria</string>
-    <string name="date">dátil</string>
+    <string name="carrot">zanahorias</string>
+    <string name="date">dátiles</string>
     <string name="egg">huevo</string>
-    <string name="fig">higo</string>
-    <string name="grape">uva</string>
+    <string name="fig">higos</string>
+    <string name="grape">uvas</string>
     <string name="honey">miel</string>
     <string name="ice_cream">helado</string>
-    <string name="lemon">limón</string>
+    <string name="lemon">limones</string>
     <string name="milk">leche</string>
-    <string name="orange_food">naranja</string>
+    <string name="orange_food">naranjas</string>
     <string name="pineapple">ananás</string>
     <string name="raspberry">frambuesa</string>
-    <string name="tomato">tomate</string>
-    <string name="zucchini">calabacín</string>
+    <string name="tomato">tomates</string>
+    <string name="zucchini">calabacines</string>
     
     <string name="bear">oso</string>
     <string name="bird">pájaro</string>

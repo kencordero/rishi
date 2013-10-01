@@ -18,21 +18,21 @@
     
     <string name="apple">apple</string>
     <string name="banana">banana</string>
-    <string name="carrot">carrot</string>
-    <string name="date">date</string>
+    <string name="carrot">carrots</string>
+    <string name="date">dates</string>
     <string name="egg">egg</string>
-    <string name="fig">fig</string>
-    <string name="grape">grape</string>
+    <string name="fig">figs</string>
+    <string name="grape">grapes</string>
     <string name="honey">honey</string>
     <string name="ice_cream">ice cream</string>
     <string name="kiwi">kiwi</string>
-    <string name="lemon">lemon</string>
+    <string name="lemon">lemons</string>
     <string name="milk">milk</string>
-    <string name="orange_food">orange</string>
+    <string name="orange_food">oranges</string>
     <string name="pineapple">pineapple</string>
     <string name="raspberry">raspberry</string>
-    <string name="tomato">tomato</string>
-    <string name="zucchini">zucchini</string>
+    <string name="tomato">tomatoes</string>
+    <string name="zucchini">zucchinis</string>
     
     <string name="bear">bear</string>
     <string name="bird">bird</string>
