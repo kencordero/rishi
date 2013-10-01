@@ -2,6 +2,7 @@ package com.github.kencordero.rishi;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,6 +14,7 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		setVolumeControlStream(AudioManager.STREAM_MUSIC);
 	}
 
 	@Override
@@ -30,7 +32,7 @@ public class MainActivity extends Activity {
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);
-		}		
+		}
 	}
 
 	public void onButtonClick(View v) {
@@ -49,8 +51,8 @@ public class MainActivity extends Activity {
 			intent.putExtra("folder", R.string.activity_colors_name);
 			break;
 		case R.id.btnSelectLetters:
-			intent = new Intent(this, WordsActivity.class);
-			intent.putExtra("folder",  R.string.activity_letters_name);
+			intent = new Intent(this, LettersActivity.class);
+			//intent.putExtra("folder",  R.string.activity_letters_name);
 			break;
 		case R.id.btnSelectNumbers:			
 			intent = new Intent(this, WordsActivity.class);

@@ -93,9 +93,7 @@ public class WordsActivity extends Activity implements SimpleGestureListener, On
 		config.locale = _locale;
 		getBaseContext().getResources().updateConfiguration(config, null);
 		if (_localeId.equals("mr")) //There's no speech engine for Marathi			
-			_locale = new Locale("hi");		
-		
-		//_tts.setLanguage(_locale); // this doesn't seem to work
+			_locale = new Locale("hi");					
 	}
 
 	@Override
@@ -150,8 +148,7 @@ public class WordsActivity extends Activity implements SimpleGestureListener, On
 	}
 	
 	private void speakText() {
-		if (_resId > 0)
-		{
+		if (_resId > 0) {
 			_tts.setLanguage(_locale);
 			_tts.speak(getString(_resId), TextToSpeech.QUEUE_ADD, null);
 		}
@@ -227,12 +224,10 @@ public class WordsActivity extends Activity implements SimpleGestureListener, On
 		switch (v.getId()) {
 		case R.id.imgView_Words:
 			displayText();
-			speakText();
-			//onImageClick(v);
+			speakText();			
 			break;
 		case R.id.txtView_Words:
-			speakText();
-			//onTextClick(v);
+			speakText();			
 			break;
 		}
 	}
