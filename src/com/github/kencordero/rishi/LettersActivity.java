@@ -1,7 +1,9 @@
 package com.github.kencordero.rishi;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Locale;
-import java.util.Random;
 
 import android.app.ActionBar;
 import android.app.Activity;
@@ -31,10 +33,10 @@ public class LettersActivity extends Activity implements SimpleGestureListener, 
 	
 	private int _currentIdx;
 	private SimpleGestureFilter _detector;
-	private Random _random;
 	private String _localeId;
 	private Locale _locale;
 	private String[] _letters;
+	private ArrayList<String> _alphabet;
 	private TextToSpeech _tts;	
 	private TextView _textView;
 	private ActionBar _ab;
@@ -45,12 +47,11 @@ public class LettersActivity extends Activity implements SimpleGestureListener, 
 		try {
 		setContentView(R.layout.activity_letters);
 		_ab = getActionBar();
-		_ab.setTitle(R.string.activity_letters_name);
-		_random = new Random();
+		_ab.setTitle(R.string.activity_letters_name);		
 		_currentIdx = 0;
 		_detector = new SimpleGestureFilter(this, this);
-		Resources res = getResources();
-		_letters = res.getStringArray(R.array.letters);
+		//Resources res = getResources();
+		//_letters = res.getStringArray(R.array.letters);
 		_textView = (TextView) findViewById(R.id.txtView_Letters);
 		_textView.setOnClickListener(this);
 		_tts = new TextToSpeech(this, this);
@@ -74,6 +75,7 @@ public class LettersActivity extends Activity implements SimpleGestureListener, 
 		if (_localeId.equals("mr"))
 			_locale = new Locale("hi");
 		_letters = res.getStringArray(R.array.letters);
+		_alphabet = new ArrayList<String>(Arrays.asList(_letters));
 		setLetter();
 		} catch (Exception e) {
 			throwError(e);
@@ -90,7 +92,9 @@ public class LettersActivity extends Activity implements SimpleGestureListener, 
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.action_random:
-			randomLetter();
+			//randomLetter();
+			Collections.shuffle(_alphabet);
+			nextLetter();
 			return true;
 		case R.id.action_settings:
 			Intent intent = new Intent(this, SettingsActivity.class);
@@ -104,14 +108,14 @@ public class LettersActivity extends Activity implements SimpleGestureListener, 
 	private void speakText() {
 		try {
 			_tts.setLanguage(_locale);		
-			_tts.speak(_letters[_currentIdx].toString(), TextToSpeech.QUEUE_ADD, null);
+			_tts.speak(_alphabet.get(_currentIdx).toString(), TextToSpeech.QUEUE_ADD, null);
 		} catch (Exception e) {
 			throwError(e);
 		}
 	}
 	
 	private void setLetter() {
-		_textView.setText(_letters[_currentIdx]);		
+		_textView.setText(_alphabet.get(_currentIdx));		
 	}
 	
 	protected void onSaveInstanceState(Bundle bundle) {
@@ -152,15 +156,6 @@ public class LettersActivity extends Activity implements SimpleGestureListener, 
 		_currentIdx = (--_currentIdx) % (_letters.length);
 		if (_currentIdx < 0)
 			_currentIdx = _letters.length - 1;
-		setLetter();
-	}
-	
-	private void randomLetter() {
-		int randInt;
-		do {
-			randInt = _random.nextInt(_letters.length);			
-		} while (randInt == _currentIdx);
-		_currentIdx = randInt;
 		setLetter();
 	}
 	
