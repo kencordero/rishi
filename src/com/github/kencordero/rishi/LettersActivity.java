@@ -38,16 +38,16 @@ public class LettersActivity extends Activity implements SimpleGestureListener, 
 	private String[] _letters;
 	private ArrayList<String> _alphabet;
 	private TextToSpeech _tts;	
-	private TextView _textView;
-	private ActionBar _ab;
+	private TextView _textView;	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {		
 		super.onCreate(savedInstanceState);
 		try {
 		setContentView(R.layout.activity_letters);
-		_ab = getActionBar();
-		_ab.setTitle(R.string.activity_letters_name);		
+		ActionBar ab = getActionBar();
+		ab.setTitle(R.string.activity_letters_name);
+		ab.setDisplayHomeAsUpEnabled(true);
 		_currentIdx = 0;
 		_detector = new SimpleGestureFilter(this, this);
 		//Resources res = getResources();

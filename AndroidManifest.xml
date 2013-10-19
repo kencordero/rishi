@@ -26,18 +26,43 @@
             android:label="@string/action_settings" />
         <activity
             android:name=".WordsActivity"
-            android:label="@string/activity_words_name" />
+            android:label="@string/activity_words_name"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
         <activity
             android:name=".NumbersActivity"
-            android:label="@string/activity_numbers_name" />
+            android:label="@string/activity_numbers_name"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
 		<activity
 			android:name=".LettersActivity"
-			android:label="@string/activity_letters_name" />
+			android:label="@string/activity_letters_name"
+			android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
 		<activity
 			android:name=".ShapesActivity"
-			android:label="@string/activity_shapes_name" />
+			android:label="@string/activity_shapes_name" 
+			android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
 		<activity
 			android:name=".ColorsActivity"
-			android:label="@string/activity_colors_name" />
+			android:label="@string/activity_colors_name"
+			android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
     </application>
 </manifest>

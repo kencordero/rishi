@@ -57,8 +57,9 @@ public class WordsActivity extends Activity implements SimpleGestureListener, On
 		Bundle bundle = getIntent().getExtras();
 		_folderResId = bundle.getInt("folder");
 		_imageFolderName = getString(_folderResId).toLowerCase(Locale.ENGLISH);
-		ActionBar ab = getActionBar();
+		ActionBar ab = getActionBar();			
 		ab.setTitle(_folderResId);
+		ab.setDisplayHomeAsUpEnabled(true);
 		findImages();
 		_detector = new SimpleGestureFilter(this, this);
 		_currentFileNumber = 0;
