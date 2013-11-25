@@ -51,8 +51,7 @@ public class MainActivity extends Activity {
 			intent.putExtra("folder", R.string.activity_colors_name);
 			break;
 		case R.id.btnSelectLetters:
-			intent = new Intent(this, LettersActivity.class);
-			//intent.putExtra("folder",  R.string.activity_letters_name);
+			intent = new Intent(this, LettersActivity.class);			
 			break;
 		case R.id.btnSelectNumbers:			
 			intent = new Intent(this, WordsActivity.class);

@@ -50,8 +50,6 @@ public class LettersActivity extends Activity implements SimpleGestureListener, 
 		ab.setDisplayHomeAsUpEnabled(true);
 		_currentIdx = 0;
 		_detector = new SimpleGestureFilter(this, this);
-		//Resources res = getResources();
-		//_letters = res.getStringArray(R.array.letters);
 		_textView = (TextView) findViewById(R.id.txtView_Letters);
 		_textView.setOnClickListener(this);
 		_tts = new TextToSpeech(this, this);
@@ -84,7 +82,7 @@ public class LettersActivity extends Activity implements SimpleGestureListener, 
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.alternate, menu);
+		getMenuInflater().inflate(R.menu.letters, menu);
 		return true;
 	}
 	
@@ -99,6 +97,11 @@ public class LettersActivity extends Activity implements SimpleGestureListener, 
 		case R.id.action_settings:
 			Intent intent = new Intent(this, SettingsActivity.class);
 			startActivity(intent);
+			return true;
+		case R.id.action_switch_case:
+			_letters = getResources().getStringArray(R.array.letters_lower);
+			_alphabet = new ArrayList<String>(Arrays.asList(_letters));
+			setLetter();
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);			
@@ -115,7 +118,8 @@ public class LettersActivity extends Activity implements SimpleGestureListener, 
 	}
 	
 	private void setLetter() {
-		_textView.setText(_alphabet.get(_currentIdx));		
+		String letter = _alphabet.get(_currentIdx);
+		_textView.setText(letter);		
 	}
 	
 	protected void onSaveInstanceState(Bundle bundle) {
