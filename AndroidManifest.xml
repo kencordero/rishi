@@ -5,7 +5,7 @@
     android:versionName="0.3" >
 
     <uses-sdk
-        android:minSdkVersion="10"
+        android:minSdkVersion="8"
         android:targetSdkVersion="19" />
 
     <application
@@ -32,33 +32,9 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
-        <activity
-            android:name=".NumbersActivity"
-            android:label="@string/activity_numbers_name"
-            android:parentActivityName=".MainActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
-        </activity>
 		<activity
 			android:name=".LettersActivity"
 			android:label="@string/activity_letters_name"
-			android:parentActivityName=".MainActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
-        </activity>
-		<activity
-			android:name=".ShapesActivity"
-			android:label="@string/activity_shapes_name" 
-			android:parentActivityName=".MainActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
-        </activity>
-		<activity
-			android:name=".ColorsActivity"
-			android:label="@string/activity_colors_name"
 			android:parentActivityName=".MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

@@ -7,6 +7,7 @@ import java.util.Collections;
 import java.util.Locale;
 import java.util.Random;
 
+import android.annotation.TargetApi;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
@@ -15,6 +16,7 @@ import android.content.res.AssetManager;
 import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.speech.tts.TextToSpeech;
@@ -50,16 +52,22 @@ public class WordsActivity extends Activity implements SimpleGestureListener, On
 	private ImageView _imageView;
 	private TextView _textView;
 
+	@TargetApi(11)
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_words);
 		Bundle bundle = getIntent().getExtras();
-		_folderResId = bundle.getInt("folder");
+		_folderResId = bundle.getInt(MainActivity.EXTRA_FOLDER_NAME);
 		_imageFolderName = getString(_folderResId).toLowerCase(Locale.ENGLISH);
-		ActionBar ab = getActionBar();			
-		ab.setTitle(_folderResId);
-		ab.setDisplayHomeAsUpEnabled(true);
+		
+		//setup action bar		
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+			ActionBar ab = getActionBar();
+			ab.setTitle(_folderResId);
+			ab.setDisplayHomeAsUpEnabled(true);
+		}
+		
 		findImages();
 		_detector = new SimpleGestureFilter(this, this);
 		_currentFileNumber = 0;
