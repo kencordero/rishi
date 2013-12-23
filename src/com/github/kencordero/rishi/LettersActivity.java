@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Locale;
 
+import android.annotation.TargetApi;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
@@ -12,6 +13,7 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.media.AudioManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.speech.tts.TextToSpeech;
@@ -40,14 +42,20 @@ public class LettersActivity extends Activity implements SimpleGestureListener, 
 	private TextToSpeech mTTS;	
 	private TextView mTextView;	
 
+	@TargetApi(11)
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {		
 		super.onCreate(savedInstanceState);
 		try {
 		setContentView(R.layout.activity_letters);
-		ActionBar ab = getActionBar();
-		ab.setTitle(R.string.activity_letters_name);
-		ab.setDisplayHomeAsUpEnabled(true);
+		
+		//setup action bar
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+			ActionBar ab = getActionBar();
+			ab.setTitle(R.string.activity_letters_name);
+			ab.setDisplayHomeAsUpEnabled(true);				
+		}
+		
 		mCurrentIdx = 0;
 		mDetector = new SimpleGestureFilter(this, this);
 		mTextView = (TextView) findViewById(R.id.txtView_Letters);
@@ -134,7 +142,7 @@ public class LettersActivity extends Activity implements SimpleGestureListener, 
 	
 	@Override
 	public boolean dispatchTouchEvent(MotionEvent me) {
-		this.mDetector.onTouchEvent(me);
+		mDetector.onTouchEvent(me);
 		return super.dispatchTouchEvent(me);
 	}
 
@@ -190,4 +198,7 @@ public class LettersActivity extends Activity implements SimpleGestureListener, 
 		Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show();
 		e.printStackTrace();
 	}
+
+	@Override
+	public void onDoubleTap() { }
 }

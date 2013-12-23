@@ -128,7 +128,7 @@ public class WordsActivity extends Activity implements SimpleGestureListener, On
 
 	@Override
 	public boolean dispatchTouchEvent(MotionEvent me) {
-		this.mDetector.onTouchEvent(me);
+		mDetector.onTouchEvent(me);
 		return super.dispatchTouchEvent(me);
 	}
 
@@ -240,4 +240,13 @@ public class WordsActivity extends Activity implements SimpleGestureListener, On
 			break;
 		}
 	}
+	
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		mTTS.shutdown();
+	}
+
+	@Override
+	public void onDoubleTap() { }
 }
