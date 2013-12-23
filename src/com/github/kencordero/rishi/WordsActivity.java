@@ -36,21 +36,21 @@ public class WordsActivity extends Activity implements SimpleGestureListener, On
 	private static final String BUNDLE_FILE_KEY = "currentFileNumber";
 	private static final String BUNDLE_LOCALE_KEY = "currentLocale";
 	
-	protected AssetManager _assets;	
-	private Locale _locale;
-	private Random _random;
-	private String[] _files;
-	private ArrayList<String> _fileList;
-	private String _currentFileName;
-	private int _currentFileNumber;
-	private SimpleGestureFilter _detector;
-	private String _localeId;
-	private int _folderResId;
-	private String _imageFolderName;
-	private TextToSpeech _tts;
-	private int _resId;
-	private ImageView _imageView;
-	private TextView _textView;
+	protected AssetManager mAssets;	
+	private Locale mLocale;
+	private Random mRandom;
+	private String[] mFiles;
+	private ArrayList<String> mFileList;
+	private String mCurrentFileName;
+	private int mCurrentFileIdx;
+	private SimpleGestureFilter mDetector;
+	private String mLocaleId;
+	private int mFolderResId;
+	private String mImageFolderName;
+	private TextToSpeech mTTS;
+	private int mResId;
+	private ImageView mImageView;
+	private TextView mTextView;
 
 	@TargetApi(11)
 	@Override
@@ -58,37 +58,37 @@ public class WordsActivity extends Activity implements SimpleGestureListener, On
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_words);
 		Bundle bundle = getIntent().getExtras();
-		_folderResId = bundle.getInt(MainActivity.EXTRA_FOLDER_NAME);
-		_imageFolderName = getString(_folderResId).toLowerCase(Locale.ENGLISH);
+		mFolderResId = bundle.getInt(MainActivity.EXTRA_FOLDER_NAME);
+		mImageFolderName = getString(mFolderResId).toLowerCase(Locale.ENGLISH);
 		
 		//setup action bar		
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
 			ActionBar ab = getActionBar();
-			ab.setTitle(_folderResId);
+			ab.setTitle(mFolderResId);
 			ab.setDisplayHomeAsUpEnabled(true);
 		}
 		
 		findImages();
-		_detector = new SimpleGestureFilter(this, this);
-		_currentFileNumber = 0;
-		_random = new Random();	
-		_tts = new TextToSpeech(this, this);
-		_imageView = (ImageView) findViewById(R.id.imgView_Words);
-		_imageView.setOnClickListener(this);
-		_textView = (TextView) findViewById(R.id.txtView_Words);
-		_textView.setOnClickListener(this);
+		mDetector = new SimpleGestureFilter(this, this);
+		mCurrentFileIdx = 0;
+		mRandom = new Random();	
+		mTTS = new TextToSpeech(this, this);
+		mImageView = (ImageView) findViewById(R.id.imgView_Words);
+		mImageView.setOnClickListener(this);
+		mTextView = (TextView) findViewById(R.id.txtView_Words);
+		mTextView.setOnClickListener(this);
 		setVolumeControlStream(AudioManager.STREAM_MUSIC);
 	}
 	
 	@Override
 	protected void onSaveInstanceState(Bundle bundle) {
-		bundle.putInt(BUNDLE_FILE_KEY , _currentFileNumber);
-		bundle.putString(BUNDLE_LOCALE_KEY, _localeId);
+		bundle.putInt(BUNDLE_FILE_KEY , mCurrentFileIdx);
+		bundle.putString(BUNDLE_LOCALE_KEY, mLocaleId);
 	}
 	
 	protected void onRestoreInstanceState(Bundle bundle) {
-		_currentFileNumber = bundle.getInt(BUNDLE_FILE_KEY);
-		_localeId = bundle.getString(BUNDLE_LOCALE_KEY);
+		mCurrentFileIdx = bundle.getInt(BUNDLE_FILE_KEY);
+		mLocaleId = bundle.getString(BUNDLE_LOCALE_KEY);
 	}
 
 	@Override
@@ -96,13 +96,13 @@ public class WordsActivity extends Activity implements SimpleGestureListener, On
 		super.onResume();
 		loadImage();
 		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-		_localeId = preferences.getString(SettingsFragment.KEY_PREF_LANGUAGE,  "0");
+		mLocaleId = preferences.getString(SettingsFragment.KEY_PREF_LANGUAGE,  "0");
 		Configuration config = getBaseContext().getResources().getConfiguration();
-		_locale = new Locale(_localeId);
-		config.locale = _locale;
+		mLocale = new Locale(mLocaleId);
+		config.locale = mLocale;
 		getBaseContext().getResources().updateConfiguration(config, null);
-		if (_localeId.equals("mr")) //There's no speech engine for Marathi			
-			_locale = new Locale("hi");					
+		if (mLocaleId.equals("mr")) //There's no speech engine for Marathi			
+			mLocale = new Locale("hi");					
 	}
 
 	@Override
@@ -128,7 +128,7 @@ public class WordsActivity extends Activity implements SimpleGestureListener, On
 
 	@Override
 	public boolean dispatchTouchEvent(MotionEvent me) {
-		this._detector.onTouchEvent(me);
+		this.mDetector.onTouchEvent(me);
 		return super.dispatchTouchEvent(me);
 	}
 
@@ -145,11 +145,11 @@ public class WordsActivity extends Activity implements SimpleGestureListener, On
 	}
 	
 	private void displayText() {
-		if (_textView.getText().length() == 0) {
-			String displayName = _currentFileName.replace(".jpg", "");
+		if (mTextView.getText().length() == 0) {
+			String displayName = mCurrentFileName.replace(".jpg", "");
 			try {
-				_resId = R.string.class.getField(displayName).getInt(null);			
-				_textView.setText(_resId);
+				mResId = R.string.class.getField(displayName).getInt(null);			
+				mTextView.setText(mResId);
 			} catch (Exception e) {
 				throwError(e);
 			}
@@ -157,60 +157,60 @@ public class WordsActivity extends Activity implements SimpleGestureListener, On
 	}
 	
 	private void speakText() {
-		if (_resId > 0) {
-			_tts.setLanguage(_locale);
-			_tts.speak(getString(_resId), TextToSpeech.QUEUE_ADD, null);
+		if (mResId > 0) {
+			mTTS.setLanguage(mLocale);
+			mTTS.speak(getString(mResId), TextToSpeech.QUEUE_ADD, null);
 		}
 	}
 
 	private void findImages() {
-		_assets = getAssets();
+		mAssets = getAssets();
 		try {
-			_files = _assets.list(_imageFolderName);
-			_fileList = new ArrayList<String>(Arrays.asList(_files));
-			if (_folderResId != R.string.activity_letters_name && 
-				_folderResId != R.string.activity_numbers_name)
-				Collections.shuffle(_fileList);
+			mFiles = mAssets.list(mImageFolderName);
+			mFileList = new ArrayList<String>(Arrays.asList(mFiles));
+			if (mFolderResId != R.string.activity_letters_name && 
+				mFolderResId != R.string.activity_numbers_name)
+				Collections.shuffle(mFileList);
 		} catch (Exception e) {
 			throwError(e);
 		}
 	}
 
 	private void loadImage() {
-		//_currentFileName = _files[_currentFileNumber];
-		_currentFileName = _fileList.get(_currentFileNumber);
+		//mCurrentFileName = mFiles[mCurrentFileIdx];
+		mCurrentFileName = mFileList.get(mCurrentFileIdx);
 		InputStream stream = null;
 		try {
-			stream = _assets.open(_imageFolderName + "/" + _currentFileName);
+			stream = mAssets.open(mImageFolderName + "/" + mCurrentFileName);
 		} catch (Exception e) {
 			throwError(e);
 		}
-		Drawable img = Drawable.createFromStream(stream, _currentFileName);
+		Drawable img = Drawable.createFromStream(stream, mCurrentFileName);
 		//ImageView iv = (ImageView) findViewById(R.id.imgView_Words);
-		_imageView.setImageDrawable(img);				
-		_textView.setText("");
-		// not resetting _resId causes tts to speak previous word
-		_resId = -1; 
+		mImageView.setImageDrawable(img);				
+		mTextView.setText("");
+		// not resetting mResId causes tts to speak previous word
+		mResId = -1; 
 	}
 
 	private void loadNextImage() {
-		_currentFileNumber = (++_currentFileNumber) % (_files.length);
+		mCurrentFileIdx = (++mCurrentFileIdx) % (mFiles.length);
 		loadImage();
 	}
 
 	private void loadPreviousImage() {
-		_currentFileNumber = (--_currentFileNumber) % (_files.length);
-		if (_currentFileNumber < 0)
-			_currentFileNumber = _files.length - 1;
+		mCurrentFileIdx = (--mCurrentFileIdx) % (mFiles.length);
+		if (mCurrentFileIdx < 0)
+			mCurrentFileIdx = mFiles.length - 1;
 		loadImage();
 	}
 
 	private void loadRandomImage() {
 		int randInt;
 		do {
-			randInt = _random.nextInt(_files.length);
-		} while (randInt == _currentFileNumber);
-		_currentFileNumber = randInt;
+			randInt = mRandom.nextInt(mFiles.length);
+		} while (randInt == mCurrentFileIdx);
+		mCurrentFileIdx = randInt;
 		loadImage();
 	}
 
@@ -225,7 +225,7 @@ public class WordsActivity extends Activity implements SimpleGestureListener, On
 	@Override
 	protected void onPause() {
 		super.onPause();
-		_tts.stop();
+		mTTS.stop();
 	}
 	
 	@Override

@@ -31,14 +31,14 @@ public class LettersActivity extends Activity implements SimpleGestureListener, 
 	private static final String BUNDLE_LOCALE_KEY = "currentLocale";
 	public final String TAG = "LettersActivity";
 	
-	private int _currentIdx;
-	private SimpleGestureFilter _detector;
-	private String _localeId;
-	private Locale _locale;
-	private String[] _letters;
-	private ArrayList<String> _alphabet;
-	private TextToSpeech _tts;	
-	private TextView _textView;	
+	private int mCurrentIdx;
+	private SimpleGestureFilter mDetector;
+	private String mLocaleId;
+	private Locale mLocale;
+	private String[] mLetters;
+	private ArrayList<String> mAlphabet;
+	private TextToSpeech mTTS;	
+	private TextView mTextView;	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {		
@@ -48,11 +48,11 @@ public class LettersActivity extends Activity implements SimpleGestureListener, 
 		ActionBar ab = getActionBar();
 		ab.setTitle(R.string.activity_letters_name);
 		ab.setDisplayHomeAsUpEnabled(true);
-		_currentIdx = 0;
-		_detector = new SimpleGestureFilter(this, this);
-		_textView = (TextView) findViewById(R.id.txtView_Letters);
-		_textView.setOnClickListener(this);
-		_tts = new TextToSpeech(this, this);
+		mCurrentIdx = 0;
+		mDetector = new SimpleGestureFilter(this, this);
+		mTextView = (TextView) findViewById(R.id.txtView_Letters);
+		mTextView.setOnClickListener(this);
+		mTTS = new TextToSpeech(this, this);
 		setVolumeControlStream(AudioManager.STREAM_MUSIC);
 		} catch (Exception e) {
 			throwError(e);
@@ -64,16 +64,16 @@ public class LettersActivity extends Activity implements SimpleGestureListener, 
 		super.onResume();
 		try {
 		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-		_localeId = preferences.getString(SettingsFragment.KEY_PREF_LANGUAGE, "0");
+		mLocaleId = preferences.getString(SettingsFragment.KEY_PREF_LANGUAGE, "0");
 		Configuration config = getBaseContext().getResources().getConfiguration();
-		_locale = new Locale(_localeId);
-		config.locale = _locale;
+		mLocale = new Locale(mLocaleId);
+		config.locale = mLocale;
 		getBaseContext().getResources().updateConfiguration(config, null);
 		Resources res = getResources();
-		if (_localeId.equals("mr"))
-			_locale = new Locale("hi");
-		_letters = res.getStringArray(R.array.letters);
-		_alphabet = new ArrayList<String>(Arrays.asList(_letters));
+		if (mLocaleId.equals("mr"))
+			mLocale = new Locale("hi");
+		mLetters = res.getStringArray(R.array.letters);
+		mAlphabet = new ArrayList<String>(Arrays.asList(mLetters));
 		setLetter();
 		} catch (Exception e) {
 			throwError(e);
@@ -91,7 +91,7 @@ public class LettersActivity extends Activity implements SimpleGestureListener, 
 		switch (item.getItemId()) {
 		case R.id.action_random:
 			//randomLetter();
-			Collections.shuffle(_alphabet);
+			Collections.shuffle(mAlphabet);
 			nextLetter();
 			return true;
 		case R.id.action_settings:
@@ -99,8 +99,8 @@ public class LettersActivity extends Activity implements SimpleGestureListener, 
 			startActivity(intent);
 			return true;
 		case R.id.action_switch_case:
-			_letters = getResources().getStringArray(R.array.letters_lower);
-			_alphabet = new ArrayList<String>(Arrays.asList(_letters));
+			mLetters = getResources().getStringArray(R.array.letters_lower);
+			mAlphabet = new ArrayList<String>(Arrays.asList(mLetters));
 			setLetter();
 			return true;
 		default:
@@ -110,31 +110,31 @@ public class LettersActivity extends Activity implements SimpleGestureListener, 
 	
 	private void speakText() {
 		try {
-			_tts.setLanguage(_locale);		
-			_tts.speak(_alphabet.get(_currentIdx).toString(), TextToSpeech.QUEUE_ADD, null);
+			mTTS.setLanguage(mLocale);		
+			mTTS.speak(mAlphabet.get(mCurrentIdx).toString(), TextToSpeech.QUEUE_ADD, null);
 		} catch (Exception e) {
 			throwError(e);
 		}
 	}
 	
 	private void setLetter() {
-		String letter = _alphabet.get(_currentIdx);
-		_textView.setText(letter);		
+		String letter = mAlphabet.get(mCurrentIdx);
+		mTextView.setText(letter);		
 	}
 	
 	protected void onSaveInstanceState(Bundle bundle) {
-		bundle.putInt(BUNDLE_INDEX_KEY, _currentIdx);
-		bundle.putString(BUNDLE_LOCALE_KEY, _localeId);
+		bundle.putInt(BUNDLE_INDEX_KEY, mCurrentIdx);
+		bundle.putString(BUNDLE_LOCALE_KEY, mLocaleId);
 	}
 	
 	protected void onRestoreInstanceState(Bundle bundle) {
-		_currentIdx = bundle.getInt(BUNDLE_INDEX_KEY);
-		_localeId = bundle.getString(BUNDLE_LOCALE_KEY);
+		mCurrentIdx = bundle.getInt(BUNDLE_INDEX_KEY);
+		mLocaleId = bundle.getString(BUNDLE_LOCALE_KEY);
 	}
 	
 	@Override
 	public boolean dispatchTouchEvent(MotionEvent me) {
-		this._detector.onTouchEvent(me);
+		this.mDetector.onTouchEvent(me);
 		return super.dispatchTouchEvent(me);
 	}
 
@@ -152,14 +152,14 @@ public class LettersActivity extends Activity implements SimpleGestureListener, 
 	}
 	
 	private void nextLetter() {
-		_currentIdx = (++_currentIdx) % (_letters.length);
+		mCurrentIdx = (++mCurrentIdx) % (mLetters.length);
 		setLetter();
 	}
 	
 	private void previousLetter() {
-		_currentIdx = (--_currentIdx) % (_letters.length);
-		if (_currentIdx < 0)
-			_currentIdx = _letters.length - 1;
+		mCurrentIdx = (--mCurrentIdx) % (mLetters.length);
+		if (mCurrentIdx < 0)
+			mCurrentIdx = mLetters.length - 1;
 		setLetter();
 	}
 	
@@ -183,7 +183,7 @@ public class LettersActivity extends Activity implements SimpleGestureListener, 
 	@Override
 	protected void onPause() {
 		super.onPause();
-		_tts.stop();
+		mTTS.stop();
 	}
 	
 	private void throwError(Exception e) {
