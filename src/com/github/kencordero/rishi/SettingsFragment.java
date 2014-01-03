@@ -37,5 +37,10 @@ public class SettingsFragment extends PreferenceFragment implements OnSharedPref
 			languagePref.setSummary(languagePref.getEntry());
 		}
 	}
+	
+	private void setSummary() {
+		ListPreference languagePref = (ListPreference)findPreference(KEY_PREF_LANGUAGE);
+		languagePref.setSummary(languagePref.getEntry());
+	}
 
 }

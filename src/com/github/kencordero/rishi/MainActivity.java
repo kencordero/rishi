@@ -36,33 +36,37 @@ public class MainActivity extends Activity {
 		}
 	}
 
-	public void onButtonClick(View v) {
-		Intent intent = null;
+	public void onButtonClick(View v) {		
+		Class<?> cls = null;
+		int resId = -1;
 		switch (v.getId()) {
 			case R.id.btnSelectAnimals:
-				intent = new Intent(this, WordsActivity.class);
-				intent.putExtra(EXTRA_FOLDER_NAME, R.string.words_animals_name);
+				cls = WordsActivity.class;
+				resId = R.string.words_animals_name;
 				break;
 			case R.id.btnSelectFoods:
-				intent = new Intent(this, WordsActivity.class);
-				intent.putExtra(EXTRA_FOLDER_NAME, R.string.words_foods_name);
+				cls = WordsActivity.class;
+				resId = R.string.words_foods_name;
 				break;
 			case R.id.btnSelectColors:
-				intent = new Intent(this, WordsActivity.class);
-				intent.putExtra(EXTRA_FOLDER_NAME, R.string.activity_colors_name);
+				cls = WordsActivity.class;
+				resId = R.string.activity_colors_name;
 				break;
 			case R.id.btnSelectLetters:
-				intent = new Intent(this, LettersActivity.class);			
+				cls = LettersActivity.class;			
 				break;
-			case R.id.btnSelectNumbers:			
-				intent = new Intent(this, WordsActivity.class);
-				intent.putExtra(EXTRA_FOLDER_NAME, R.string.activity_numbers_name);
+			case R.id.btnSelectNumbers:
+				cls = WordsActivity.class;
+				resId = R.string.activity_numbers_name;
 				break;
 			case R.id.btnSelectShapes:
-				intent = new Intent(this, WordsActivity.class);
-				intent.putExtra(EXTRA_FOLDER_NAME, R.string.activity_shapes_name);
+				cls = WordsActivity.class;
+				resId = R.string.activity_shapes_name;
 				break;
 		}
+		Intent intent = new Intent(this, cls);
+		if (resId > -1)
+			intent.putExtra(EXTRA_FOLDER_NAME, resId);
 		startActivity(intent);
 	}
 }
