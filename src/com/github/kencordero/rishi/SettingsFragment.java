@@ -1,11 +1,14 @@
 package com.github.kencordero.rishi;
 
+import android.annotation.TargetApi;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.PreferenceFragment;
 
+@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class SettingsFragment extends PreferenceFragment implements OnSharedPreferenceChangeListener {
 	public static final String KEY_PREF_LANGUAGE = "pref_language";
 	
@@ -14,8 +17,7 @@ public class SettingsFragment extends PreferenceFragment implements OnSharedPref
 		super.onCreate(savedInstanceState);
 		addPreferencesFromResource(R.xml.preferences);
 		
-		ListPreference languagePref = (ListPreference) findPreference(KEY_PREF_LANGUAGE);
-		languagePref.setSummary(languagePref.getEntry());
+		setSummary();		
 	}
 
 	@Override
@@ -32,10 +34,8 @@ public class SettingsFragment extends PreferenceFragment implements OnSharedPref
 	
 	@Override
 	public void onSharedPreferenceChanged(SharedPreferences sharedPrefences, String key) {
-		if (key.equals(KEY_PREF_LANGUAGE)) {
-			ListPreference languagePref = (ListPreference) findPreference(key);
-			languagePref.setSummary(languagePref.getEntry());
-		}
+		if (key.equals(KEY_PREF_LANGUAGE))
+			setSummary();					
 	}
 	
 	private void setSummary() {
