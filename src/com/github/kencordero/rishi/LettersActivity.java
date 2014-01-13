@@ -37,12 +37,13 @@ public class LettersActivity extends Activity implements SimpleGestureListener, 
 	private SimpleGestureFilter mDetector;
 	private String mLocaleId;
 	private Locale mLocale;
+	private int mArrayResId;
 	private String[] mLetters;
 	private ArrayList<String> mAlphabet;
 	private TextToSpeech mTTS;	
 	private TextView mTextView;	
-
-	@TargetApi(11)
+	
+	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {		
 		super.onCreate(savedInstanceState);
@@ -70,6 +71,7 @@ public class LettersActivity extends Activity implements SimpleGestureListener, 
 	@Override
 	protected void onResume() {
 		super.onResume();
+		
 		try {
 		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
 		mLocaleId = preferences.getString(SettingsFragment.KEY_PREF_LANGUAGE, "0");
@@ -80,7 +82,8 @@ public class LettersActivity extends Activity implements SimpleGestureListener, 
 		Resources res = getResources();
 		if (mLocaleId.equals("mr"))
 			mLocale = new Locale("hi");
-		mLetters = res.getStringArray(R.array.letters);
+		mArrayResId = R.array.letters;
+		mLetters = res.getStringArray(mArrayResId);
 		mAlphabet = new ArrayList<String>(Arrays.asList(mLetters));
 		setLetter();
 		} catch (Exception e) {
@@ -107,7 +110,11 @@ public class LettersActivity extends Activity implements SimpleGestureListener, 
 			startActivity(intent);
 			return true;
 		case R.id.action_switch_case:
-			mLetters = getResources().getStringArray(R.array.letters_lower);
+			if (mArrayResId == R.array.letters)
+				mArrayResId = R.array.letters_lower;
+			else
+				mArrayResId = R.array.letters;
+			mLetters = getResources().getStringArray(mArrayResId);
 			mAlphabet = new ArrayList<String>(Arrays.asList(mLetters));
 			setLetter();
 			return true;
