@@ -41,7 +41,7 @@ public class LettersActivity extends Activity implements SimpleGestureListener, 
 	private String[] mLetters;
 	private ArrayList<String> mAlphabet;
 	private TextToSpeech mTTS;	
-	private TextView mTextView;	
+	private TextView mTextView;
 	
 	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 	@Override
@@ -68,6 +68,7 @@ public class LettersActivity extends Activity implements SimpleGestureListener, 
 		}
 	}
 	
+	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 	@Override
 	protected void onResume() {
 		super.onResume();
@@ -80,12 +81,14 @@ public class LettersActivity extends Activity implements SimpleGestureListener, 
 		config.locale = mLocale;
 		getBaseContext().getResources().updateConfiguration(config, null);
 		Resources res = getResources();
-		if (mLocaleId.equals("mr"))
-			mLocale = new Locale("hi");
+		if (mLocaleId.equals("mr"))		
+			mLocale = new Locale("hi");	
 		mArrayResId = R.array.letters;
 		mLetters = res.getStringArray(mArrayResId);
 		mAlphabet = new ArrayList<String>(Arrays.asList(mLetters));
 		setLetter();
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
+			invalidateOptionsMenu();
 		} catch (Exception e) {
 			throwError(e);
 		}
@@ -94,6 +97,13 @@ public class LettersActivity extends Activity implements SimpleGestureListener, 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.letters, menu);
+		return true;
+	}
+	
+	@Override
+	public boolean onPrepareOptionsMenu(Menu menu) {
+		MenuItem switchCase = menu.findItem(R.id.action_switch_case);
+		switchCase.setVisible(!mLocaleId.equals("mr"));
 		return true;
 	}
 	
