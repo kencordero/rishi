@@ -205,7 +205,4 @@ public class LettersActivity extends Activity implements SimpleGestureListener, 
 		Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show();
 		e.printStackTrace();
 	}
-
-	@Override
-	public void onDoubleTap() { }
 }

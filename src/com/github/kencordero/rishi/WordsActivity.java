@@ -246,7 +246,4 @@ public class WordsActivity extends Activity implements SimpleGestureListener, On
 		super.onDestroy();
 		mTTS.shutdown();
 	}
-
-	@Override
-	public void onDoubleTap() { }
 }
