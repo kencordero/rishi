@@ -15,7 +15,6 @@
     <string name="raspberry">frambuesa</string>
     <string name="tomato">tomates</string>
     <string name="zucchini">calabacines</string>
-    
     <string name="bear">oso</string>
     <string name="bird">pájaro</string>
     <string name="camel">camello</string>
@@ -35,7 +34,6 @@
     <string name="sheep">oveja</string>
     <string name="turtle">tortuga</string>
     <string name="whale">ballena</string>
-    
     <string name="a_one">uno</string>
     <string name="b_two">dos</string>
     <string name="c_three">tres</string>
@@ -48,14 +46,12 @@
     <string name="j_ten">diez</string>
     <string name="k_eleven">once</string>
     <string name="l_twelve">doce</string>
-    
     <string name="circle">círculo</string>
     <string name="crescent">medialuna</string>
     <string name="rectangle">rectángulo</string>
-    <string name="square">cuadrado</string> 
-    <string name="star">estrella</string>               
+    <string name="square">cuadrado</string>
+    <string name="star">estrella</string>
     <string name="triangle">triángulo</string>
-    
     <string name="black">negro</string>
     <string name="blue">azul</string>
     <string name="brown">marrón</string>
@@ -66,7 +62,6 @@
     <string name="red">rojo</string>
     <string name="white">blanco</string>
     <string name="yellow">amarillo</string>
-    
     <string-array name="letters">
         <item>A</item>
         <item>B</item>
@@ -95,5 +90,34 @@
         <item>X</item>
         <item>Y</item>
         <item>Z</item>
+    </string-array>
+    <string-array name="letters_lower">
+        <item>a</item>
+        <item>b</item>
+        <item>c</item>
+        <item>d</item>
+        <item>e</item>
+        <item>f</item>
+        <item>g</item>
+        <item>h</item>
+        <item>i</item>
+        <item>j</item>
+        <item>k</item>
+        <item>l</item>
+        <item>m</item>
+        <item>n</item>
+        <item>ñ</item>
+        <item>o</item>
+        <item>p</item>
+        <item>q</item>
+        <item>r</item>
+        <item>s</item>
+        <item>t</item>
+        <item>u</item>
+        <item>v</item>
+        <item>w</item>
+        <item>x</item>
+        <item>y</item>
+        <item>z</item>
     </string-array>
 </resources>
