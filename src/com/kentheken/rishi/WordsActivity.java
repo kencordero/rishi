@@ -1,4 +1,4 @@
-package com.github.kencordero.rishi;
+package com.kentheken.rishi;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -30,7 +30,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.github.kencordero.rishi.SimpleGestureFilter.SimpleGestureListener;
+import com.kentheken.rishi.R;
+import com.kentheken.rishi.SimpleGestureFilter.SimpleGestureListener;
 
 public class WordsActivity extends Activity implements SimpleGestureListener, OnInitListener, OnClickListener {
 	private static final String BUNDLE_FILE_KEY = "currentFileNumber";

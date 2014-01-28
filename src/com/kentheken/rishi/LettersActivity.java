@@ -1,4 +1,4 @@
-package com.github.kencordero.rishi;
+package com.kentheken.rishi;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -26,7 +26,8 @@ import android.view.View.OnClickListener;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.github.kencordero.rishi.SimpleGestureFilter.SimpleGestureListener;
+import com.kentheken.rishi.R;
+import com.kentheken.rishi.SimpleGestureFilter.SimpleGestureListener;
 
 public class LettersActivity extends Activity implements SimpleGestureListener, OnInitListener, OnClickListener {
 	private static final String BUNDLE_INDEX_KEY = "currentIndex";

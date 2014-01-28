@@ -1,4 +1,6 @@
-package com.github.kencordero.rishi;
+package com.kentheken.rishi;
+
+import com.kentheken.rishi.R;
 
 import android.app.Activity;
 import android.content.Intent;

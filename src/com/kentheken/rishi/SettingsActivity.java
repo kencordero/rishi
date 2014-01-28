@@ -1,4 +1,4 @@
-package com.github.kencordero.rishi;
+package com.kentheken.rishi;
 
 import android.annotation.TargetApi;
 import android.os.Build;

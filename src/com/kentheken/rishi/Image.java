@@ -1,4 +1,4 @@
-package com.github.kencordero.rishi;
+package com.kentheken.rishi;
 
 public class Image {
 	public enum Category {
