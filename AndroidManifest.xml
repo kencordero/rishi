@@ -12,7 +12,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.kentheken.rishi.MainActivity"
+            android:name=".MainActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -20,20 +20,36 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.kentheken.rishi.SettingsActivity"
+            android:name=".SettingsActivity"
             android:label="@string/action_settings"/>
         <activity
-            android:name="com.kentheken.rishi.WordsActivity"
+            android:name=".WordsActivity"
             android:label="@string/activity_words_name"
-            android:parentActivityName="com.kentheken.rishi.MainActivity">
+            android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity"/>
         </activity>
         <activity
-            android:name="com.kentheken.rishi.LettersActivity"
+            android:name=".FlashCardPagerActivity"
+            android:label="@string/activity_words_name"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity"/>
+        </activity>
+        <activity
+            android:name=".LetterPagerActivity"
+            android:label="@string/activity_words_name"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity"/>
+        </activity>
+        <activity
+            android:name=".LettersActivity"
             android:label="@string/activity_letters_name"
-            android:parentActivityName="com.kentheken.rishi.MainActivity">
+            android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity"/>

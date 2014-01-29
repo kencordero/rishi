@@ -43,26 +43,26 @@ public class MainActivity extends Activity {
 		int resId = -1;
 		switch (v.getId()) {
 			case R.id.btnSelectAnimals:
-				cls = WordsActivity.class;
+				cls = FlashCardPagerActivity.class;
 				resId = R.string.words_animals_name;
 				break;
 			case R.id.btnSelectFoods:
-				cls = WordsActivity.class;
+				cls = FlashCardPagerActivity.class;
 				resId = R.string.words_foods_name;
 				break;
 			case R.id.btnSelectColors:
-				cls = WordsActivity.class;
+				cls = FlashCardPagerActivity.class;
 				resId = R.string.activity_colors_name;
 				break;
 			case R.id.btnSelectLetters:
-				cls = LettersActivity.class;			
+				cls = LetterPagerActivity.class;			
 				break;
 			case R.id.btnSelectNumbers:
-				cls = WordsActivity.class;
+				cls = FlashCardPagerActivity.class;
 				resId = R.string.activity_numbers_name;
 				break;
 			case R.id.btnSelectShapes:
-				cls = WordsActivity.class;
+				cls = FlashCardPagerActivity.class;
 				resId = R.string.activity_shapes_name;
 				break;
 		}

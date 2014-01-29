@@ -26,7 +26,7 @@ public class FlashCardPagerActivity extends FragmentActivity {
 		mViewPager.setId(R.id.viewPager);
 		
 		setContentView(mViewPager);
-		getFileList(savedInstanceState);
+		getFileList();
 		
 		FragmentManager fm = getSupportFragmentManager();
 		mViewPager.setAdapter(new FragmentStatePagerAdapter(fm) {
@@ -40,17 +40,13 @@ public class FlashCardPagerActivity extends FragmentActivity {
 			@Override
 			public int getCount() {
 				return mFiles.size();
-			}
-			
+			}			
 		});
-		
-	 
-		
 	}
 	
-	private void getFileList(Bundle bundle) {
-		AssetManager am = getAssets();
-		int resId = bundle.getInt(MainActivity.EXTRA_FOLDER_NAME);
+	private void getFileList() {
+		AssetManager am = getAssets();		
+		int resId = getIntent().getExtras().getInt(MainActivity.EXTRA_FOLDER_NAME);
 		mFolderName = getString(resId).toLowerCase(Locale.US);
 		try {
 			mFiles = new ArrayList<String>(Arrays.asList(am.list(mFolderName)));
