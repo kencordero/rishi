@@ -15,6 +15,5 @@
 *.project
 *.prefs
 *.properties
-*.png
 
 proguard*
