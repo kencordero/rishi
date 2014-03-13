@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.Locale;
 
 import android.content.res.AssetManager;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -27,6 +28,7 @@ public class FlashCardPagerActivity extends FragmentActivity {
 		
 		setContentView(mViewPager);
 		getFileList();
+		setVolumeControlStream(AudioManager.STREAM_MUSIC);		
 		
 		FragmentManager fm = getSupportFragmentManager();
 		mViewPager.setAdapter(new FragmentStatePagerAdapter(fm) {

@@ -7,6 +7,7 @@ import java.util.Locale;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
@@ -27,6 +28,7 @@ public class LetterPagerActivity extends FragmentActivity {
 		mViewPager = new ViewPager(this);
 		mViewPager.setId(R.id.viewPager);
 		setContentView(mViewPager);
+		setVolumeControlStream(AudioManager.STREAM_MUSIC);		
 		
 		//grab locale from settings
 		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
