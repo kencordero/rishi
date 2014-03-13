@@ -20,22 +20,17 @@ import android.speech.tts.TextToSpeech;
 import android.speech.tts.TextToSpeech.OnInitListener;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.kentheken.rishi.R;
-import com.kentheken.rishi.SimpleGestureFilter.SimpleGestureListener;
-
-public class LettersActivity extends Activity implements SimpleGestureListener, OnInitListener, OnClickListener {
+public class LettersActivity extends Activity implements OnInitListener, OnClickListener {
 	private static final String BUNDLE_INDEX_KEY = "currentIndex";
 	private static final String BUNDLE_LOCALE_KEY = "currentLocale";
 	public final String TAG = "LettersActivity";
 	
 	private int mCurrentIdx;
-	private SimpleGestureFilter mDetector;
 	private String mLocaleId;
 	private Locale mLocale;
 	private int mArrayResId;
@@ -59,7 +54,6 @@ public class LettersActivity extends Activity implements SimpleGestureListener, 
 		}
 		
 		mCurrentIdx = 0;
-		mDetector = new SimpleGestureFilter(this, this);
 		mTextView = (TextView) findViewById(R.id.txtView_Letters);
 		mTextView.setOnClickListener(this);
 		mTTS = new TextToSpeech(this, this);
@@ -157,26 +151,7 @@ public class LettersActivity extends Activity implements SimpleGestureListener, 
 		mCurrentIdx = bundle.getInt(BUNDLE_INDEX_KEY);
 		mLocaleId = bundle.getString(BUNDLE_LOCALE_KEY);
 	}
-	
-	@Override
-	public boolean dispatchTouchEvent(MotionEvent me) {
-		mDetector.onTouchEvent(me);
-		return super.dispatchTouchEvent(me);
-	}
-
-
-	@Override
-	public void onSwipe(int direction) {
-		switch (direction) {
-		case SimpleGestureFilter.SWIPE_LEFT:
-			nextLetter();
-			break;
-		case SimpleGestureFilter.SWIPE_RIGHT:
-			previousLetter();
-			break;
-		}		
-	}
-	
+		
 	private void nextLetter() {
 		mCurrentIdx = (++mCurrentIdx) % (mLetters.length);
 		setLetter();

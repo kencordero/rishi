@@ -23,17 +23,13 @@ import android.speech.tts.TextToSpeech;
 import android.speech.tts.TextToSpeech.OnInitListener;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.kentheken.rishi.R;
-import com.kentheken.rishi.SimpleGestureFilter.SimpleGestureListener;
-
-public class WordsActivity extends Activity implements SimpleGestureListener, OnInitListener, OnClickListener {
+public class WordsActivity extends Activity implements OnInitListener, OnClickListener {
 	private static final String BUNDLE_FILE_KEY = "currentFileNumber";
 	private static final String BUNDLE_LOCALE_KEY = "currentLocale";
 	
@@ -44,7 +40,6 @@ public class WordsActivity extends Activity implements SimpleGestureListener, On
 	private ArrayList<String> mFileList;
 	private String mCurrentFileName;
 	private int mCurrentFileIdx;
-	private SimpleGestureFilter mDetector;
 	private String mLocaleId;
 	private int mFolderResId;
 	private String mImageFolderName;
@@ -70,7 +65,6 @@ public class WordsActivity extends Activity implements SimpleGestureListener, On
 		}
 		
 		findImages();
-		mDetector = new SimpleGestureFilter(this, this);
 		mCurrentFileIdx = 0;
 		mRandom = new Random();	
 		mTTS = new TextToSpeech(this, this);
@@ -127,24 +121,6 @@ public class WordsActivity extends Activity implements SimpleGestureListener, On
 		}
 	}
 
-	@Override
-	public boolean dispatchTouchEvent(MotionEvent me) {
-		mDetector.onTouchEvent(me);
-		return super.dispatchTouchEvent(me);
-	}
-
-	@Override
-	public void onSwipe(int direction) {
-		switch (direction) {
-		case SimpleGestureFilter.SWIPE_LEFT:
-			loadNextImage();
-			break;
-		case SimpleGestureFilter.SWIPE_RIGHT:
-			loadPreviousImage();
-			break;
-		}
-	}
-	
 	private void displayText() {
 		if (mTextView.getText().length() == 0) {
 			String displayName = mCurrentFileName.replace(".jpg", "");
