@@ -8,18 +8,16 @@ import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.speech.tts.TextToSpeech;
-import android.speech.tts.TextToSpeech.OnInitListener;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class FlashCardFragment extends Fragment
-	implements OnInitListener {
+public class FlashCardFragment extends Fragment {
 	public static final String EXTRA_FOLDER = "com.kentheken.rishi.folder";
 	public static final String EXTRA_FILENAME = "com.kentheken.rishi.filename";
 
@@ -27,7 +25,7 @@ public class FlashCardFragment extends Fragment
 	private TextView mTextView;
 	private String mFileName;
 	private int mResId;
-	private TextToSpeech mTTS;
+	private TTSEngine mTTS;
 	private String mLocaleId;
 	private Locale mLocale;
 	
@@ -46,6 +44,7 @@ public class FlashCardFragment extends Fragment
 	
 	public View onCreateView(LayoutInflater inflater, ViewGroup parent,
 			Bundle savedInstanceState) {
+		mTTS = new TTSEngine(getActivity());
 		View v = inflater.inflate(R.layout.activity_words, parent, false);
 
 		mImageView = (ImageView) v.findViewById(R.id.imgView_Words);
@@ -76,8 +75,7 @@ public class FlashCardFragment extends Fragment
 				speakText();
 			}
 		});
-		mResId = -1;
-		mTTS = new TextToSpeech(getActivity(), this);
+		mResId = -1;		
 		return v;
 	}
 
@@ -104,31 +102,27 @@ public class FlashCardFragment extends Fragment
 			}
 		}
 	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+			case R.id.action_random:
+				return true;
+			case R.id.action_settings:
+				return true;
+			default:
+				return super.onOptionsItemSelected(item);
+		}
+	}
+	
 
 	private void speakText() {
-		if (mResId > 0) {
-			mTTS.setLanguage(mLocale);
-			mTTS.speak(getString(mResId), TextToSpeech.QUEUE_ADD, null);
-		}
+		if (mResId > 0)
+			mTTS.speak(mLocale, getString(mResId));					
 	}
 
 	private void throwError(Exception e) {
 		Toast.makeText(getActivity(), e.toString(), Toast.LENGTH_SHORT).show();
 		e.printStackTrace();
-	}
-
-	@Override
-	public void onInit(int status) {}
-	
-	@Override
-	public void onPause() {
-		super.onPause();
-		mTTS.stop();
-	}
-	
-	@Override
-	public void onDestroy() {
-		super.onDestroy();
-		mTTS.shutdown();
 	}
 }

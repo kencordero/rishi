@@ -10,7 +10,8 @@ public class TTSEngine implements OnInitListener {
 	private static TextToSpeech mTTS;
 	
 	public TTSEngine(Context c) {
-		mTTS = new TextToSpeech(c, this);
+		if (mTTS == null)
+			mTTS = new TextToSpeech(c, this);		
 	}
 	
 	public void stop() {

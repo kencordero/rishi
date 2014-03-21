@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="action_next">Next</string>
     <string name="action_previous">Previous</string>
     <string name="action_random">Random</string>
     <string name="action_settings">Settings</string>
     <string name="action_switch_case">Switch Case</string>
-    
-    <string name="app_name">Rishi</string>           
+    <string name="app_name">Rishi</string>
     <string name="activity_words_name">Words</string>
     <string name="activity_numbers_name">Numbers</string>
     <string name="activity_colors_name">Colors</string>
@@ -15,7 +13,6 @@
     <string name="activity_shapes_name">Shapes</string>
     <string name="words_animals_name">Animals</string>
     <string name="words_foods_name">Foods</string>
-    
     <string name="apple">apple</string>
     <string name="banana">banana</string>
     <string name="carrot">carrots</string>
@@ -33,7 +30,6 @@
     <string name="raspberry">raspberry</string>
     <string name="tomato">tomatoes</string>
     <string name="zucchini">zucchinis</string>
-    
     <string name="bear">bear</string>
     <string name="bird">bird</string>
     <string name="camel">camel</string>
@@ -54,7 +50,6 @@
     <string name="sheep">sheep</string>
     <string name="turtle">turtle</string>
     <string name="whale">whale</string>
-    
     <string name="a_one">one</string>
     <string name="b_two">two</string>
     <string name="c_three">three</string>
@@ -63,18 +58,16 @@
     <string name="f_six">six</string>
     <string name="g_seven">seven</string>
     <string name="h_eight">eight</string>
-    <string name="i_nine">nine</string>    
+    <string name="i_nine">nine</string>
     <string name="j_ten">ten</string>
     <string name="k_eleven">eleven</string>
     <string name="l_twelve">twelve</string>
-    
     <string name="circle">circle</string>
     <string name="crescent">crescent</string>
     <string name="rectangle">rectangle</string>
     <string name="square">square</string>
     <string name="star">star</string>
     <string name="triangle">triangle</string>
-    
     <string name="black">black</string>
     <string name="blue">blue</string>
     <string name="brown">brown</string>
@@ -84,8 +77,7 @@
     <string name="purple">purple</string>
     <string name="red">red</string>
     <string name="white">white</string>
-    <string name="yellow">yellow</string>    
-    
+    <string name="yellow">yellow</string>
     <string-array name="letters">
         <item>A</item>
         <item>B</item>
@@ -114,52 +106,19 @@
         <item>Y</item>
         <item>Z</item>
     </string-array>
-    
-    <string-array name="letters_lower">
-        <item>a</item>
-        <item>b</item>
-        <item>c</item>
-        <item>d</item>
-        <item>e</item>
-        <item>f</item>
-        <item>g</item>
-        <item>h</item>
-        <item>i</item>
-        <item>j</item>
-        <item>k</item>
-        <item>l</item>
-        <item>m</item>
-        <item>n</item>
-        <item>o</item>
-        <item>p</item>
-        <item>q</item>
-        <item>r</item>
-        <item>s</item>
-        <item>t</item>
-        <item>u</item>
-        <item>v</item>
-        <item>w</item>
-        <item>x</item>
-        <item>y</item>
-        <item>z</item>
-    </string-array>
-    
     <string-array name="pref_locales">
-        <item>English</item>                        
+        <item>English</item>
         <item>Marathi</item>
         <item>Spanish</item>
     </string-array>
-    
     <string name="locale_english">English</string>
     <string name="locale_marathi">Marathi</string>
     <string name="locale_spanish">Spanish</string>
-    
     <string-array name="pref_localeValues">
-        <item>en_US</item>        
+        <item>en_US</item>
         <item>mr</item>
         <item>es_MX</item>
     </string-array>
-    
     <string name="pref_locale_title">Language</string>
     <string name="pref_locale_key">pref_language</string>
     <string name="pref_locale_default">en_US</string>

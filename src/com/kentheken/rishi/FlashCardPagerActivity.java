@@ -13,6 +13,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.Menu;
 import android.widget.Toast;
 
 public class FlashCardPagerActivity extends FragmentActivity {
@@ -28,7 +29,7 @@ public class FlashCardPagerActivity extends FragmentActivity {
 		
 		setContentView(mViewPager);
 		getFileList();
-		setVolumeControlStream(AudioManager.STREAM_MUSIC);		
+		setVolumeControlStream(AudioManager.STREAM_MUSIC);
 		
 		FragmentManager fm = getSupportFragmentManager();
 		mViewPager.setAdapter(new FragmentStatePagerAdapter(fm) {
@@ -44,6 +45,12 @@ public class FlashCardPagerActivity extends FragmentActivity {
 				return mFiles.size();
 			}			
 		});
+	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.alternate, menu);
+		return true;
 	}
 	
 	private void getFileList() {
