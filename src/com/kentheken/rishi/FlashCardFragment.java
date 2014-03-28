@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -101,20 +100,7 @@ public class FlashCardFragment extends Fragment {
 				throwError(e);
 			}
 		}
-	}
-	
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-			case R.id.action_random:
-				return true;
-			case R.id.action_settings:
-				return true;
-			default:
-				return super.onOptionsItemSelected(item);
-		}
-	}
-	
+	}	
 
 	private void speakText() {
 		if (mResId > 0)

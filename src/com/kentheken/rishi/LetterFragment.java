@@ -44,7 +44,7 @@ public class LetterFragment extends Fragment {
 		mTextView.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				// TODO
+				mTTS.speak(mLocale, mLetter);
 			}			
 		});
 		
