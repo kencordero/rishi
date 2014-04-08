@@ -13,7 +13,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 public class DatabaseOpenHelper extends SQLiteOpenHelper {
-	    private static String DB_NAME = "rishi.db3";
+	    private static final String DB_NAME = "rishi.db3";
+	    private static final int DB_VERSION = 1;
 
 	    private SQLiteDatabase mDatabase;
 	    private final Context mContext;
@@ -28,48 +29,48 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 	     * @param context
 	     */
 	    public DatabaseOpenHelper(Context context) {
-	        super(context, DB_NAME, null, 1);
+	        super(context, DB_NAME, null, DB_VERSION);
 	        this.mContext = context;
-	        openDataBase();
+	        openDatabase();
 	    }   
 
 	  /**
 	     * Creates a empty database on the system and rewrites it with your own database.
 	     * */
-	    public void createDataBase() {
+	    public void createDatabase() {
 
-	        //boolean dbExists = checkDataBase();
+	        boolean dbExists = checkDatabase();
 
-	        //if (!dbExists) {
+	        if (!dbExists) {
 	            // By calling this method, an empty database will be created into the default system path
 	            // of your application so we are able to overwrite that database with ours.
 	            this.getReadableDatabase();
 
 	            try {
-	                copyDataBase();
+	                copyDatabase();
 	            } catch (IOException e) {
 	                throw new Error("Error copying database");
 	            }
-	        //}
+	        }
 	    }
 
 	    /**
 	     * Check if the database already exist to avoid re-copying the file each time you open the application.
 	     * @return true if it exists, false if it doesn't
 	     */
-	    private boolean checkDataBase(){
-	        SQLiteDatabase checkDB = null;
+	    private boolean checkDatabase(){
+	        SQLiteDatabase database = null;
 
 	        try {
-	            checkDB = SQLiteDatabase.openDatabase(getPath(), null, SQLiteDatabase.OPEN_READONLY);
+	            database = SQLiteDatabase.openDatabase(getPath(), null, SQLiteDatabase.OPEN_READONLY);
 	        } catch(SQLiteException e) {
 	        	Log.e(this.getClass().toString(), "Error while checking db");	            
 	        }
 
-	        if (checkDB != null)
-	            checkDB.close();	        
+	        if (database != null)
+	            database.close();
 
-	        return checkDB != null;
+	        return database != null;
 	    }
 
 	    /**
@@ -77,7 +78,7 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 	     * system folder, from where it can be accessed and handled.
 	     * This is done by transferring bytestream.
 	     * */
-	    private void copyDataBase() throws IOException{
+	    private void copyDatabase() throws IOException{
 	        //Open your local db as the input stream
 	        InputStream myInput = mContext.getAssets().open(DB_NAME);
 
@@ -97,14 +98,14 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 	        myInput.close();
 	    }
 	    
-	    public String getPath() {
+	    private String getPath() {
 	    	return mContext.getFilesDir().getPath() + DB_NAME;
 	    }
 
-	    public SQLiteDatabase openDataBase() throws SQLException{
+	    public SQLiteDatabase openDatabase() throws SQLException{
 	        //Open the database	      
 	    	if (mDatabase == null) {
-	    		createDataBase();
+	    		createDatabase();
 	    		mDatabase = SQLiteDatabase.openDatabase(getPath(), null,  SQLiteDatabase.OPEN_READONLY);
 	    	}
 	        return mDatabase;

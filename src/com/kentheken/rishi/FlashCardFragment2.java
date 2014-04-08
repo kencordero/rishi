@@ -1,6 +1,5 @@
 package com.kentheken.rishi;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.Locale;
 
@@ -13,7 +12,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,11 +21,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class FlashCardFragment2 extends Fragment {
-	private static final String TAG = "com.kentheken.rishi.FlashCardFragment2";
 	public static final String EXTRA_FOLDER = "com.kentheken.rishi.folder";
 	public static final String EXTRA_FILENAME = "com.kentheken.rishi.filename";
-	private DatabaseOpenHelper dbHelper;
-	private SQLiteDatabase mSqliteDb;
+	private DatabaseOpenHelper mDbHelper;
+	private SQLiteDatabase mDatabase;
 	
 	private ImageView mImageView;
 	private TextView mTextView;
@@ -51,14 +48,14 @@ public class FlashCardFragment2 extends Fragment {
 		getActivity().getBaseContext().getResources().updateConfiguration(config, null);
 		if (mLocaleId.equals("mr")) //There's no speech engine for Marathi			
 			mLocale = new Locale("hi");
-		dbHelper = new DatabaseOpenHelper(getActivity());
-		mSqliteDb = dbHelper.openDataBase();			
+		mDbHelper = new DatabaseOpenHelper(getActivity());
+		mDatabase = mDbHelper.openDatabase();			
 	}
 	
 	@Override
 	public void onPause() {
 		super.onPause();
-		mSqliteDb.close();
+		mDatabase.close();
 	}
 	
 	public View onCreateView(LayoutInflater inflater, ViewGroup parent,
@@ -157,7 +154,7 @@ public class FlashCardFragment2 extends Fragment {
 	}
 	
 	private String getText() {
-		Cursor cursor = mSqliteDb.rawQuery("SELECT display_name " +
+		Cursor cursor = mDatabase.rawQuery("SELECT display_name " +
 		"FROM imagelocale INNER JOIN image " +
 		"ON imagelocale.image_id = image._id " +
 		"INNER JOIN locale ON imagelocale.locale_id = locale._id " +
