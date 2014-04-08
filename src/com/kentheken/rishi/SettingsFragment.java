@@ -1,7 +1,5 @@
 package com.kentheken.rishi;
 
-import com.kentheken.rishi.R;
-
 import android.annotation.TargetApi;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
