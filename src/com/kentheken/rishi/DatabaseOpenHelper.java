@@ -10,13 +10,18 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 public class DatabaseOpenHelper extends SQLiteOpenHelper {
 	    private static String DB_NAME = "rishi.db3";
 
-	    private SQLiteDatabase mDataBase;
+	    private SQLiteDatabase mDatabase;
 	    private final Context mContext;
 
+	    public SQLiteDatabase getDb() {
+	    	return mDatabase;
+	    }
+	    
 	    /**
 	     * Constructor
 	     * Takes and keeps a reference of the passed context in order to access to the application assets and resources.
@@ -25,16 +30,17 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 	    public DatabaseOpenHelper(Context context) {
 	        super(context, DB_NAME, null, 1);
 	        this.mContext = context;
+	        openDataBase();
 	    }   
 
 	  /**
 	     * Creates a empty database on the system and rewrites it with your own database.
 	     * */
-	    public void createDataBase() throws IOException {
+	    public void createDataBase() {
 
-	        boolean dbExists = checkDataBase();
+	        //boolean dbExists = checkDataBase();
 
-	        if (dbExists) {
+	        //if (!dbExists) {
 	            // By calling this method, an empty database will be created into the default system path
 	            // of your application so we are able to overwrite that database with ours.
 	            this.getReadableDatabase();
@@ -44,7 +50,7 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 	            } catch (IOException e) {
 	                throw new Error("Error copying database");
 	            }
-	        }
+	        //}
 	    }
 
 	    /**
@@ -57,13 +63,13 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 	        try {
 	            checkDB = SQLiteDatabase.openDatabase(getPath(), null, SQLiteDatabase.OPEN_READONLY);
 	        } catch(SQLiteException e) {
-	            //database does't exist yet.
+	        	Log.e(this.getClass().toString(), "Error while checking db");	            
 	        }
 
 	        if (checkDB != null)
 	            checkDB.close();	        
 
-	        return checkDB != null ? true : false;
+	        return checkDB != null;
 	    }
 
 	    /**
@@ -81,7 +87,7 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 	        //transfer bytes from the inputfile to the outputfile
 	        byte[] buffer = new byte[1024];
 	        int length;
-	        while ((length = myInput.read(buffer)) > 0){
+	        while ((length = myInput.read(buffer)) > 0) {
 	            myOutput.write(buffer, 0, length);
 	        }
 
@@ -95,15 +101,19 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 	    	return mContext.getFilesDir().getPath() + DB_NAME;
 	    }
 
-	    public void openDataBase() throws SQLException{
+	    public SQLiteDatabase openDataBase() throws SQLException{
 	        //Open the database	      
-	        mDataBase = SQLiteDatabase.openDatabase(getPath(), null, SQLiteDatabase.OPEN_READONLY);
+	    	if (mDatabase == null) {
+	    		createDataBase();
+	    		mDatabase = SQLiteDatabase.openDatabase(getPath(), null,  SQLiteDatabase.OPEN_READONLY);
+	    	}
+	        return mDatabase;
 	    }
 
 	    @Override
 	    public synchronized void close() {
-	            if(mDataBase != null)
-	                mDataBase.close();
+	            if(mDatabase != null)
+	                mDatabase.close();
 
 	            super.close();
 	    }

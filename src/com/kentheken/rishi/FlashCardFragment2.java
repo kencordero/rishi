@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -51,14 +52,13 @@ public class FlashCardFragment2 extends Fragment {
 		if (mLocaleId.equals("mr")) //There's no speech engine for Marathi			
 			mLocale = new Locale("hi");
 		dbHelper = new DatabaseOpenHelper(getActivity());
-		try {
-			dbHelper.createDataBase();
-		} catch (IOException e) {
-			throw new Error("Unable to create database");
-			//Log.e(TAG, "Database creation error");
-		}
-			dbHelper.openDataBase();			
-			mSqliteDb = dbHelper.getReadableDatabase();		
+		mSqliteDb = dbHelper.openDataBase();			
+	}
+	
+	@Override
+	public void onPause() {
+		super.onPause();
+		mSqliteDb.close();
 	}
 	
 	public View onCreateView(LayoutInflater inflater, ViewGroup parent,
@@ -101,6 +101,7 @@ public class FlashCardFragment2 extends Fragment {
 				if (((RadioButton)v).isChecked())
 				{
 					mLocaleId = "en";
+					mTextView.setTypeface(Typeface.DEFAULT);
 					mTextView.setText(getText());
 				}	
 			}
@@ -112,6 +113,7 @@ public class FlashCardFragment2 extends Fragment {
 				if (((RadioButton)v).isChecked())
 				{
 					mLocaleId = "mr";
+					mTextView.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), "DroidHindi.ttf"));
 					mTextView.setText(getText());
 				}	
 			}
@@ -121,8 +123,9 @@ public class FlashCardFragment2 extends Fragment {
 			@Override
 			public void onClick(View v) {
 				if (((RadioButton)v).isChecked())
-				{
-					mLocaleId = "es";					
+				{					
+					mLocaleId = "es";
+					mTextView.setTypeface(Typeface.DEFAULT);
 					mTextView.setText(getText());
 				}	
 			}
@@ -156,9 +159,9 @@ public class FlashCardFragment2 extends Fragment {
 	private String getText() {
 		Cursor cursor = mSqliteDb.rawQuery("SELECT display_name " +
 		"FROM imagelocale INNER JOIN image " +
-		"ON imagelocale.image_id = image.id " +
-		"INNER JOIN locale ON imagelocale.locale_id = locale.id " +
-		"WHERE file_name = " + mFileName + " AND code = " + mLocaleId, null);
+		"ON imagelocale.image_id = image._id " +
+		"INNER JOIN locale ON imagelocale.locale_id = locale._id " +
+		"WHERE file_name = ? AND code = ?", new String[] {mFileName, mLocaleId});
 		String display_name = "No translation found";
 		if (cursor != null) {
 			try {
@@ -167,8 +170,7 @@ public class FlashCardFragment2 extends Fragment {
 					display_name = cursor.getString(cursor.getColumnIndex("display_name"));
 				} while (cursor.moveToNext());
 			} finally {
-				cursor.close();
-				mSqliteDb.close();
+				cursor.close();				
 			}
 		}
 		return display_name;
