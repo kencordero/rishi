@@ -3,14 +3,11 @@ package com.kentheken.rishi;
 import java.io.InputStream;
 import java.util.Locale;
 
-import android.content.SharedPreferences;
-import android.content.res.Configuration;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,9 +26,8 @@ public class FlashCardFragment2 extends Fragment {
 	private ImageView mImageView;
 	private TextView mTextView;
 	private String mFileName;
-	private int mResId;	
+	private String mText;
 	private TTSEngine mTTS;
-	private String mLocaleId;
 	private Locale mLocale;
 	private RadioButton mRadioButton1;
 	private RadioButton mRadioButton2;
@@ -40,14 +36,6 @@ public class FlashCardFragment2 extends Fragment {
 	@Override
 	public void onResume() {
 		super.onResume();
-		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-		mLocaleId = preferences.getString(SettingsFragment.KEY_PREF_LANGUAGE,  "0");
-		Configuration config = getActivity().getBaseContext().getResources().getConfiguration();
-		mLocale = new Locale(mLocaleId);
-		config.locale = mLocale;
-		getActivity().getBaseContext().getResources().updateConfiguration(config, null);
-		if (mLocaleId.equals("mr")) //There's no speech engine for Marathi			
-			mLocale = new Locale("hi");
 		mDbHelper = new DatabaseOpenHelper(getActivity());
 		mDatabase = mDbHelper.openDatabase();			
 	}
@@ -80,7 +68,6 @@ public class FlashCardFragment2 extends Fragment {
 		mImageView.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				//displayText();
 				speakText();
 			}
 		});
@@ -96,11 +83,7 @@ public class FlashCardFragment2 extends Fragment {
 			@Override
 			public void onClick(View v) {
 				if (((RadioButton)v).isChecked())
-				{
-					mLocaleId = "en";
-					mTextView.setTypeface(Typeface.DEFAULT);
-					mTextView.setText(getText());
-				}	
+					setText("en");				
 			}
 		});
 		mRadioButton2 = (RadioButton)v.findViewById(R.id.opt2);
@@ -108,11 +91,7 @@ public class FlashCardFragment2 extends Fragment {
 			@Override
 			public void onClick(View v) {
 				if (((RadioButton)v).isChecked())
-				{
-					mLocaleId = "mr";
-					mTextView.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), "DroidHindi.ttf"));
-					mTextView.setText(getText());
-				}	
+					setText("mr");
 			}
 		});
 		mRadioButton3 = (RadioButton)v.findViewById(R.id.opt3);
@@ -120,15 +99,24 @@ public class FlashCardFragment2 extends Fragment {
 			@Override
 			public void onClick(View v) {
 				if (((RadioButton)v).isChecked())
-				{					
-					mLocaleId = "es";
-					mTextView.setTypeface(Typeface.DEFAULT);
-					mTextView.setText(getText());
-				}	
+					setText("es");
 			}
 		});
-		mResId = -1;
 		return v;
+	}
+	
+	public void setText(String localeId) {
+		if (localeId.equals("mr")) {
+			mTextView.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), "DroidHindi.ttf"));
+			mLocale = new Locale("hi"); // no Marathi locale exists
+		}
+		else {
+			mTextView.setTypeface(Typeface.DEFAULT);
+			mLocale = new Locale(localeId);
+		}
+		mText = getText(localeId);
+		mTextView.setText(mText);
+		speakText();
 	}
 
 	public static FlashCardFragment2 newInstance(String folderName,
@@ -144,8 +132,8 @@ public class FlashCardFragment2 extends Fragment {
 	}
 					
 	private void speakText() {
-		if (mResId > 0)
-			mTTS.speak(mLocale, getString(mResId));					
+		if (mText.equals("") && mLocale != null)
+			mTTS.speak(mLocale, mText);					
 	}
 
 	private void throwError(Exception e) {
@@ -153,23 +141,23 @@ public class FlashCardFragment2 extends Fragment {
 		e.printStackTrace();
 	}
 	
-	private String getText() {
+	private String getText(String localeId) {
 		Cursor cursor = mDatabase.rawQuery("SELECT display_name " +
 		"FROM imagelocale INNER JOIN image " +
 		"ON imagelocale.image_id = image._id " +
 		"INNER JOIN locale ON imagelocale.locale_id = locale._id " +
-		"WHERE file_name = ? AND code = ?", new String[] {mFileName, mLocaleId});
-		String display_name = "No translation found";
+		"WHERE file_name = ? AND code = ?", new String[] {mFileName, localeId});
+		String displayName = "No translation found";
 		if (cursor != null) {
 			try {
 				cursor.moveToFirst();
 				do {
-					display_name = cursor.getString(cursor.getColumnIndex("display_name"));
+					displayName = cursor.getString(cursor.getColumnIndex("display_name"));
 				} while (cursor.moveToNext());
 			} finally {
 				cursor.close();				
 			}
 		}
-		return display_name;
+		return displayName;
 	}
 }
