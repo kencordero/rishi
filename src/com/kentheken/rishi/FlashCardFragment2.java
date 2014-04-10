@@ -132,7 +132,7 @@ public class FlashCardFragment2 extends Fragment {
 	}
 					
 	private void speakText() {
-		if (mText.equals("") && mLocale != null)
+		if (mText != null && mLocale != null)
 			mTTS.speak(mLocale, mText);					
 	}
 
@@ -147,7 +147,7 @@ public class FlashCardFragment2 extends Fragment {
 		"ON imagelocale.image_id = image._id " +
 		"INNER JOIN locale ON imagelocale.locale_id = locale._id " +
 		"WHERE file_name = ? AND code = ?", new String[] {mFileName, localeId});
-		String displayName = "No translation found";
+		String displayName = null;
 		if (cursor != null) {
 			try {
 				cursor.moveToFirst();
