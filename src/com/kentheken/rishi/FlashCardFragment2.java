@@ -23,12 +23,13 @@ public class FlashCardFragment2 extends Fragment {
 	private DatabaseOpenHelper mDbHelper;
 	private SQLiteDatabase mDatabase;
 	
+	public enum LocaleId { ENGLISH, MARATHI, SPANISH };
 	private ImageView mImageView;
 	private TextView mTextView;
 	private String mFileName;
 	private String mText;
 	private TTSEngine mTTS;
-	private Locale mLocale;
+	private LocaleId mLocaleId;
 	private RadioButton mRadioButton1;
 	private RadioButton mRadioButton2;
 	private RadioButton mRadioButton3;
@@ -83,7 +84,7 @@ public class FlashCardFragment2 extends Fragment {
 			@Override
 			public void onClick(View v) {
 				if (((RadioButton)v).isChecked())
-					setText("en");				
+					setText(LocaleId.ENGLISH);				
 			}
 		});
 		mRadioButton2 = (RadioButton)v.findViewById(R.id.opt2);
@@ -91,7 +92,7 @@ public class FlashCardFragment2 extends Fragment {
 			@Override
 			public void onClick(View v) {
 				if (((RadioButton)v).isChecked())
-					setText("mr");
+					setText(LocaleId.MARATHI);
 			}
 		});
 		mRadioButton3 = (RadioButton)v.findViewById(R.id.opt3);
@@ -99,22 +100,19 @@ public class FlashCardFragment2 extends Fragment {
 			@Override
 			public void onClick(View v) {
 				if (((RadioButton)v).isChecked())
-					setText("es");
+					setText(LocaleId.SPANISH);
 			}
 		});
 		return v;
 	}
 	
-	public void setText(String localeId) {
-		if (localeId.equals("mr")) {
-			mTextView.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), "DroidHindi.ttf"));
-			mLocale = new Locale("hi"); // no Marathi locale exists
-		}
-		else {
-			mTextView.setTypeface(Typeface.DEFAULT);
-			mLocale = new Locale(localeId);
-		}
-		mText = getText(localeId);
+	public void setText(LocaleId localeId) {
+		mLocaleId = localeId;
+		if (mLocaleId == LocaleId.MARATHI)
+			mTextView.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), "DroidHindi.ttf"));		
+		else
+			mTextView.setTypeface(Typeface.DEFAULT);			
+		mText = getText();
 		mTextView.setText(mText);
 		speakText();
 	}
@@ -132,8 +130,8 @@ public class FlashCardFragment2 extends Fragment {
 	}
 					
 	private void speakText() {
-		if (mText != null && mLocale != null)
-			mTTS.speak(mLocale, mText);					
+		if (mText != null && mLocaleId != null)
+			mTTS.speak(mLocaleId, mText);					
 	}
 
 	private void throwError(Exception e) {
@@ -141,12 +139,24 @@ public class FlashCardFragment2 extends Fragment {
 		e.printStackTrace();
 	}
 	
-	private String getText(String localeId) {
+	private String getText() {
+		String languageCode = "";
+		switch (mLocaleId) {
+		case ENGLISH:
+			languageCode = "en";
+			break;
+		case MARATHI:
+			languageCode = "mr";
+			break;
+		case SPANISH:
+			languageCode = "es";
+			break;
+		}
 		Cursor cursor = mDatabase.rawQuery("SELECT display_name " +
 		"FROM imagelocale INNER JOIN image " +
 		"ON imagelocale.image_id = image._id " +
 		"INNER JOIN locale ON imagelocale.locale_id = locale._id " +
-		"WHERE file_name = ? AND code = ?", new String[] {mFileName, localeId});
+		"WHERE file_name = ? AND code = ?", new String[] {mFileName, languageCode});
 		String displayName = null;
 		if (cursor != null) {
 			try {
