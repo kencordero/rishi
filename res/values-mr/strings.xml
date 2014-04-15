@@ -1,23 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="apple">सफरचंद</string>    
+    <string name="apple">सफरचंद</string>
     <string name="banana">केळ</string>
-    <string name="carrot">गाजर</string>
-    <string name="date">खजूर</string>
+    <string name="carrots">गाजर</string>
+    <string name="dates">खजूर</string>
     <string name="egg">अंडे</string>
-    <string name="fig">अंजीर</string>
-    <string name="grape">द्राक्ष </string>
+    <string name="figs">अंजीर</string>
+    <string name="grapes">द्राक्ष </string>
     <string name="honey">मध</string>
     <string name="ice_cream">कुल्फी</string>
     <string name="kiwi">कीवी</string>
-    <string name="lemon">लिंबू</string>
+    <string name="lemons">लिंबू</string>
     <string name="milk">दूध</string>
-    <string name="orange_food">संत्रे</string>
+    <string name="oranges_food">संत्रे</string>
     <string name="pineapple">आननस</string>
     <string name="raspberry">रास्बेरी</string>
-    <string name="tomato">टोमाटो</string>
-    <string name="zucchini">घोसावळ</string>
-    
+    <string name="tomatoes">टोमाटो</string>
+    <string name="zucchinis">घोसावळ</string>
     <string name="bear">अस्वल</string>
     <string name="bird">पक्षी</string>
     <string name="camel">उंट</string>
@@ -38,20 +37,18 @@
     <string name="sheep">मेंढी</string>
     <string name="turtle">कासव</string>
     <string name="whale">व्हेल</string>
-    
-    <string name="a_one">एक</string>
-    <string name="b_two">दोन</string>
-    <string name="c_three">तीन</string>
-    <string name="d_four">चार</string>
-    <string name="e_five">पाच</string>
-    <string name="f_six">सहा</string>
-    <string name="g_seven">सात</string>
-    <string name="h_eight">आठ</string>
-    <string name="i_nine">नऊ</string>    
-    <string name="j_ten">दहा</string>
-    <string name="k_eleven">अकरा</string>
-    <string name="l_twelve">बारा</string>
-    
+    <string name="one">एक</string>
+    <string name="two">दोन</string>
+    <string name="three">तीन</string>
+    <string name="four">चार</string>
+    <string name="five">पाच</string>
+    <string name="six">सहा</string>
+    <string name="seven">सात</string>
+    <string name="eight">आठ</string>
+    <string name="nine">नऊ</string>
+    <string name="ten">दहा</string>
+    <string name="eleven">अकरा</string>
+    <string name="twelve">बारा</string>
     <string-array name="letters">
         <item>अ</item>
         <item>आ</item>
@@ -96,16 +93,14 @@
         <item>श</item>
         <item>ष</item>
         <item>स</item>
-        <item>ह</item>                
+        <item>ह</item>
     </string-array>
-    
     <string name="circle">मंडळ</string>
     <string name="crescent">चंद्रकोर</string>
     <string name="rectangle">आयत</string>
     <string name="square">चौकोन</string>
     <string name="star">तारा</string>
     <string name="triangle">त्रिकोण</string>
-    
     <string name="black">काळा</string>
     <string name="blue">निळा</string>
     <string name="brown">चॉकलेटी</string>

@@ -21,7 +21,7 @@ public class TTSEngine {
 					mTTS_en.setLanguage(Locale.ENGLISH);
 					Log.d(TAG, "English TTS initialized");
 				}				
-			});			
+			});
 		}
 		if (mTTS_mr == null) {
 			mTTS_mr = new TextToSpeech(c, new OnInitListener() {
@@ -29,9 +29,8 @@ public class TTSEngine {
 				public void onInit(int status) {
 					mTTS_mr.setLanguage(new Locale("hi"));
 					Log.d(TAG, "Marathi TTS initialized");
-				}
-				
-			});			
+				}				
+			});
 		}
 		if (mTTS_es == null) {
 			mTTS_es = new TextToSpeech(c, new OnInitListener() {
@@ -40,7 +39,7 @@ public class TTSEngine {
 					mTTS_es.setLanguage(new Locale("es"));
 					Log.d(TAG, "Spanish TTS initialized");
 				}				
-			});			
+			});
 		}
 	}
 	

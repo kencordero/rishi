@@ -20,17 +20,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SettingsActivity"
-            android:label="@string/action_settings"/>
-        <activity
-            android:name=".WordsActivity"
-            android:label="@string/activity_words_name"
-            android:parentActivityName=".MainActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity"/>
-        </activity>
-        <activity
             android:name=".FlashCardPagerActivity"
             android:label="@string/activity_words_name"
             android:parentActivityName=".MainActivity">
@@ -41,14 +30,6 @@
         <activity
             android:name=".LetterPagerActivity"
             android:label="@string/activity_words_name"
-            android:parentActivityName=".MainActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity"/>
-        </activity>
-        <activity
-            android:name=".LettersActivity"
-            android:label="@string/activity_letters_name"
             android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
