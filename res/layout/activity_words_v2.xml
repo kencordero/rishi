@@ -15,28 +15,4 @@
         android:layout_weight=".5"
         android:gravity="center"
         android:textSize="@dimen/image_caption_text_size"/>
-    <RadioGroup
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight=".5"
-        android:orientation="horizontal">
-        <RadioButton
-            android:id="@+id/opt1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="@string/locale_en"/>
-        <RadioButton
-            android:id="@+id/opt2"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="@string/locale_mr"/>
-        <RadioButton
-            android:id="@+id/opt3"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="@string/locale_es"/>
-    </RadioGroup>
 </LinearLayout>

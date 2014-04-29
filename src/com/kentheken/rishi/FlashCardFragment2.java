@@ -30,9 +30,6 @@ public class FlashCardFragment2 extends Fragment {
 	private String mText;
 	private TTSEngine mTTS;
 	private LocaleId mLocaleId;
-	private RadioButton mRadioButton1;
-	private RadioButton mRadioButton2;
-	private RadioButton mRadioButton3;
 	
 	@Override
 	public void onResume() {
@@ -78,31 +75,7 @@ public class FlashCardFragment2 extends Fragment {
 			public void onClick(View v) {
 				speakText();
 			}
-		});
-		mRadioButton1 = (RadioButton)v.findViewById(R.id.opt1);
-		mRadioButton1.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				if (((RadioButton)v).isChecked())
-					setText(LocaleId.ENGLISH);				
-			}
-		});
-		mRadioButton2 = (RadioButton)v.findViewById(R.id.opt2);
-		mRadioButton2.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				if (((RadioButton)v).isChecked())
-					setText(LocaleId.MARATHI);
-			}
-		});
-		mRadioButton3 = (RadioButton)v.findViewById(R.id.opt3);
-		mRadioButton3.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				if (((RadioButton)v).isChecked())
-					setText(LocaleId.SPANISH);
-			}
-		});
+		});		
 		return v;
 	}
 	

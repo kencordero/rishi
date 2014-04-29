@@ -5,6 +5,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Locale;
 
+import com.kentheken.rishi.FlashCardFragment2.LocaleId;
+
 import android.annotation.TargetApi;
 import android.content.Intent;
 import android.content.res.AssetManager;
@@ -18,25 +20,55 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.RadioButton;
 import android.widget.Toast;
 
 public class FlashCardPagerActivity extends FragmentActivity {
 	private ViewPager mViewPager;
 	private String mFolderName;
 	private ArrayList<String> mFiles;
+	private RadioButton mRadioButton1;
+	private RadioButton mRadioButton2;
+	private RadioButton mRadioButton3;
 	
 	@TargetApi(Build.VERSION_CODES.HONEYCOMB)			
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		mViewPager = new ViewPager(this);
-		mViewPager.setId(R.id.viewPager);
 		
-		setContentView(mViewPager);
+		setContentView(R.layout.activity_words_v3);
+		mViewPager = (ViewPager)findViewById(R.id.viewPager);
+		
 		getFileList();
 		setVolumeControlStream(AudioManager.STREAM_MUSIC);
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
 			getActionBar().setTitle(mFolderName);
+		mRadioButton1 = (RadioButton)findViewById(R.id.opt1);
+		mRadioButton1.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				//if (((RadioButton)v).isChecked())
+					//setText(LocaleId.ENGLISH);				
+			}
+		});
+		mRadioButton2 = (RadioButton)findViewById(R.id.opt2);
+		mRadioButton2.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				//if (((RadioButton)v).isChecked())
+					//setText(LocaleId.MARATHI);
+			}
+		});
+		mRadioButton3 = (RadioButton)findViewById(R.id.opt3);
+		mRadioButton3.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				//if (((RadioButton)v).isChecked())
+					//setText(LocaleId.SPANISH);
+			}
+		});
+		
 		
 		FragmentManager fm = getSupportFragmentManager();
 		mViewPager.setAdapter(new FragmentStatePagerAdapter(fm) {

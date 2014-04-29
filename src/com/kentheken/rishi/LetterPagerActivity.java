@@ -5,11 +5,13 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Locale;
 
+import android.annotation.TargetApi;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.media.AudioManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
@@ -25,8 +27,9 @@ public class LetterPagerActivity extends FragmentActivity {
 	private ArrayList<String> mAlphabet;
 	private String mLocaleId;
 	private Locale mLocale;
-	private boolean isUpperCase;
+	private boolean mIsUpperCase;
 	
+	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -34,7 +37,9 @@ public class LetterPagerActivity extends FragmentActivity {
 		mViewPager.setId(R.id.viewPager);
 		setContentView(mViewPager);
 		setVolumeControlStream(AudioManager.STREAM_MUSIC);
-		isUpperCase = true;
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
+			getActionBar().setTitle(R.string.activity_letters_name);
+		mIsUpperCase = true;
 		
 		//grab locale from settings
 		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -55,7 +60,7 @@ public class LetterPagerActivity extends FragmentActivity {
 			@Override
 			public Fragment getItem(int pos) {
 				String letter = mAlphabet.get(pos);
-				if (!isUpperCase && !mLocaleId.equals("mr"))
+				if (!mIsUpperCase && !mLocaleId.equals("mr"))
 					letter = letter.toLowerCase(mLocale);					
 				return LetterFragment.newInstance(letter);
 			}
@@ -91,7 +96,7 @@ public class LetterPagerActivity extends FragmentActivity {
 			startActivity(intent);
 			return true;
 		case R.id.action_switch_case:
-			isUpperCase = !isUpperCase;
+			mIsUpperCase = !mIsUpperCase;
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);

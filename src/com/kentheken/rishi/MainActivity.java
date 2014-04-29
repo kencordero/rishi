@@ -57,7 +57,7 @@ public class MainActivity extends Activity {
 				resId = R.string.activity_colors_name;
 				break;
 			case R.id.btnSelectLetters:
-				cls = LetterPagerActivity.class;			
+				cls = LetterPagerActivity.class;				
 				break;
 			case R.id.btnSelectNumbers:
 				cls = FlashCardPagerActivity.class;
