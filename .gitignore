@@ -8,7 +8,8 @@
 /bin
 /gen
 /.idea/
-
+/.gradle
+/app/build
 *.db
 *.classpath
 *.jar

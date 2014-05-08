@@ -5,8 +5,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Locale;
 
-import com.kentheken.rishi.FlashCardFragment2.LocaleId;
-
 import android.annotation.TargetApi;
 import android.content.Intent;
 import android.content.res.AssetManager;
