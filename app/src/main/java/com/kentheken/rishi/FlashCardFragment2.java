@@ -1,8 +1,5 @@
 package com.kentheken.rishi;
 
-import java.io.InputStream;
-import java.util.Locale;
-
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Typeface;
@@ -15,6 +12,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.io.InputStream;
+import java.util.Locale;
 
 public class FlashCardFragment2 extends Fragment {
 	public static final String EXTRA_FOLDER = "com.kentheken.rishi.folder";
@@ -110,20 +110,22 @@ public class FlashCardFragment2 extends Fragment {
 		Toast.makeText(getActivity(), e.toString(), Toast.LENGTH_SHORT).show();
 		e.printStackTrace();
 	}
+
+    private String getLocaleCode(LocaleId lId) {
+        switch (lId) {
+            case ENGLISH:
+                return "en";
+            case MARATHI:
+                return "mr";
+            case SPANISH:
+                return "es";
+            default:
+                return "";
+        }
+    }
 	
 	private String getText() {
-		String languageCode = "";
-		switch (mLocaleId) {
-		case ENGLISH:
-			languageCode = "en";
-			break;
-		case MARATHI:
-			languageCode = "mr";
-			break;
-		case SPANISH:
-			languageCode = "es";
-			break;
-		}
+		String languageCode = getLocaleCode(mLocaleId);
 		Cursor cursor = mDatabase.rawQuery("SELECT display_name " +
 		"FROM imagelocale INNER JOIN image " +
 		"ON imagelocale.image_id = image._id " +
@@ -137,7 +139,7 @@ public class FlashCardFragment2 extends Fragment {
 					displayName = cursor.getString(cursor.getColumnIndex("display_name"));
 				} while (cursor.moveToNext());
 			} finally {
-				cursor.close();				
+				cursor.close();
 			}
 		}
 		return displayName;
