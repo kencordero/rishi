@@ -36,7 +36,7 @@ public class LetterFragment extends Fragment {
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
-		View v = inflater.inflate(R.layout.activity_letters, parent, false);
+		View v = inflater.inflate(R.layout.fragment_letter, parent, false);
 		
 		mLetter = getArguments().getString(EXTRA_LETTER);
 		mTextView = (TextView)v.findViewById(R.id.txtView_Letters);

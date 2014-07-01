@@ -52,7 +52,7 @@ public class TTSEngine {
 			mTTS_es.stop();
 	}		
 	
-	public void speak(FlashCardFragment2.LocaleId lId, String textToSpeak) {
+	public void speak(FlashCardFragment.LocaleId lId, String textToSpeak) {
 		stop();
 		TextToSpeech tts = null;
 		switch (lId) {

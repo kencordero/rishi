@@ -35,7 +35,7 @@ public class FlashCardPagerActivity extends FragmentActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		setContentView(R.layout.activity_words_v3);
+		setContentView(R.layout.activity_flashcard);
 		mViewPager = (ViewPager)findViewById(R.id.viewPager);
 		
 		getFileList();
@@ -74,7 +74,7 @@ public class FlashCardPagerActivity extends FragmentActivity {
 			@Override
 			public Fragment getItem(int pos) {
 				String imgFilename = mFiles.get(pos);
-				return FlashCardFragment2.newInstance(mFolderName, imgFilename);
+				return FlashCardFragment.newInstance(mFolderName, imgFilename);
 			}
 
 			@Override

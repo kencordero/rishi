@@ -3,9 +3,7 @@
     package="com.kentheken.rishi"
     android:versionCode="2"
     android:versionName="0.3">
-    <uses-sdk
-        android:minSdkVersion="8"
-        android:targetSdkVersion="19"/>
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"

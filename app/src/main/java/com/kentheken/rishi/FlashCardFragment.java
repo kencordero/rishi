@@ -16,7 +16,7 @@ import android.widget.Toast;
 import java.io.InputStream;
 import java.util.Locale;
 
-public class FlashCardFragment2 extends Fragment {
+public class FlashCardFragment extends Fragment {
 	public static final String EXTRA_FOLDER = "com.kentheken.rishi.folder";
 	public static final String EXTRA_FILENAME = "com.kentheken.rishi.filename";
 	private DatabaseOpenHelper mDbHelper;
@@ -46,7 +46,7 @@ public class FlashCardFragment2 extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup parent,
 			Bundle savedInstanceState) {
 		mTTS = new TTSEngine(getActivity());
-		View v = inflater.inflate(R.layout.activity_words_v2, parent, false);
+		View v = inflater.inflate(R.layout.fragment_flashcard, parent, false);
 
 		mImageView = (ImageView) v.findViewById(R.id.imgView_Words);
 		mTextView = (TextView) v.findViewById(R.id.txtView_Words);
@@ -89,13 +89,13 @@ public class FlashCardFragment2 extends Fragment {
 		speakText();
 	}
 
-	public static FlashCardFragment2 newInstance(String folderName,
+	public static FlashCardFragment newInstance(String folderName,
 			String fileName) {
 		Bundle bundle = new Bundle();
 		bundle.putSerializable(EXTRA_FOLDER, folderName);
 		bundle.putSerializable(EXTRA_FILENAME, fileName);
 
-		FlashCardFragment2 fragment = new FlashCardFragment2();
+		FlashCardFragment fragment = new FlashCardFragment();
 		fragment.setArguments(bundle);
 
 		return fragment;
