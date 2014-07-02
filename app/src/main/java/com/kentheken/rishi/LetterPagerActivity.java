@@ -19,11 +19,13 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 public class LetterPagerActivity extends FragmentActivity {
-	private ViewPager mViewPager;
+    private static final String TAG = "LetterPagerActivity" ;
+    private ViewPager mViewPager;
 	private ArrayList<String> mAlphabet;
 	private String mLocaleId;
 	private Locale mLocale;
@@ -87,6 +89,7 @@ public class LetterPagerActivity extends FragmentActivity {
 	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
+        Log.i(TAG, "onOptionsItemSelected");
 		switch(item.getItemId()) {
 		case R.id.action_random:
 			Collections.shuffle(mAlphabet);			

@@ -32,23 +32,23 @@ public class LetterFragment extends Fragment {
 		getActivity().getBaseContext().getResources().updateConfiguration(config, null);
 		if (mLocaleId.equals("mr"))
 			mLocale = new Locale("hi");
+        setLetter();
 	}
+
+    private void setLetter() {
+        mLetter = getArguments().getString(EXTRA_LETTER);
+        mTextView = (TextView)getView().findViewById(R.id.txtView_Letters);
+        mTextView.setText(mLetter);
+        mTextView.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                // TODO setup TTS
+            }
+        });
+    }
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
-		View v = inflater.inflate(R.layout.fragment_letter, parent, false);
-		
-		mLetter = getArguments().getString(EXTRA_LETTER);
-		mTextView = (TextView)v.findViewById(R.id.txtView_Letters);
-		mTextView.setText(mLetter);
-		mTextView.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				//mTTS.speak(mLocale, mLetter);
-			}			
-		});
-		
-		return v;
+		return inflater.inflate(R.layout.fragment_letter, parent, false);
 	}
 	
 	public static LetterFragment newInstance(String letter) {
