@@ -1,7 +1,5 @@
 package com.kentheken.rishi;
 
-import java.util.Locale;
-
 import android.content.Context;
 import android.speech.tts.TextToSpeech;
 import android.speech.tts.TextToSpeech.OnInitListener;
@@ -18,7 +16,7 @@ public class TTSEngine {
 			mTTS_en = new TextToSpeech(c, new OnInitListener() {
 				@Override
 				public void onInit(int status) {
-					mTTS_en.setLanguage(Locale.ENGLISH);
+					mTTS_en.setLanguage(java.util.Locale.ENGLISH);
 					Log.d(TAG, "English TTS initialized");
 				}				
 			});
@@ -27,7 +25,7 @@ public class TTSEngine {
 			mTTS_mr = new TextToSpeech(c, new OnInitListener() {
 				@Override
 				public void onInit(int status) {
-					mTTS_mr.setLanguage(new Locale("hi"));
+					mTTS_mr.setLanguage(new java.util.Locale("hi"));
 					Log.d(TAG, "Marathi TTS initialized");
 				}				
 			});
@@ -36,7 +34,7 @@ public class TTSEngine {
 			mTTS_es = new TextToSpeech(c, new OnInitListener() {
 				@Override
 				public void onInit(int status) {
-					mTTS_es.setLanguage(new Locale("es"));
+					mTTS_es.setLanguage(new java.util.Locale("es"));
 					Log.d(TAG, "Spanish TTS initialized");
 				}				
 			});
@@ -52,7 +50,7 @@ public class TTSEngine {
 			mTTS_es.stop();
 	}		
 	
-	public void speak(FlashCardFragment.LocaleId lId, String textToSpeak) {
+	public void speak(FlashCardFragment.Locale lId, String textToSpeak) {
 		stop();
 		TextToSpeech tts = null;
 		switch (lId) {
