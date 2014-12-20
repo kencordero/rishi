@@ -39,10 +39,8 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 	     * */
 	    public void createDatabase() {
 
-	        //boolean dbExists = checkDatabase();
-            boolean dbExists = false; // debugging
-
-	        if (!dbExists) {
+	        boolean dbExists = checkDatabase();
+            if (!dbExists) {
 	            // By calling this method, an empty database will be created into the default system path
 	            // of your application so we are able to overwrite that database with ours.
 	            this.getReadableDatabase();

@@ -1,9 +1,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
-
+    <!-- Random not implemented
     <item
         android:id="@+id/action_random"
         android:showAsAction="ifRoom"
-        android:title="@string/action_random" />
+        android:title="@string/action_random" />-->
         
     <item        
         android:id="@+id/action_settings"

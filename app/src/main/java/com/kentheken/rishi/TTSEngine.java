@@ -1,6 +1,7 @@
 package com.kentheken.rishi;
 
 import android.content.Context;
+import android.os.Build;
 import android.speech.tts.TextToSpeech;
 import android.speech.tts.TextToSpeech.OnInitListener;
 import android.util.Log;
@@ -64,7 +65,12 @@ public class TTSEngine {
 			tts = mTTS_es;
 			break;
 		}
-		tts.speak(textToSpeak, TextToSpeech.QUEUE_ADD, null);		
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            tts.speak(textToSpeak, TextToSpeech.QUEUE_ADD, null, "");
+        }
+		else {
+            tts.speak(textToSpeak, TextToSpeech.QUEUE_ADD, null);
+        }
 	}
 	
 	public void shutdown() {

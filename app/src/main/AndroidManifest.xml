@@ -19,7 +19,6 @@
         </activity>
         <activity
             android:name=".FlashCardPagerActivity"
-            android:label="@string/activity_words_name"
             android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -27,7 +26,6 @@
         </activity>
         <activity
             android:name=".LetterPagerActivity"
-            android:label="@string/activity_words_name"
             android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

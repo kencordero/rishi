@@ -55,7 +55,7 @@ public class LetterPagerActivity extends FragmentActivity {
 			mLocale = new Locale("hi");	
 		
 		int arrayResId = R.array.letters;
-		mAlphabet = new ArrayList<String>(Arrays.asList(res.getStringArray(arrayResId)));
+		mAlphabet = new ArrayList<>(Arrays.asList(res.getStringArray(arrayResId)));
 		
 		FragmentManager fm = getSupportFragmentManager();
 		mViewPager.setAdapter(new FragmentStatePagerAdapter(fm) {
@@ -91,9 +91,9 @@ public class LetterPagerActivity extends FragmentActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {
         Log.i(TAG, "onOptionsItemSelected");
 		switch(item.getItemId()) {
-		case R.id.action_random:
+		/*case R.id.action_random:
 			Collections.shuffle(mAlphabet);			
-			return true;
+			return true;*/
 		case R.id.action_settings:
 			Intent intent = new Intent(this, SettingsActivity.class);
 			startActivity(intent);

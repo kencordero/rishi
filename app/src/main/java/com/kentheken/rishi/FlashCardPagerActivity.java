@@ -115,9 +115,9 @@ public class FlashCardPagerActivity extends FragmentActivity implements FlashCar
 	public boolean onOptionsItemSelected(MenuItem item) {
         Log.i(TAG, "onOptionsItemSelected");
 		switch (item.getItemId()) {
-			case R.id.action_random:
+			/*case R.id.action_random:
 				Collections.shuffle(mFiles);
-				return true;
+				return true;*/
 			case R.id.action_settings:
 				Intent intent = new Intent(this, SettingsActivity.class);
 				startActivity(intent);
@@ -133,7 +133,7 @@ public class FlashCardPagerActivity extends FragmentActivity implements FlashCar
 		int resId = getIntent().getExtras().getInt(MainActivity.EXTRA_FOLDER_NAME);
 		mFolderName = getString(resId);
 		try {
-			mFiles = new ArrayList<String>(Arrays.asList(am.list(mFolderName.toLowerCase(java.util.Locale.US))));
+			mFiles = new ArrayList<>(Arrays.asList(am.list(mFolderName.toLowerCase(java.util.Locale.US))));
 			if (resId != R.string.activity_numbers_name)
 				Collections.shuffle(mFiles);
 		} catch (Exception e) {

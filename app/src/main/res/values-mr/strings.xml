@@ -1,54 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="apple">सफरचंद</string>
-    <string name="banana">केळ</string>
-    <string name="carrots">गाजर</string>
-    <string name="dates">खजूर</string>
-    <string name="egg">अंडे</string>
-    <string name="figs">अंजीर</string>
-    <string name="grapes">द्राक्ष </string>
-    <string name="honey">मध</string>
-    <string name="ice_cream">कुल्फी</string>
-    <string name="kiwi">कीवी</string>
-    <string name="lemons">लिंबू</string>
-    <string name="milk">दूध</string>
-    <string name="oranges_food">संत्रे</string>
-    <string name="pineapple">आननस</string>
-    <string name="raspberry">रास्बेरी</string>
-    <string name="tomatoes">टोमाटो</string>
-    <string name="zucchinis">घोसावळ</string>
-    <string name="bear">अस्वल</string>
-    <string name="bird">पक्षी</string>
-    <string name="camel">उंट</string>
-    <string name="cat">मांजर</string>
-    <string name="chicken">कोंबडी</string>
-    <string name="cow">गाय</string>
-    <string name="dog">कुत्रा</string>
-    <string name="duck">बदक</string>
-    <string name="elephant">हत्ती</string>
-    <string name="fish">मासा</string>
-    <string name="giraffe">जिराफ</string>
-    <string name="horse">घोडा</string>
-    <string name="iguana">पाल</string>
-    <string name="kangaroo">कांगारू</string>
-    <string name="lion">सिंह</string>
-    <string name="mouse">उंदीर</string>
-    <string name="pig">डुक्कर</string>
-    <string name="sheep">मेंढी</string>
-    <string name="turtle">कासव</string>
-    <string name="whale">व्हेल</string>
-    <string name="one">एक</string>
-    <string name="two">दोन</string>
-    <string name="three">तीन</string>
-    <string name="four">चार</string>
-    <string name="five">पाच</string>
-    <string name="six">सहा</string>
-    <string name="seven">सात</string>
-    <string name="eight">आठ</string>
-    <string name="nine">नऊ</string>
-    <string name="ten">दहा</string>
-    <string name="eleven">अकरा</string>
-    <string name="twelve">बारा</string>
     <string-array name="letters">
         <item>अ</item>
         <item>आ</item>
