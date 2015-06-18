@@ -1,8 +1,6 @@
 package com.kentheken.rishi;
 
 import android.app.Activity;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -21,7 +19,8 @@ public class FlashCardFragment extends Fragment {
     private static final String TAG = "FlashCardFragment";
 	public static final String EXTRA_FOLDER = "com.kentheken.rishi.folder";
 	public static final String EXTRA_FILENAME = "com.kentheken.rishi.filename";
-	private SQLiteDatabase mDatabase;
+
+    private DatabaseOpenHelper mDbHelper;
 
     public void clearText() {
         mTextView.setText("");
@@ -36,7 +35,7 @@ public class FlashCardFragment extends Fragment {
     private Callbacks mCallbacks;
 
     public interface Callbacks {
-        Locale onsetText();
+        Locale onSetText();
     }
 
     @Override
@@ -54,14 +53,12 @@ public class FlashCardFragment extends Fragment {
 	@Override
 	public void onResume() {
 		super.onResume();
-		DatabaseOpenHelper dbHelper = new DatabaseOpenHelper(getActivity());
-		mDatabase = dbHelper.openDatabase();
 	}
 	
 	@Override
 	public void onPause() {
 		super.onPause();
-		mDatabase.close();
+        DatabaseOpenHelper.get(getActivity()).close();
 	}
 	
 	public View onCreateView(LayoutInflater inflater, ViewGroup parent,
@@ -102,7 +99,7 @@ public class FlashCardFragment extends Fragment {
 	}
 	
 	public void setText() {
-        Locale locale = mCallbacks.onsetText();
+        Locale locale = mCallbacks.onSetText();
         if (locale.equals(mLocale) && mText != null) {
             Log.i(TAG, "setText: already cached");
             mTextView.setText(mText);
@@ -113,7 +110,7 @@ public class FlashCardFragment extends Fragment {
                 mTextView.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), "DroidHindi.ttf"));
             else
                 mTextView.setTypeface(Typeface.DEFAULT);
-            mText = getText();
+            mText = DatabaseOpenHelper.get(getActivity()).getText(mFileName, mLocale);
             Log.i(TAG, "setText: " + mText);
 
             mTextView.setText(mText);
@@ -143,39 +140,5 @@ public class FlashCardFragment extends Fragment {
 	private void throwError(Exception e) {
 		Toast.makeText(getActivity(), e.toString(), Toast.LENGTH_SHORT).show();
 		e.printStackTrace();
-	}
-
-    private String getLocaleCode(Locale lId) {
-        switch (lId) {
-            case ENGLISH:
-                return "en";
-            case MARATHI:
-                return "mr";
-            case SPANISH:
-                return "es";
-            default:
-                return "";
-        }
-    }
-	
-	private String getText() {
-		String languageCode = getLocaleCode(mLocale);
-		Cursor cursor = mDatabase.rawQuery("SELECT display_name " +
-		"FROM imagelocale INNER JOIN image " +
-		"ON imagelocale.image_id = image._id " +
-		"INNER JOIN locale ON imagelocale.locale_id = locale._id " +
-		"WHERE file_name = ? AND code = ?", new String[] {mFileName, languageCode});
-		String displayName = null;
-		if (cursor != null) {
-			try {
-				cursor.moveToFirst();
-				do {
-					displayName = cursor.getString(cursor.getColumnIndex("display_name"));
-				} while (cursor.moveToNext());
-			} finally {
-				cursor.close();
-			}
-		}
-		return displayName;
 	}
 }

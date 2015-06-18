@@ -1,9 +1,5 @@
 package com.kentheken.rishi;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-
 import android.annotation.TargetApi;
 import android.content.Intent;
 import android.content.res.AssetManager;
@@ -21,6 +17,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 
 public class FlashCardPagerActivity extends FragmentActivity implements FlashCardFragment.Callbacks {
     private static final String TAG = "FlashCardPagerActivity";
@@ -91,7 +91,8 @@ public class FlashCardPagerActivity extends FragmentActivity implements FlashCar
 
             @Override
             public void onPageSelected(int i) {
-                FlashCardFragment fragment = (FlashCardFragment)mViewPager.getAdapter().instantiateItem(mViewPager, i);
+                FlashCardFragment fragment = (FlashCardFragment)mViewPager.getAdapter()
+                        .instantiateItem(mViewPager, i);
                 fragment.clearText();
             }
 
@@ -101,7 +102,8 @@ public class FlashCardPagerActivity extends FragmentActivity implements FlashCar
 	}
 
     public void speakText() {
-        FlashCardFragment fragment = (FlashCardFragment)mViewPager.getAdapter().instantiateItem(mViewPager, mViewPager.getCurrentItem());
+        FlashCardFragment fragment = (FlashCardFragment)mViewPager.getAdapter()
+                .instantiateItem(mViewPager, mViewPager.getCurrentItem());
         fragment.setText();
     }
 	
@@ -133,7 +135,8 @@ public class FlashCardPagerActivity extends FragmentActivity implements FlashCar
 		int resId = getIntent().getExtras().getInt(MainActivity.EXTRA_FOLDER_NAME);
 		mFolderName = getString(resId);
 		try {
-			mFiles = new ArrayList<>(Arrays.asList(am.list(mFolderName.toLowerCase(java.util.Locale.US))));
+			mFiles = new ArrayList<>
+                    (Arrays.asList(am.list(mFolderName.toLowerCase(java.util.Locale.US))));
 			if (resId != R.string.activity_numbers_name)
 				Collections.shuffle(mFiles);
 		} catch (Exception e) {
@@ -148,7 +151,7 @@ public class FlashCardPagerActivity extends FragmentActivity implements FlashCar
 
     // FlashCardFragment.Callbacks
     @Override
-    public FlashCardFragment.Locale onsetText() {
+    public FlashCardFragment.Locale onSetText() {
 
         if (mLocale == null)
             mLocale = FlashCardFragment.Locale.ENGLISH;

@@ -1,13 +1,7 @@
 package com.kentheken.rishi;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Locale;
-
 import android.annotation.TargetApi;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.media.AudioManager;
@@ -22,6 +16,10 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Locale;
 
 public class LetterPagerActivity extends FragmentActivity {
     private static final String TAG = "LetterPagerActivity" ;
@@ -44,8 +42,8 @@ public class LetterPagerActivity extends FragmentActivity {
 		mIsUpperCase = true;
 		
 		//grab locale from settings
-		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-		mLocaleId = preferences.getString(SettingsFragment.KEY_PREF_LANGUAGE, "0");
+		mLocaleId = PreferenceManager.getDefaultSharedPreferences(this)
+                .getString(SettingsFragment.KEY_PREF_LANGUAGE, "0");
 		Configuration config = getBaseContext().getResources().getConfiguration();
 		mLocale = new Locale(mLocaleId);
 		config.locale = mLocale;

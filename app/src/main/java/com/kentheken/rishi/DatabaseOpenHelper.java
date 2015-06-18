@@ -1,38 +1,41 @@
 package com.kentheken.rishi;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-
 import android.content.Context;
+import android.database.Cursor;
+import android.database.CursorIndexOutOfBoundsException;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import android.widget.Toast;
+
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 public class DatabaseOpenHelper extends SQLiteOpenHelper {
-	    private static final String DB_NAME = "rishi.db3";
-	    private static final int DB_VERSION = 1;
+	private static final String DB_NAME = "rishi.db3";
+    private static final int DB_VERSION = 2;
 
-	    private SQLiteDatabase mDatabase;
-	    private final Context mContext;
+    private static DatabaseOpenHelper sDbHelper;
 
-	    public SQLiteDatabase getDb() {
-	    	return mDatabase;
-	    }
-	    
-	    /**
-	     * Constructor
-	     * Takes and keeps a reference of the passed context in order to access to the application assets and resources.
-	     * @param context
-	     */
-	    public DatabaseOpenHelper(Context context) {
-	        super(context, DB_NAME, null, DB_VERSION);
-	        this.mContext = context;
-	        openDatabase();
-	    }   
+    private SQLiteDatabase mDatabase;
+    private final Context mContext;
+
+    private DatabaseOpenHelper(Context appContext) {
+        super(appContext, DB_NAME, null, DB_VERSION);
+        mContext = appContext;
+        openDatabase();
+    }
+
+    public static DatabaseOpenHelper get(Context context) {
+        if (sDbHelper == null) {
+            sDbHelper = new DatabaseOpenHelper(context.getApplicationContext());
+        }
+        return sDbHelper;
+    }
 
 	  /**
 	     * Creates a empty database on the system and rewrites it with your own database.
@@ -43,15 +46,20 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
             if (!dbExists) {
 	            // By calling this method, an empty database will be created into the default system path
 	            // of your application so we are able to overwrite that database with ours.
-	            this.getReadableDatabase();
-
-	            try {
-	                copyDatabase();
-	            } catch (IOException e) {
-	                throw new Error("Error copying database");
-	            }
+	            createNewDatabase();
 	        }
 	    }
+
+    private void createNewDatabase() {
+        this.getReadableDatabase();
+
+        try {
+            copyDatabase();
+        } catch (IOException e) {
+            throw new Error("Error copying database");
+
+        }
+    }
 
 	    /**
 	     * Check if the database already exist to avoid re-copying the file each time you open the application.
@@ -122,10 +130,48 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 	    public void onCreate(SQLiteDatabase db) { }
 
 	    @Override
-	    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) { }
+	    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+            createNewDatabase();
+        }
 
 	    // Add your public helper methods to access and get content from the database.
 	    // You could return cursors by doing "return myDataBase.query(....)" so it'd be easy
 	    // to create adapters for your views.
-	
+
+    public String getText(String fileName, FlashCardFragment.Locale locale) {
+        String languageCode = getLocaleCode(locale);
+        Cursor cursor = mDatabase.rawQuery("SELECT display_name " +
+                "FROM imagelocale INNER JOIN image " +
+                "ON imagelocale.image_id = image._id " +
+                "INNER JOIN locale ON imagelocale.locale_id = locale._id " +
+                "WHERE file_name = ? AND code = ?", new String[] {fileName, languageCode});
+        String displayName = null;
+        if (cursor != null) {
+            try {
+                cursor.moveToFirst();
+                do {
+                    displayName = cursor.getString(cursor.getColumnIndex("display_name"));
+                } while (cursor.moveToNext());
+            } catch (CursorIndexOutOfBoundsException e) {
+                Toast.makeText(mContext, "No text found for " + fileName, Toast.LENGTH_LONG).show();
+            }
+            finally {
+                cursor.close();
+            }
+        }
+        return displayName;
+    }
+
+    private String getLocaleCode(FlashCardFragment.Locale lId) {
+        switch (lId) {
+            case ENGLISH:
+                return "en";
+            case MARATHI:
+                return "mr";
+            case SPANISH:
+                return "es";
+            default:
+                return "";
+        }
+    }
 }
