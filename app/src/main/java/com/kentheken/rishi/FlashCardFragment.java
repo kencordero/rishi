@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.InputStream;
+import java.util.Locale;
 
 public class FlashCardFragment extends Fragment {
     private static final String TAG = "FlashCardFragment";
@@ -26,16 +27,15 @@ public class FlashCardFragment extends Fragment {
         mTextView.setText("");
     }
 
-    public enum Locale { ENGLISH, MARATHI, SPANISH }
 	private TextView mTextView;
 	private String mFileName;
 	private String mText;
 	private TTSEngine mTTS;
-	private Locale mLocale;
+	private TTSEngine.Language mLanguage;
     private Callbacks mCallbacks;
 
     public interface Callbacks {
-        Locale onSetText();
+        TTSEngine.Language onSetText();
     }
 
     @Override
@@ -63,13 +63,12 @@ public class FlashCardFragment extends Fragment {
 	
 	public View onCreateView(LayoutInflater inflater, ViewGroup parent,
 			Bundle savedInstanceState) {
-		mTTS = new TTSEngine(getActivity());
 		View v = inflater.inflate(R.layout.fragment_flashcard, parent, false);
 
 		ImageView imageView = (ImageView) v.findViewById(R.id.imgView_Words);
 		mTextView = (TextView) v.findViewById(R.id.txtView_Words);
 
-		String folder = getArguments().getString(EXTRA_FOLDER).toLowerCase(java.util.Locale.US);
+		String folder = getArguments().getString(EXTRA_FOLDER).toLowerCase(Locale.US);
 		mFileName = getArguments().getString(EXTRA_FILENAME);
 
 		InputStream stream = null;
@@ -99,18 +98,18 @@ public class FlashCardFragment extends Fragment {
 	}
 	
 	public void setText() {
-        Locale locale = mCallbacks.onSetText();
-        if (locale.equals(mLocale) && mText != null) {
+        TTSEngine.Language locale = mCallbacks.onSetText();
+        if (locale.equals(mLanguage) && mText != null) {
             Log.i(TAG, "setText: already cached");
             mTextView.setText(mText);
         }
         else {
-            mLocale = locale;
-            if (mLocale == Locale.MARATHI)
+            mLanguage = locale;
+            if (mLanguage == TTSEngine.Language.MARATHI)
                 mTextView.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), "DroidHindi.ttf"));
             else
                 mTextView.setTypeface(Typeface.DEFAULT);
-            mText = DatabaseOpenHelper.get(getActivity()).getText(mFileName, mLocale);
+            mText = DatabaseOpenHelper.get(getActivity()).getText(mFileName, mLanguage);
             Log.i(TAG, "setText: " + mText);
 
             mTextView.setText(mText);
@@ -131,10 +130,10 @@ public class FlashCardFragment extends Fragment {
 	}
 					
 	private void speakText() {
-        Log.i(TAG, "speakText - Locale: " + mLocale.toString());
+        Log.i(TAG, "speakText - Locale: " + mLanguage.toString());
         Log.i(TAG, "speakText - Text: " + mText);
-		if (mText != null && mLocale != null)
-			mTTS.speak(mLocale, mText);
+		if (mText != null && mLanguage != null)
+			mTTS.speak(mText);
 	}
 
 	private void throwError(Exception e) {

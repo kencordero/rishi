@@ -1,6 +1,7 @@
 package com.kentheken.rishi;
 
 import android.annotation.TargetApi;
+import android.app.ActionBar;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.media.AudioManager;
@@ -27,7 +28,7 @@ public class FlashCardPagerActivity extends FragmentActivity implements FlashCar
 	private String mFolderName;
 	private ArrayList<String> mFiles;
     private ViewPager mViewPager;
-    private FlashCardFragment.Locale mLocale;
+    private TTSEngine.Language mLanguage;
 
 	@TargetApi(Build.VERSION_CODES.HONEYCOMB)			
 	@Override
@@ -37,18 +38,19 @@ public class FlashCardPagerActivity extends FragmentActivity implements FlashCar
 
 		setContentView(R.layout.activity_flashcard);
 		mViewPager = (ViewPager)findViewById(R.id.viewPager);
-        mLocale = FlashCardFragment.Locale.ENGLISH; // default to English
+        mLanguage = TTSEngine.Language.ENGLISH; // default to English
 		
 		getFileList();
 		setVolumeControlStream(AudioManager.STREAM_MUSIC);
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
-			getActionBar().setTitle(mFolderName);
+		ActionBar actionBar = getActionBar();
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB && actionBar != null)
+			actionBar.setTitle(mFolderName);
 		RadioButton radioButtonEnglish = (RadioButton)findViewById(R.id.optEnglish);
 		radioButtonEnglish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.i(TAG, "Locale: English");
-                mLocale = FlashCardFragment.Locale.ENGLISH;
+                mLanguage = TTSEngine.Language.ENGLISH;
                 speakText();
             }
         });
@@ -57,7 +59,7 @@ public class FlashCardPagerActivity extends FragmentActivity implements FlashCar
             @Override
             public void onClick(View v) {
                 Log.i(TAG, "Locale: Marathi");
-                mLocale = FlashCardFragment.Locale.MARATHI;
+                mLanguage = TTSEngine.Language.MARATHI;
                 speakText();
             }
         });
@@ -66,7 +68,7 @@ public class FlashCardPagerActivity extends FragmentActivity implements FlashCar
             @Override
             public void onClick(View v) {
                 Log.i(TAG, "Locale: Spanish");
-                mLocale = FlashCardFragment.Locale.SPANISH;
+                mLanguage = TTSEngine.Language.SPANISH;
                 speakText();
             }
         });
@@ -85,20 +87,22 @@ public class FlashCardPagerActivity extends FragmentActivity implements FlashCar
 			}			
 		});
 
-        mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int i, float v, int i2) { }
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+			@Override
+			public void onPageScrolled(int i, float v, int i2) {
+			}
 
-            @Override
-            public void onPageSelected(int i) {
-                FlashCardFragment fragment = (FlashCardFragment)mViewPager.getAdapter()
-                        .instantiateItem(mViewPager, i);
-                fragment.clearText();
-            }
+			@Override
+			public void onPageSelected(int i) {
+				FlashCardFragment fragment = (FlashCardFragment) mViewPager.getAdapter()
+						.instantiateItem(mViewPager, i);
+				fragment.clearText();
+			}
 
-            @Override
-            public void onPageScrollStateChanged(int i) { }
-        });
+			@Override
+			public void onPageScrollStateChanged(int i) {
+			}
+		});
 	}
 
     public void speakText() {
@@ -151,10 +155,10 @@ public class FlashCardPagerActivity extends FragmentActivity implements FlashCar
 
     // FlashCardFragment.Callbacks
     @Override
-    public FlashCardFragment.Locale onSetText() {
+    public TTSEngine.Language onSetText() {
 
-        if (mLocale == null)
-            mLocale = FlashCardFragment.Locale.ENGLISH;
-        return mLocale;
+        if (mLanguage == null)
+            mLanguage = TTSEngine.Language.ENGLISH;
+        return mLanguage;
     }
 }
