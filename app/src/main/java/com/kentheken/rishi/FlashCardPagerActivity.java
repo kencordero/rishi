@@ -2,7 +2,6 @@ package com.kentheken.rishi;
 
 import android.annotation.TargetApi;
 import android.app.ActionBar;
-import android.content.Intent;
 import android.content.res.AssetManager;
 import android.media.AudioManager;
 import android.os.Build;
@@ -13,8 +12,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.Toast;
@@ -23,12 +20,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
-public class FlashCardPagerActivity extends FragmentActivity implements FlashCardFragment.Callbacks {
+public class FlashCardPagerActivity extends FragmentActivity {
     private static final String TAG = "FlashCardPagerActivity";
 	private String mFolderName;
 	private ArrayList<String> mFiles;
     private ViewPager mViewPager;
-    private TTSEngine.Language mLanguage;
 
 	@TargetApi(Build.VERSION_CODES.HONEYCOMB)			
 	@Override
@@ -38,8 +34,7 @@ public class FlashCardPagerActivity extends FragmentActivity implements FlashCar
 
 		setContentView(R.layout.activity_flashcard);
 		mViewPager = (ViewPager)findViewById(R.id.viewPager);
-        mLanguage = TTSEngine.Language.ENGLISH; // default to English
-		
+
 		getFileList();
 		setVolumeControlStream(AudioManager.STREAM_MUSIC);
 		ActionBar actionBar = getActionBar();
@@ -50,8 +45,8 @@ public class FlashCardPagerActivity extends FragmentActivity implements FlashCar
             @Override
             public void onClick(View v) {
                 Log.i(TAG, "Locale: English");
-                mLanguage = TTSEngine.Language.ENGLISH;
-                speakText();
+				TTSEngine.get(getApplicationContext()).setLanguage(TTSEngine.Language.ENGLISH);
+                setText();
             }
         });
 		RadioButton radioButtonMarathi = (RadioButton)findViewById(R.id.optMarathi);
@@ -59,8 +54,8 @@ public class FlashCardPagerActivity extends FragmentActivity implements FlashCar
             @Override
             public void onClick(View v) {
                 Log.i(TAG, "Locale: Marathi");
-                mLanguage = TTSEngine.Language.MARATHI;
-                speakText();
+				TTSEngine.get(getApplicationContext()).setLanguage(TTSEngine.Language.MARATHI);
+                setText();
             }
         });
 		RadioButton radioButtonSpanish = (RadioButton)findViewById(R.id.optSpanish);
@@ -68,10 +63,24 @@ public class FlashCardPagerActivity extends FragmentActivity implements FlashCar
             @Override
             public void onClick(View v) {
                 Log.i(TAG, "Locale: Spanish");
-                mLanguage = TTSEngine.Language.SPANISH;
-                speakText();
+				TTSEngine.get(getApplicationContext()).setLanguage(TTSEngine.Language.SPANISH);
+                setText();
             }
         });
+
+		//set radio button
+		TTSEngine.Language lang = TTSEngine.get(this).getCurrentLanguage();
+		switch (lang) {
+			case MARATHI:
+				radioButtonMarathi.toggle();
+				break;
+			case SPANISH:
+				radioButtonSpanish.toggle();
+				break;
+			default:
+				//English is selected by default via XML
+				break;
+		}
 		
 		FragmentManager fm = getSupportFragmentManager();
 		mViewPager.setAdapter(new FragmentStatePagerAdapter(fm) {
@@ -105,33 +114,11 @@ public class FlashCardPagerActivity extends FragmentActivity implements FlashCar
 		});
 	}
 
-    public void speakText() {
+    public void setText() {
         FlashCardFragment fragment = (FlashCardFragment)mViewPager.getAdapter()
                 .instantiateItem(mViewPager, mViewPager.getCurrentItem());
         fragment.setText();
     }
-	
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.alternate, menu);
-		return true;
-	}
-	
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-        Log.i(TAG, "onOptionsItemSelected");
-		switch (item.getItemId()) {
-			/*case R.id.action_random:
-				Collections.shuffle(mFiles);
-				return true;*/
-			case R.id.action_settings:
-				Intent intent = new Intent(this, SettingsActivity.class);
-				startActivity(intent);
-				return true;
-			default:
-				return super.onOptionsItemSelected(item);
-		}
-	}
 	
 	private void getFileList() {
         Log.i(TAG, "getFileList");
@@ -152,13 +139,4 @@ public class FlashCardPagerActivity extends FragmentActivity implements FlashCar
 		Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show();
 		e.printStackTrace();
 	}
-
-    // FlashCardFragment.Callbacks
-    @Override
-    public TTSEngine.Language onSetText() {
-
-        if (mLanguage == null)
-            mLanguage = TTSEngine.Language.ENGLISH;
-        return mLanguage;
-    }
 }

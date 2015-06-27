@@ -8,13 +8,12 @@ import android.view.View;
 
 public class MainActivity extends Activity {
 	public static final String EXTRA_FOLDER_NAME = "folder_name";
-	private TTSEngine mTTS;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		mTTS = new TTSEngine(this);
 		setContentView(R.layout.activity_main);
+		TTSEngine.get(this); // initializes TTS engine
 		setVolumeControlStream(AudioManager.STREAM_MUSIC);
 	}
 
@@ -53,14 +52,9 @@ public class MainActivity extends Activity {
 	}
 	
 	@Override
-	public void onPause() {
-		super.onPause();
-		mTTS.stop();
-	}
-	
-	@Override
 	public void onDestroy() {
 		super.onDestroy();
-		mTTS.shutdown();
+		TTSEngine.get(this).shutdown();
+		DatabaseOpenHelper.get(this).close();
 	}
 }

@@ -13,8 +13,11 @@ public class TTSEngine {
 	private static TextToSpeech mTTS;
 
     private static TTSEngine sEngine;
-    private Context mAppContext;
-    private Language currentLanguage;
+    private Language mCurrentLanguage;
+
+    public Language getCurrentLanguage() {
+        return mCurrentLanguage;
+    }
 
     public enum Language { ENGLISH, MARATHI, SPANISH }
 
@@ -23,8 +26,8 @@ public class TTSEngine {
 			mTTS = new TextToSpeech(c, new OnInitListener() {
 				@Override
 				public void onInit(int status) {
-					mTTS.setLanguage(java.util.Locale.ENGLISH);
-                    currentLanguage = Language.ENGLISH;
+					mTTS.setLanguage(Locale.ENGLISH);
+                    mCurrentLanguage = Language.ENGLISH;
 					Log.d(TAG, "English TTS initialized");
 				}				
 			});
@@ -46,29 +49,28 @@ public class TTSEngine {
 	public void speak(String textToSpeak) {
         //TODO be sure to set language when option is set
 		stop();
-		TextToSpeech tts = null;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            tts.speak(textToSpeak, TextToSpeech.QUEUE_ADD, null, "");
+            mTTS.speak(textToSpeak, TextToSpeech.QUEUE_ADD, null, "");
         }
 		else {
-            tts.speak(textToSpeak, TextToSpeech.QUEUE_ADD, null);
+            mTTS.speak(textToSpeak, TextToSpeech.QUEUE_ADD, null);
         }
 	}
 
 	public void setLanguage(Language language) {
-        if (language != currentLanguage) {
+        if (language != mCurrentLanguage) {
             switch (language) {
                 case ENGLISH:
                     mTTS.setLanguage(Locale.ENGLISH);
-                    currentLanguage = Language.ENGLISH;
+                    mCurrentLanguage = Language.ENGLISH;
                     break;
                 case MARATHI:
                     mTTS.setLanguage(new Locale("hi"));
-                    currentLanguage = Language.MARATHI;
+                    mCurrentLanguage = Language.MARATHI;
                     break;
                 case SPANISH:
                     mTTS.setLanguage(new Locale("es"));
-                    currentLanguage = Language.SPANISH;
+                    mCurrentLanguage = Language.SPANISH;
                     break;
             }
         }

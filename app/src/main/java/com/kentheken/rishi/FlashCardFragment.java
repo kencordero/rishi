@@ -1,6 +1,5 @@
 package com.kentheken.rishi;
 
-import android.app.Activity;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -30,35 +29,11 @@ public class FlashCardFragment extends Fragment {
 	private TextView mTextView;
 	private String mFileName;
 	private String mText;
-	private TTSEngine mTTS;
 	private TTSEngine.Language mLanguage;
-    private Callbacks mCallbacks;
 
-    public interface Callbacks {
-        TTSEngine.Language onSetText();
-    }
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        mCallbacks = (Callbacks)activity;
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mCallbacks = null;
-    }
-	
 	@Override
 	public void onResume() {
 		super.onResume();
-	}
-	
-	@Override
-	public void onPause() {
-		super.onPause();
-        DatabaseOpenHelper.get(getActivity()).close();
 	}
 	
 	public View onCreateView(LayoutInflater inflater, ViewGroup parent,
@@ -93,18 +68,19 @@ public class FlashCardFragment extends Fragment {
                 Log.i(TAG, "TextView click");
                 setText();
 			}
-		});		
+		});
+        mLanguage = TTSEngine.get(getActivity()).getCurrentLanguage();
 		return v;
 	}
 	
 	public void setText() {
-        TTSEngine.Language locale = mCallbacks.onSetText();
-        if (locale.equals(mLanguage) && mText != null) {
+        TTSEngine.Language language = TTSEngine.get(getActivity()).getCurrentLanguage();
+        if (language.equals(mLanguage) && mText != null) {
             Log.i(TAG, "setText: already cached");
             mTextView.setText(mText);
         }
         else {
-            mLanguage = locale;
+            mLanguage = language;
             if (mLanguage == TTSEngine.Language.MARATHI)
                 mTextView.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), "DroidHindi.ttf"));
             else
@@ -130,10 +106,8 @@ public class FlashCardFragment extends Fragment {
 	}
 					
 	private void speakText() {
-        Log.i(TAG, "speakText - Locale: " + mLanguage.toString());
-        Log.i(TAG, "speakText - Text: " + mText);
-		if (mText != null && mLanguage != null)
-			mTTS.speak(mText);
+        if (mText != null)
+			TTSEngine.get(getActivity()).speak(mText);
 	}
 
 	private void throwError(Exception e) {
