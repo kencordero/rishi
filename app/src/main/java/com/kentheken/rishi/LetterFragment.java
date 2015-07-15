@@ -1,7 +1,5 @@
 package com.kentheken.rishi;
 
-import java.util.Locale;
-
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -12,21 +10,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.Locale;
+
 public class LetterFragment extends Fragment {
-	public static final String EXTRA_LETTER = "com.kentheken.rishi.letter";
-	
-	private TextView mTextView;
-	private String mLetter;
-	private TTSEngine mTTS;
-	private String mLocaleId;
-	private Locale mLocale;
-	
+	private static final String EXTRA_LETTER = "com.kentheken.rishi.letter";
+
 	@Override
 	public void onResume() {
 		super.onResume();
 		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-		mLocaleId = preferences.getString(SettingsFragment.KEY_PREF_LANGUAGE,  "0");
-		mLocale = new Locale(mLocaleId);
+		String mLocaleId = preferences.getString(SettingsFragment.KEY_PREF_LANGUAGE, "0");
+		Locale mLocale = new Locale(mLocaleId);
 		Configuration config = getActivity().getBaseContext().getResources().getConfiguration();
 		config.locale = mLocale;
 		getActivity().getBaseContext().getResources().updateConfiguration(config, null);
@@ -36,14 +30,14 @@ public class LetterFragment extends Fragment {
 	}
 
     private void setLetter() {
-        mLetter = getArguments().getString(EXTRA_LETTER);
-        mTextView = (TextView)getView().findViewById(R.id.txtView_Letters);
+		String mLetter = getArguments().getString(EXTRA_LETTER);
+		TextView mTextView = (TextView) getView().findViewById(R.id.txtView_Letters);
         mTextView.setText(mLetter);
         mTextView.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                // TODO setup TTS
-            }
-        });
+			public void onClick(View view) {
+				// TODO setup TTS
+			}
+		});
     }
 	
 	@Override

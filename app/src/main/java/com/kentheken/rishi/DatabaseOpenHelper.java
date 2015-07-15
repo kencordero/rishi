@@ -16,6 +16,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 public class DatabaseOpenHelper extends SQLiteOpenHelper {
+    private static final String TAG = DatabaseOpenHelper.class.getSimpleName();
 	private static final String DB_NAME = "rishi.db3";
     private static final int DB_VERSION = 2;
 
@@ -40,9 +41,10 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
     /**
      * Creates a empty database on the system and rewrites it with your own database.
      * */
-    public void createDatabase() {
+    private void createDatabase() {
         boolean dbExists = checkDatabase();
 
+        Log.i(TAG, "Database exists: " + dbExists);
         if (!dbExists) {
 	        // By calling this method, an empty database will be created into the default system path
 	        // of your application so we are able to overwrite that database with ours.
@@ -86,13 +88,14 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
      * This is done by transferring bytestream.
      * */
     private void copyDatabase() throws IOException {
+        Log.i(TAG, "Copying database");
         //Open your local db as the input stream
         InputStream myInput = mContext.getAssets().open(DB_NAME);
 
         //Open the empty db as the output stream
         OutputStream myOutput = new FileOutputStream(getPath());
 
-        //transfer bytes from the inputfile to the outputfile
+        //transfer bytes from the input file to the output file
         byte[] buffer = new byte[1024];
         int length;
         while ((length = myInput.read(buffer)) > 0) {
@@ -161,8 +164,8 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
         return displayName;
     }
 
-    private String getLocaleCode(TTSEngine.Language lId) {
-        switch (lId) {
+    private String getLocaleCode(TTSEngine.Language language) {
+        switch (language) {
             case ENGLISH:
                 return "en";
             case MARATHI:

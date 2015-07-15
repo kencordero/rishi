@@ -17,10 +17,8 @@ import java.util.Locale;
 
 public class FlashCardFragment extends Fragment {
     private static final String TAG = "FlashCardFragment";
-	public static final String EXTRA_FOLDER = "com.kentheken.rishi.folder";
-	public static final String EXTRA_FILENAME = "com.kentheken.rishi.filename";
-
-    private DatabaseOpenHelper mDbHelper;
+	private static final String EXTRA_FOLDER = "com.kentheken.rishi.folder";
+	private static final String EXTRA_FILENAME = "com.kentheken.rishi.filename";
 
     public void clearText() {
         mTextView.setText("");
@@ -31,11 +29,6 @@ public class FlashCardFragment extends Fragment {
 	private String mText;
 	private TTSEngine.Language mLanguage;
 
-	@Override
-	public void onResume() {
-		super.onResume();
-	}
-	
 	public View onCreateView(LayoutInflater inflater, ViewGroup parent,
 			Bundle savedInstanceState) {
 		View v = inflater.inflate(R.layout.fragment_flashcard, parent, false);

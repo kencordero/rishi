@@ -33,7 +33,7 @@ public class SettingsFragment extends PreferenceFragment implements OnSharedPref
 	}
 	
 	@Override
-	public void onSharedPreferenceChanged(SharedPreferences sharedPrefences, String key) {
+	public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
 		if (key.equals(KEY_PREF_LANGUAGE))
 			setSummary();					
 	}
