@@ -13,13 +13,15 @@ public class TTSEngine {
 	private static TextToSpeech mTTS;
 
     private static TTSEngine sEngine;
-    private Language mCurrentLanguage;
+    private int mCurrentLanguage;
 
-    public Language getCurrentLanguage() {
+    public int getCurrentLanguage() {
         return mCurrentLanguage;
     }
 
-    public enum Language { ENGLISH, MARATHI, SPANISH }
+    public static final int LANGUAGE_ENGLISH = 0;
+    public static final int LANGUAGE_MARATHI = 1;
+    public static final int LANGUAGE_SPANISH = 2;
 
     private TTSEngine(Context c) {
         if (mTTS == null) {
@@ -27,7 +29,7 @@ public class TTSEngine {
 				@Override
 				public void onInit(int status) {
 					mTTS.setLanguage(Locale.ENGLISH);
-                    mCurrentLanguage = Language.ENGLISH;
+                    mCurrentLanguage = LANGUAGE_ENGLISH;
 					Log.d(TAG, "English TTS initialized");
 				}				
 			});
@@ -57,20 +59,18 @@ public class TTSEngine {
         }
 	}
 
-	public void setLanguage(Language language) {
+	public void setLanguage(int language) {
         if (language != mCurrentLanguage) {
+            mCurrentLanguage = language;
             switch (language) {
-                case ENGLISH:
+                case LANGUAGE_ENGLISH:
                     mTTS.setLanguage(Locale.ENGLISH);
-                    mCurrentLanguage = Language.ENGLISH;
                     break;
-                case MARATHI:
+                case LANGUAGE_MARATHI:
                     mTTS.setLanguage(new Locale("hi"));
-                    mCurrentLanguage = Language.MARATHI;
                     break;
-                case SPANISH:
+                case LANGUAGE_SPANISH:
                     mTTS.setLanguage(new Locale("es"));
-                    mCurrentLanguage = Language.SPANISH;
                     break;
             }
         }

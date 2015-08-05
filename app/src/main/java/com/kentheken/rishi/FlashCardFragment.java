@@ -27,7 +27,7 @@ public class FlashCardFragment extends Fragment {
 	private TextView mTextView;
 	private String mFileName;
 	private String mText;
-	private TTSEngine.Language mLanguage;
+	private int mLanguage;
 
 	public View onCreateView(LayoutInflater inflater, ViewGroup parent,
 			Bundle savedInstanceState) {
@@ -67,14 +67,14 @@ public class FlashCardFragment extends Fragment {
 	}
 	
 	public void setText() {
-        TTSEngine.Language language = TTSEngine.get(getActivity()).getCurrentLanguage();
-        if (language.equals(mLanguage) && mText != null) {
+        int language = TTSEngine.get(getActivity()).getCurrentLanguage();
+        if (language == mLanguage && mText != null) {
             Log.i(TAG, "setText: already cached");
             mTextView.setText(mText);
         }
         else {
             mLanguage = language;
-            if (mLanguage == TTSEngine.Language.MARATHI)
+            if (mLanguage == TTSEngine.LANGUAGE_MARATHI)
                 mTextView.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), "DroidHindi.ttf"));
             else
                 mTextView.setTypeface(Typeface.DEFAULT);

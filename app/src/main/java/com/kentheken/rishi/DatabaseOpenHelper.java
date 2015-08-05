@@ -140,7 +140,7 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
     // You could return cursors by doing "return myDataBase.query(....)" so it'd be easy
     // to create adapters for your views.
 
-    public String getText(String fileName, TTSEngine.Language language) {
+    public String getText(String fileName, int language) {
         String languageCode = getLocaleCode(language);
         Cursor cursor = mDatabase.rawQuery("SELECT display_name " +
                 "FROM imagelocale INNER JOIN image " +
@@ -164,13 +164,13 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
         return displayName;
     }
 
-    private String getLocaleCode(TTSEngine.Language language) {
+    private String getLocaleCode(int language) {
         switch (language) {
-            case ENGLISH:
+            case TTSEngine.LANGUAGE_ENGLISH:
                 return "en";
-            case MARATHI:
+            case TTSEngine.LANGUAGE_MARATHI:
                 return "mr";
-            case SPANISH:
+            case TTSEngine.LANGUAGE_SPANISH:
                 return "es";
             default:
                 return "";

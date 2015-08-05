@@ -45,7 +45,7 @@ public class FlashCardPagerActivity extends FragmentActivity {
             @Override
             public void onClick(View v) {
                 Log.i(TAG, "Locale: English");
-				TTSEngine.get(getApplicationContext()).setLanguage(TTSEngine.Language.ENGLISH);
+				TTSEngine.get(getApplicationContext()).setLanguage(TTSEngine.LANGUAGE_ENGLISH);
                 setText();
             }
         });
@@ -54,7 +54,7 @@ public class FlashCardPagerActivity extends FragmentActivity {
             @Override
             public void onClick(View v) {
                 Log.i(TAG, "Locale: Marathi");
-				TTSEngine.get(getApplicationContext()).setLanguage(TTSEngine.Language.MARATHI);
+				TTSEngine.get(getApplicationContext()).setLanguage(TTSEngine.LANGUAGE_MARATHI);
                 setText();
             }
         });
@@ -63,18 +63,18 @@ public class FlashCardPagerActivity extends FragmentActivity {
             @Override
             public void onClick(View v) {
                 Log.i(TAG, "Locale: Spanish");
-				TTSEngine.get(getApplicationContext()).setLanguage(TTSEngine.Language.SPANISH);
+				TTSEngine.get(getApplicationContext()).setLanguage(TTSEngine.LANGUAGE_SPANISH);
                 setText();
             }
         });
 
 		//set radio button
-		TTSEngine.Language lang = TTSEngine.get(this).getCurrentLanguage();
+		int lang = TTSEngine.get(this).getCurrentLanguage();
 		switch (lang) {
-			case MARATHI:
+			case TTSEngine.LANGUAGE_MARATHI:
 				radioButtonMarathi.toggle();
 				break;
-			case SPANISH:
+			case TTSEngine.LANGUAGE_SPANISH:
 				radioButtonSpanish.toggle();
 				break;
 			default:
