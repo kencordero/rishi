@@ -5,9 +5,9 @@ public class Image {
 		FOOD, ANIMAL, COLOR, SHAPE, LETTER, NUMBER		
 	}
 	
-	private String mTitle;
-	private String mFileName;
-	private Category mCategory;
+	private final String mTitle;
+	private final String mFileName;
+	private final Category mCategory;
 	
 	public Image(String title, String fileName, Category category)  {
 		mTitle = title;

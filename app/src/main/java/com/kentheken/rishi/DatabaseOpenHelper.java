@@ -112,13 +112,12 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
         return mContext.getFilesDir().getPath() + DB_NAME;
     }
 
-    public SQLiteDatabase openDatabase() throws SQLException{
+    public void openDatabase() throws SQLException{
         //Open the database
         if (mDatabase == null) {
             createDatabase();
             mDatabase = SQLiteDatabase.openDatabase(getPath(), null,  SQLiteDatabase.OPEN_READONLY);
         }
-        return mDatabase;
     }
 
     @Override

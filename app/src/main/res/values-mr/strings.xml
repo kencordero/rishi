@@ -46,20 +46,4 @@
         <item>स</item>
         <item>ह</item>
     </string-array>
-    <string name="circle">मंडळ</string>
-    <string name="crescent">चंद्रकोर</string>
-    <string name="rectangle">आयत</string>
-    <string name="square">चौकोन</string>
-    <string name="star">तारा</string>
-    <string name="triangle">त्रिकोण</string>
-    <string name="black">काळा</string>
-    <string name="blue">निळा</string>
-    <string name="brown">चॉकलेटी</string>
-    <string name="green">हिरवा</string>
-    <string name="orange_color">नारिंगी</string>
-    <string name="pink">गुलाबी</string>
-    <string name="purple">जांभळा</string>
-    <string name="red">लाल</string>
-    <string name="white">पांढरा</string>
-    <string name="yellow">पिवळा</string>
 </resources>
