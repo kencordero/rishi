@@ -23,7 +23,6 @@ import java.util.Locale;
 
 public class LetterPagerActivity extends FragmentActivity {
     private static final String TAG = "LetterPagerActivity" ;
-    private ViewPager mViewPager;
 	private ArrayList<String> mAlphabet;
 	private String mLocaleId;
 	private Locale mLocale;
@@ -33,9 +32,9 @@ public class LetterPagerActivity extends FragmentActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		mViewPager = new ViewPager(this);
-		mViewPager.setId(R.id.viewPager);
-		setContentView(mViewPager);
+		ViewPager viewPager = new ViewPager(this);
+		viewPager.setId(R.id.viewPager);
+		setContentView(viewPager);
 		setVolumeControlStream(AudioManager.STREAM_MUSIC);
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
 			getActionBar().setTitle(R.string.activity_letters_name);
@@ -56,19 +55,19 @@ public class LetterPagerActivity extends FragmentActivity {
 		mAlphabet = new ArrayList<>(Arrays.asList(res.getStringArray(arrayResId)));
 		
 		FragmentManager fm = getSupportFragmentManager();
-		mViewPager.setAdapter(new FragmentStatePagerAdapter(fm) {
+		viewPager.setAdapter(new FragmentStatePagerAdapter(fm) {
 			@Override
 			public Fragment getItem(int pos) {
 				String letter = mAlphabet.get(pos);
 				if (!mIsUpperCase && !mLocaleId.equals("mr"))
-					letter = letter.toLowerCase(mLocale);					
+					letter = letter.toLowerCase(mLocale);
 				return LetterFragment.newInstance(letter);
 			}
 
 			@Override
 			public int getCount() {
 				return mAlphabet.size();
-			}			
+			}
 		});
 	}
 	
