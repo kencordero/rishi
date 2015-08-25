@@ -114,7 +114,7 @@ public class FlashCardPagerActivity extends FragmentActivity {
 		});
 	}
 
-    public void setText() {
+    private void setText() {
         FlashCardFragment fragment = (FlashCardFragment)mViewPager.getAdapter()
                 .instantiateItem(mViewPager, mViewPager.getCurrentItem());
         fragment.setText();
