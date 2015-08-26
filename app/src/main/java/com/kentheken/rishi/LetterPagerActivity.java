@@ -22,7 +22,7 @@ import java.util.Arrays;
 import java.util.Locale;
 
 public class LetterPagerActivity extends FragmentActivity {
-    private static final String TAG = "LetterPagerActivity" ;
+    private static final String TAG = LetterPagerActivity.class.getSimpleName();
 	private ArrayList<String> mAlphabet;
 	private String mLocaleId;
 	private Locale mLocale;

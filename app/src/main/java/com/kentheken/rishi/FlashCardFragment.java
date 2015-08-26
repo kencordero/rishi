@@ -16,7 +16,7 @@ import java.io.InputStream;
 import java.util.Locale;
 
 public class FlashCardFragment extends Fragment {
-    private static final String TAG = "FlashCardFragment";
+    private static final String TAG = FlashCardFragment.class.getSimpleName();
 	private static final String EXTRA_FOLDER = "com.kentheken.rishi.folder";
 	private static final String EXTRA_FILENAME = "com.kentheken.rishi.filename";
 

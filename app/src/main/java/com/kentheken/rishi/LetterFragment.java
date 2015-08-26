@@ -13,6 +13,7 @@ import android.widget.TextView;
 import java.util.Locale;
 
 public class LetterFragment extends Fragment {
+	public static final String TAG = LetterFragment.class.getSimpleName();
 	private static final String EXTRA_LETTER = "com.kentheken.rishi.letter";
 
 	@Override

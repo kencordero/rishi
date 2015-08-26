@@ -9,7 +9,7 @@ import android.util.Log;
 import java.util.Locale;
 
 public class TTSEngine {
-	private static final String TAG = "TTSEngine";
+	private static final String TAG = TTSEngine.class.getSimpleName();
 	private static TextToSpeech mTTS;
 
     private static TTSEngine sEngine;

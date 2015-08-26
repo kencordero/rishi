@@ -21,7 +21,7 @@ import java.util.Arrays;
 import java.util.Collections;
 
 public class FlashCardPagerActivity extends FragmentActivity {
-    private static final String TAG = "FlashCardPagerActivity";
+    private static final String TAG = FlashCardPagerActivity.class.getSimpleName();
 	private String mFolderName;
 	private ArrayList<String> mFiles;
     private ViewPager mViewPager;

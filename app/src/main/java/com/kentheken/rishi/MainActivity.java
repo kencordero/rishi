@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 
 public class MainActivity extends Activity {
+	public static final String TAG = MainActivity.class.getSimpleName();
 	public static final String EXTRA_FOLDER_NAME = "folder_name";
 
 	@Override
