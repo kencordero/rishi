@@ -3,12 +3,10 @@
 	    android:id="@+id/action_switch_case"
 	    android:showAsAction="ifRoom"
 	    android:title="@string/action_switch_case" />
-    <!-- Random not implemented
     <item
         android:id="@+id/action_random"
         android:showAsAction="ifRoom"
-        android:title="@string/action_random" /> -->
-        
+        android:title="@string/action_random" />
     <item        
         android:id="@+id/action_settings"
         android:orderInCategory="100"

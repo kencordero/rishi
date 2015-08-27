@@ -19,24 +19,27 @@ import android.view.MenuItem;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Locale;
 
-public class LetterPagerActivity extends FragmentActivity {
+public class LetterPagerActivity extends FragmentActivity
+		implements LetterFragment.OnFragmentInteractionListener {
     private static final String TAG = LetterPagerActivity.class.getSimpleName();
 	private ArrayList<String> mAlphabet;
 	private String mLocaleId;
 	private Locale mLocale;
 	private boolean mIsUpperCase;
+	private ViewPager mViewPager;
 	
 	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		ViewPager viewPager = new ViewPager(this);
-		viewPager.setId(R.id.viewPager);
-		setContentView(viewPager);
+		mViewPager = new ViewPager(this);
+		mViewPager.setId(R.id.viewPager);
+		setContentView(mViewPager);
 		setVolumeControlStream(AudioManager.STREAM_MUSIC);
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB && getActionBar() != null)
 			getActionBar().setTitle(R.string.activity_letters_name);
 		mIsUpperCase = true;
 		
@@ -55,7 +58,7 @@ public class LetterPagerActivity extends FragmentActivity {
 		mAlphabet = new ArrayList<>(Arrays.asList(res.getStringArray(arrayResId)));
 		
 		FragmentManager fm = getSupportFragmentManager();
-		viewPager.setAdapter(new FragmentStatePagerAdapter(fm) {
+		mViewPager.setAdapter(new FragmentStatePagerAdapter(fm) {
 			@Override
 			public Fragment getItem(int pos) {
 				String letter = mAlphabet.get(pos);
@@ -88,9 +91,10 @@ public class LetterPagerActivity extends FragmentActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {
         Log.i(TAG, "onOptionsItemSelected");
 		switch(item.getItemId()) {
-		/*case R.id.action_random:
-			Collections.shuffle(mAlphabet);			
-			return true;*/
+		case R.id.action_random:
+			Collections.shuffle(mAlphabet);
+			getSupportFragmentManager().getFragment()
+			return true;
 		case R.id.action_settings:
 			Intent intent = new Intent(this, SettingsActivity.class);
 			startActivity(intent);
@@ -102,5 +106,9 @@ public class LetterPagerActivity extends FragmentActivity {
 			return super.onOptionsItemSelected(item);
 		}
 	}
-	
+
+	@Override
+	public void onLetterUpdated() {
+		
+	}
 }
