@@ -93,7 +93,7 @@ public class LetterPagerActivity extends FragmentActivity
 		switch(item.getItemId()) {
 		case R.id.action_random:
 			Collections.shuffle(mAlphabet);
-			getSupportFragmentManager().getFragment()
+			onAlphabetUpdated();
 			return true;
 		case R.id.action_settings:
 			Intent intent = new Intent(this, SettingsActivity.class);
@@ -101,6 +101,7 @@ public class LetterPagerActivity extends FragmentActivity
 			return true;
 		case R.id.action_switch_case:
 			mIsUpperCase = !mIsUpperCase;
+			onAlphabetUpdated();
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);
@@ -108,7 +109,23 @@ public class LetterPagerActivity extends FragmentActivity
 	}
 
 	@Override
-	public void onLetterUpdated() {
-		
+	public void onAlphabetUpdated() {
+		int currentItem = mViewPager.getCurrentItem();
+		LetterFragment currentFragment = (LetterFragment)mViewPager.getAdapter()
+				.instantiateItem(mViewPager, currentItem);
+		currentFragment.setLetter(mAlphabet.get(currentItem));
+
+		if (currentItem > 0) {
+			LetterFragment previousFragment = (LetterFragment)mViewPager.getAdapter()
+					.instantiateItem(mViewPager, currentItem - 1);
+			previousFragment.setLetter(mAlphabet.get(currentItem - 1));
+		}
+
+		if (currentItem + 1 < mViewPager.getAdapter().getCount()) {
+			LetterFragment nextFragment = (LetterFragment)mViewPager.getAdapter()
+					.instantiateItem(mViewPager, currentItem + 1);
+			nextFragment.setLetter(mAlphabet.get(currentItem + 1));
+		}
+
 	}
 }

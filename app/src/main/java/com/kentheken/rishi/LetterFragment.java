@@ -20,7 +20,7 @@ public class LetterFragment extends Fragment {
 	private OnFragmentInteractionListener mListener;
 
 	public interface OnFragmentInteractionListener {
-		void onLetterUpdated();
+		void onAlphabetUpdated();
 	}
 
 	@Override
@@ -60,10 +60,7 @@ public class LetterFragment extends Fragment {
     }
 
 	public void setLetter(String letter) {
-		Bundle bundle = new Bundle();
-		bundle.putSerializable(EXTRA_LETTER, letter);
-		setArguments(bundle);
-		setLetter();
+		mTextView.setText(letter);
 	}
 	
 	@Override
