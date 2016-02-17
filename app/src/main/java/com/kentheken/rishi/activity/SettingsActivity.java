@@ -1,9 +1,11 @@
-package com.kentheken.rishi;
+package com.kentheken.rishi.activity;
 
 import android.annotation.TargetApi;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
+
+import com.kentheken.rishi.fragment.SettingsFragment;
 
 public class SettingsActivity extends PreferenceActivity {		
 	@TargetApi(Build.VERSION_CODES.HONEYCOMB)

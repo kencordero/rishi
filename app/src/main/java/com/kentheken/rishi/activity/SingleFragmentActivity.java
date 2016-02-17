@@ -1,4 +1,4 @@
-package com.kentheken.rishi;
+package com.kentheken.rishi.activity;
 
 import com.kentheken.rishi.R;
 

@@ -1,10 +1,14 @@
-package com.kentheken.rishi;
+package com.kentheken.rishi.activity;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.view.View;
+
+import com.kentheken.rishi.DatabaseOpenHelper;
+import com.kentheken.rishi.R;
+import com.kentheken.rishi.TTSEngine;
 
 public class MainActivity extends Activity {
 	public static final String TAG = MainActivity.class.getSimpleName();
@@ -35,7 +39,7 @@ public class MainActivity extends Activity {
 				resId = R.string.activity_colors_name;
 				break;
 			case R.id.btnSelectLetters:
-				cls = LetterPagerActivity.class;				
+				cls = LetterPagerActivity.class;
 				break;
 			case R.id.btnSelectNumbers:
 				cls = FlashCardPagerActivity.class;

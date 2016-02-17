@@ -1,4 +1,4 @@
-package com.kentheken.rishi;
+package com.kentheken.rishi.fragment;
 
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
@@ -11,6 +11,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.kentheken.rishi.DatabaseOpenHelper;
+import com.kentheken.rishi.R;
+import com.kentheken.rishi.TTSEngine;
 
 import java.io.InputStream;
 import java.util.Locale;

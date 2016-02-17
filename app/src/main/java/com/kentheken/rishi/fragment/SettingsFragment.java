@@ -1,4 +1,4 @@
-package com.kentheken.rishi;
+package com.kentheken.rishi.fragment;
 
 import android.annotation.TargetApi;
 import android.content.SharedPreferences;
@@ -7,6 +7,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.PreferenceFragment;
+
+import com.kentheken.rishi.R;
 
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class SettingsFragment extends PreferenceFragment implements OnSharedPreferenceChangeListener {

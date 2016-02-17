@@ -1,4 +1,4 @@
-package com.kentheken.rishi;
+package com.kentheken.rishi.activity;
 
 import android.annotation.TargetApi;
 import android.content.Intent;
@@ -16,6 +16,10 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.kentheken.rishi.R;
+import com.kentheken.rishi.fragment.LetterFragment;
+import com.kentheken.rishi.fragment.SettingsFragment;
 
 import java.util.ArrayList;
 import java.util.Arrays;

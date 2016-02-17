@@ -1,4 +1,4 @@
-package com.kentheken.rishi;
+package com.kentheken.rishi.activity;
 
 import android.annotation.TargetApi;
 import android.app.ActionBar;
@@ -15,6 +15,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.Toast;
+
+import com.kentheken.rishi.R;
+import com.kentheken.rishi.TTSEngine;
+import com.kentheken.rishi.fragment.FlashCardFragment;
 
 import java.util.ArrayList;
 import java.util.Arrays;
